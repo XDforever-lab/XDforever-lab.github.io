@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>丁一 · Ding Yi — Personal Academic Homepage</title>
+<meta name="description" content="丁一，南京农业大学信息管理学院本科生。研究方向：自然语言处理、计算人文、大语言模型。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Noto+Serif+SC:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #FDFBF7;
+  --bg-alt: #F5F0E8;
+  --text: #1B2838;
+  --text-light: #5A6B7F;
+  --text-muted: #8B9DB5;
+  --accent: #C9A96E;
+  --accent-dark: #A8884A;
+  --accent-red: #B5343A;
+  --border: #E5DDD0;
+  --border-light: #F0EBE0;
+  --nav-bg: rgba(253, 251, 247, 0.92);
+  --shadow: 0 1px 3px rgba(27,40,56,0.06);
+  --shadow-lg: 0 4px 24px rgba(27,40,56,0.08);
+  --radius: 6px;
+  --max-w: 860px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---- NAVIGATION ---- */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: var(--nav-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-light);
+  transition: box-shadow 0.3s;
+}
+nav.scrolled { box-shadow: var(--shadow); }
+
+.nav-inner {
+  max-width: var(--max-w); margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 28px; height: 56px;
+}
+
+.nav-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px; font-weight: 600; letter-spacing: 0.02em;
+  color: var(--text); text-decoration: none;
+}
+.nav-name span { color: var(--accent-dark); }
+
+.nav-links { display: flex; gap: 6px; list-style: none; }
+.nav-links a {
+  text-decoration: none; color: var(--text-light);
+  font-size: 13px; font-weight: 500; padding: 6px 14px;
+  border-radius: 20px; transition: all 0.2s;
+}
+.nav-links a:hover { background: var(--bg-alt); color: var(--text); }
+
+.nav-photo {
+  display: inline-flex; align-items: center; gap: 4px;
+  vertical-align: middle;
+  opacity: 0.65; border: 1px dashed var(--border) !important;
+  padding: 6px 14px !important;
+  line-height: 1;
+}
+.nav-photo svg { flex-shrink: 0; margin-top: -1px; }
+.nav-photo:hover { opacity: 1; border-color: var(--accent) !important; }
+
+/* ---- CONTAINER ---- */
+.container { max-width: var(--max-w); margin: 0 auto; padding: 0 28px; }
+
+/* ---- HERO ---- */
+.hero {
+  padding: 120px 0 60px;
+  display: flex; align-items: flex-start; gap: 48px;
+}
+.hero-left { flex-shrink: 0; }
+.hero-avatar {
+  width: 120px; height: 160px; border-radius: 8px;
+  object-fit: cover;
+  box-shadow: 0 2px 12px rgba(27,40,56,0.08);
+  user-select: none;
+}
+
+.hero-right { padding-top: 4px; }
+.hero-name {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 36px; font-weight: 700; letter-spacing: 0.04em;
+  color: var(--text); margin-bottom: 4px;
+}
+.hero-name-en {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px; font-weight: 500; font-style: italic;
+  color: var(--text-muted); margin-bottom: 14px;
+}
+.hero-bio { color: var(--text-light); font-size: 15px; line-height: 1.8; max-width: 520px; }
+.hero-bio strong { color: var(--text); font-weight: 600; }
+
+/* ---- SECTION ---- */
+.section {
+  padding: 64px 0;
+  border-top: 1px solid var(--border-light);
+}
+
+.section-title {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 22px; font-weight: 600;
+  color: var(--text); margin-bottom: 28px;
+  display: flex; align-items: center; gap: 12px;
+}
+.section-title::before {
+  content: ''; display: inline-block;
+  width: 4px; height: 20px; background: var(--accent);
+  border-radius: 2px;
+}
+
+/* ---- EDUCATION ---- */
+.edu-item {
+  margin-bottom: 22px; padding-left: 20px;
+  border-left: 2px solid var(--border);
+  transition: border-color 0.3s;
+}
+.edu-item:hover { border-left-color: var(--accent); }
+.edu-item:last-child { margin-bottom: 0; }
+
+.edu-header {
+  display: flex; justify-content: space-between; align-items: baseline;
+  flex-wrap: wrap; gap: 8px;
+}
+.edu-school {
+  font-size: 15px; font-weight: 600; color: var(--text);
+}
+.edu-date {
+  font-size: 13px; color: var(--text-muted); white-space: nowrap;
+}
+.edu-degree { font-size: 14px; color: var(--text-light); margin-top: 2px; }
+.edu-detail { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
+
+/* ---- SKILLS ---- */
+.skills-grid { display: flex; flex-wrap: wrap; gap: 10px; }
+.skill-tag {
+  padding: 6px 16px; border-radius: 20px;
+  background: var(--bg-alt); color: var(--text-light);
+  font-size: 13px; font-weight: 500;
+  border: 1px solid var(--border);
+  transition: all 0.2s;
+}
+.skill-tag:hover {
+  background: var(--text);
+  color: #fff; border-color: var(--text);
+}
+
+/* ---- RESEARCH / PROJECT CARD ---- */
+.card {
+  background: #fff; border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 24px 28px;
+  margin-bottom: 16px; transition: box-shadow 0.3s, border-color 0.3s;
+}
+.card:hover { box-shadow: var(--shadow-lg); border-color: #D5C9B5; }
+.card:last-child { margin-bottom: 0; }
+
+.card-title {
+  font-size: 16px; font-weight: 600; color: var(--text);
+  margin-bottom: 6px;
+}
+.card-meta {
+  font-size: 13px; color: var(--accent-dark);
+  font-weight: 500; margin-bottom: 10px;
+}
+.card-desc { font-size: 14px; color: var(--text-light); line-height: 1.75; }
+.card-desc strong { color: var(--text); }
+
+.card-authors { font-size: 13px; color: var(--text-muted); margin-top: 8px; font-style: italic; }
+
+.card-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+.card-tag {
+  font-size: 11px; padding: 3px 10px; border-radius: 12px;
+  background: var(--bg-alt); color: var(--text-light);
+  font-weight: 500;
+}
+
+/* ---- AWARDS ---- */
+.award-cat {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 15px; font-weight: 600; color: var(--accent-dark);
+  margin: 20px 0 10px; letter-spacing: 0.03em;
+}
+.award-cat:first-child { margin-top: 0; }
+
+.award-item {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: 7px 0; border-bottom: 1px solid var(--border-light);
+  gap: 16px; font-size: 14px;
+}
+.award-name { color: var(--text); flex: 1; }
+.award-date { color: var(--text-muted); font-size: 13px; white-space: nowrap; }
+
+/* ---- LEADERSHIP LIST ---- */
+.lead-list { list-style: none; }
+.lead-item {
+  display: flex; gap: 14px; padding: 10px 0;
+  border-bottom: 1px solid var(--border-light);
+  align-items: baseline;
+}
+.lead-period {
+  font-size: 13px; color: var(--text-muted); white-space: nowrap;
+  min-width: 160px; flex-shrink: 0;
+}
+.lead-role { font-weight: 600; color: var(--text); font-size: 14px; }
+.lead-org { color: var(--text-light); font-size: 14px; }
+
+/* ---- CONTACT ---- */
+.contact-grid { display: flex; flex-wrap: wrap; gap: 20px; }
+.contact-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px 20px; background: #fff;
+  border: 1px solid var(--border); border-radius: var(--radius);
+  font-size: 14px; color: var(--text); text-decoration: none;
+  transition: all 0.2s;
+}
+.contact-item:hover {
+  border-color: var(--accent); box-shadow: var(--shadow);
+}
+.contact-icon {
+  width: 20px; height: 20px; display: flex; align-items: center; justify-content: center;
+  color: var(--accent-dark); flex-shrink: 0;
+}
+.contact-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+
+/* ---- FOOTER ---- */
+footer {
+  text-align: center; padding: 40px 0 32px;
+  border-top: 1px solid var(--border-light);
+  font-size: 13px; color: var(--text-muted);
+}
+footer span { color: var(--accent-dark); }
+
+/* ---- ORNAMENT ---- */
+.ornament {
+  text-align: center; padding: 20px 0 0;
+  font-family: 'Noto Serif SC', serif;
+  font-size: 18px; color: var(--border);
+  user-select: none; letter-spacing: 0.2em;
+}
+
+/* ---- FADE IN ---- */
+.fade-section {
+  opacity: 0; transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.fade-section.visible { opacity: 1; transform: translateY(0); }
+
+/* ---- BACK TO TOP ---- */
+.back-to-top {
+  position: fixed; bottom: 32px; right: 32px; z-index: 50;
+  width: 40px; height: 40px; border-radius: 50%;
+  background: var(--text); color: #fff; border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; opacity: 0; transform: translateY(10px);
+  transition: opacity 0.3s, transform 0.3s;
+  box-shadow: 0 2px 8px rgba(27,40,56,0.2);
+}
+.back-to-top.show { opacity: 1; transform: translateY(0); }
+.back-to-top:hover { background: var(--accent-dark); }
+
+/* ---- RESPONSIVE ---- */
+@media (max-width: 700px) {
+  .hero { flex-direction: column; align-items: center; text-align: center; gap: 24px; padding: 100px 0 40px; }
+  .hero-bio { max-width: 100%; }
+  .nav-links { display: none; }
+  .lead-period { min-width: 120px; }
+  .edu-header { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#" class="nav-name">Ding<span>Yi</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">关于</a></li>
+      <li><a href="#research">研究</a></li>
+      <li><a href="#projects">项目</a></li>
+      <li><a href="#awards">荣誉</a></li>
+      <li><a href="#contact">联系</a></li>
+      <li><a href="#" class="nav-photo" title="摄影主页（即将上线）">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+        摄影
+      </a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero container">
+  <div class="hero-left">
+    <img class="hero-avatar" src="avatar.jpg" alt="丁一">
+  </div>
+  <div class="hero-right">
+    <h1 class="hero-name">丁一</h1>
+    <div class="hero-name-en">Ding Yi</div>
+    <p class="hero-bio">
+      南京农业大学<strong>信息管理学院</strong>本科生。研究兴趣涵盖<strong>自然语言处理</strong>、<strong>计算人文</strong>与<strong>大语言模型</strong>。致力于将人工智能技术应用于古典文学生成与数字人文研究。
+    </p>
+  </div>
+</header>
+
+<!-- ABOUT -->
+<section class="section fade-section" id="about">
+  <div class="container">
+    <h2 class="section-title">教育背景</h2>
+
+    <div class="edu-item">
+      <div class="edu-header">
+        <span class="edu-school">南京农业大学 · 信息管理学院</span>
+        <span class="edu-date">2023.09 – 2027.06（预期）</span>
+      </div>
+      <div class="edu-degree">信息管理与信息系统 本科</div>
+      <div class="edu-detail">GPA 3.96 / 4.0 · 专业排名 5/52 · 三好学生一等奖学金</div>
+    </div>
+
+    <div class="edu-item">
+      <div class="edu-header">
+        <span class="edu-school">东京大学 · 新质生产力项目（短期研修）</span>
+        <span class="edu-date">2024.08</span>
+      </div>
+      <div class="edu-degree">江苏省高校学生境外学习政府奖学金项目</div>
+      <div class="edu-detail">人工智能赋能弱势群体课题研究 · 小组第一（92.5/100）· 优秀个人</div>
+    </div>
+
+    <h2 class="section-title" style="margin-top: 44px;">专业技能</h2>
+    <div class="skills-grid">
+      <span class="skill-tag">Python</span>
+      <span class="skill-tag">PyTorch</span>
+      <span class="skill-tag">NLP</span>
+      <span class="skill-tag">大语言模型微调</span>
+      <span class="skill-tag">LLaMA-Factory</span>
+      <span class="skill-tag">Gephi 网络分析</span>
+      <span class="skill-tag">Navicat</span>
+      <span class="skill-tag">AI 原生编程</span>
+      <span class="skill-tag">数据结构</span>
+      <span class="skill-tag">信息组织</span>
+    </div>
+
+    <h2 class="section-title" style="margin-top: 44px;">语言能力</h2>
+    <div class="skills-grid">
+      <span class="skill-tag">英语 CET-6 560</span>
+      <span class="skill-tag">英语 CET-4 592</span>
+      <span class="skill-tag">TOEFL 83</span>
+      <span class="skill-tag">日语 JLPT N2 96</span>
+      <span class="skill-tag">普通话二级甲等</span>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH -->
+<section class="section fade-section" id="research">
+  <div class="container">
+    <h2 class="section-title">研究工作</h2>
+
+    <div class="card">
+      <div class="card-title">Multi-Stage Progressive Alignment of Lightweight LLMs for Strictly Formatted Ancient Literary Genre Generation: A Song Ci Case Study</div>
+      <div class="card-meta">ASIS&T 2026 · Long Paper · Accepted</div>
+      <div class="card-desc">
+        提出<strong>三阶段渐进式对齐策略</strong>（冷启动SFT → 思维链强化 → GRPO强化学习），创新性地构建了<strong>SongCiReward奖励函数</strong>来约束宋词格律生成。实验证明，轻量级模型经此训练后在宋词生成任务上接近人类水平（综合得分80.86 vs. 人类83.46），在声调控制上甚至略优于人类基线。
+      </div>
+      <div class="card-authors">Hu, Xiyuan; Zhang, Qichen; <strong>Ding, Yi</strong>; Lyu, Sijing; Liu, Liu</div>
+      <div class="card-tags">
+        <span class="card-tag">NLP</span>
+        <span class="card-tag">计算人文</span>
+        <span class="card-tag">RLHF</span>
+        <span class="card-tag">宋词生成</span>
+        <span class="card-tag">GRPO</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">DHEAC 2026 · Abstract Accepted</div>
+      <div class="card-meta">Digital Humanities East Asia Conference 2026</div>
+      <div class="card-desc">数字人文领域的国际学术交流，展示大语言模型在中国古典文学计算研究中的应用探索。</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">省级SRT项目：基于大语言模型的宋词生成与格律控制研究</div>
+      <div class="card-meta">导师：刘浏 · 省级大学生创新训练项目</div>
+      <div class="card-desc">
+        在导师指导下开展宋词领域的大模型微调研究，创新性提出<strong>三阶段微调方法</strong>，共同创建<strong>SongCiReward奖励函数</strong>以约束和控制模型对宋词格律的生成，兼顾严谨性与文学性。相关成果已被ASIS&T 2026年会长论文录用。
+      </div>
+      <div class="card-tags">
+        <span class="card-tag">LLM Fine-tuning</span>
+        <span class="card-tag">Reward Modeling</span>
+        <span class="card-tag">Digital Humanities</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="section fade-section" id="projects">
+  <div class="container">
+    <h2 class="section-title">竞赛与项目</h2>
+
+    <div class="card">
+      <div class="card-title">2026年江苏省计算机设计大赛 · 一等奖（省级）</div>
+      <div class="card-meta">2026.05</div>
+      <div class="card-desc">
+        将SRT宋词生成研究成果进行应用探索，<strong>部署了可公网访问的网站</strong>，使用户可以与模型进行直接对话，以宋词牌名为基础进行交互式古典诗词创作。
+      </div>
+      <div class="card-tags">
+        <span class="card-tag">Web Deployment</span>
+        <span class="card-tag">Interactive AI</span>
+        <span class="card-tag">Full-stack</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">第二届教育信息技术应用创新大赛 · 区域赛一等奖 / 国赛三等奖</div>
+      <div class="card-meta">2025.09 – 2025.11</div>
+      <div class="card-desc">基于大模型的教育教学应用创新赛，探索大语言模型在教育场景中的创新应用。</div>
+      <div class="card-tags">
+        <span class="card-tag">EdTech</span>
+        <span class="card-tag">LLM Application</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">大学生新文科实践创新大赛 · 全国总决赛银奖</div>
+      <div class="card-meta">2024.12</div>
+      <div class="card-desc">非物质文化遗产与大语言模型应用结合，获国赛银奖（GS20240170）。</div>
+      <div class="card-tags">
+        <span class="card-tag">Cultural Heritage</span>
+        <span class="card-tag">AI Application</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">江苏省数字人应用创新大赛 · 二等奖</div>
+      <div class="card-meta">2024.12</div>
+      <div class="card-desc">数字人技术在应用创新领域的实践探索。</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">第九届江苏省高校企业竞争模拟大赛 · 三等奖</div>
+      <div class="card-meta">2025.03</div>
+    </div>
+  </div>
+</section>
+
+<!-- AWARDS -->
+<section class="section fade-section" id="awards">
+  <div class="container">
+    <h2 class="section-title">荣誉与奖项</h2>
+
+    <div class="award-cat">🏅 奖学金</div>
+    <div class="award-item"><span class="award-name">三好学生一等奖学金</span><span class="award-date">2024–2025 学年</span></div>
+    <div class="award-item"><span class="award-name">三好学生二等奖学金</span><span class="award-date">2023–2024 学年</span></div>
+    <div class="award-item"><span class="award-name">单科优秀奖学金</span><span class="award-date">2023–2024 学年</span></div>
+    <div class="award-item"><span class="award-name">信息管理学院"优秀学子"英语卓越奖</span><span class="award-date">2024.12</span></div>
+
+    <div class="award-cat">🏆 学科竞赛</div>
+    <div class="award-item"><span class="award-name">江苏省计算机设计大赛 · 一等奖</span><span class="award-date">2026.05</span></div>
+    <div class="award-item"><span class="award-name">教育信息技术应用创新大赛 · 区域赛一等奖 / 国赛三等奖</span><span class="award-date">2025.09–11</span></div>
+    <div class="award-item"><span class="award-name">大学生新文科实践创新大赛 · 全国银奖</span><span class="award-date">2024.12</span></div>
+    <div class="award-item"><span class="award-name">江苏省数字人应用创新大赛 · 二等奖</span><span class="award-date">2024.12</span></div>
+    <div class="award-item"><span class="award-name">江苏省高校企业竞争模拟大赛 · 三等奖</span><span class="award-date">2025.03</span></div>
+    <div class="award-item"><span class="award-name">外研社全国大学生外语能力大赛英语短视频赛项 · 校二等奖</span><span class="award-date">2024.10</span></div>
+    <div class="award-item"><span class="award-name">江苏省大学生知识竞赛 · 优秀奖</span><span class="award-date">2024.05</span></div>
+
+    <div class="award-cat">🌟 学生工作与实践</div>
+    <div class="award-item"><span class="award-name">南京农业大学优秀共青团干部</span><span class="award-date">2025.05</span></div>
+    <div class="award-item"><span class="award-name">南京农业大学校级优秀志愿者</span><span class="award-date">2024.12</span></div>
+    <div class="award-item"><span class="award-name">东京大学短期研修 · 优秀个人 &amp; 优秀小组</span><span class="award-date">2024.08</span></div>
+    <div class="award-item"><span class="award-name">校级优秀学生干部</span><span class="award-date">2023–2024 学年</span></div>
+    <div class="award-item"><span class="award-name">校学生会优秀成员</span><span class="award-date">2024.06</span></div>
+
+    <div class="award-cat">📷 其他</div>
+    <div class="award-item"><span class="award-name">信管院摄影比赛 · 一等奖</span><span class="award-date">2025.05</span></div>
+    <div class="award-item"><span class="award-name">三院联合运动会男子4×100米 · 第五名</span><span class="award-date">2025.10</span></div>
+    <div class="award-item"><span class="award-name">信息管理学院新生辩论赛 · 团体亚军</span><span class="award-date">2023.11</span></div>
+  </div>
+</section>
+
+<!-- LEADERSHIP -->
+<section class="section fade-section" id="leadership">
+  <div class="container">
+    <h2 class="section-title">校园经历</h2>
+    <ul class="lead-list">
+      <li class="lead-item">
+        <span class="lead-period">2024.08 – 2025.06</span>
+        <span><span class="lead-role">主任</span> · <span class="lead-org">南京农业大学学生会浦口执委会</span></span>
+      </li>
+      <li class="lead-item">
+        <span class="lead-period">2024.09 – 2025.09</span>
+        <span><span class="lead-role">组织委员</span> · <span class="lead-org">信息管理学院信息231班</span></span>
+      </li>
+      <li class="lead-item">
+        <span class="lead-period">2024.06 – 至今</span>
+        <span><span class="lead-role">成员</span> · <span class="lead-org">自然语言处理学社</span></span>
+      </li>
+      <li class="lead-item">
+        <span class="lead-period">2024.06 – 2024.08</span>
+        <span><span class="lead-role">干事</span> · <span class="lead-org">南京农业大学学生会浦口执委会 学习服务中心</span></span>
+      </li>
+      <li class="lead-item">
+        <span class="lead-period">2023.09 – 2024.06</span>
+        <span><span class="lead-role">成员 / 志愿者</span> · <span class="lead-org">南京农业大学学生会 &amp; 大学生艺术团数字中心</span></span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section fade-section" id="contact">
+  <div class="container">
+    <h2 class="section-title">联系方式</h2>
+    <div class="contact-grid">
+      <a href="mailto:dingyi@stu.njau.edu.cn" class="contact-item">
+        <span class="contact-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        </span>
+        <div>
+          <div class="contact-label">学术邮箱</div>
+          <div>dingyi@stu.njau.edu.cn</div>
+        </div>
+      </a>
+      <a href="mailto:3125189495@qq.com" class="contact-item">
+        <span class="contact-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        </span>
+        <div>
+          <div class="contact-label">个人邮箱</div>
+          <div>3125189495@qq.com</div>
+        </div>
+      </a>
+      <a href="https://github.com/XDforever-lab" target="_blank" rel="noopener" class="contact-item">
+        <span class="contact-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+        </span>
+        <div>
+          <div class="contact-label">GitHub</div>
+          <div>XDforever-lab</div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<div class="ornament container">◇</div>
+
+<footer class="container">
+  <p>© 2026 <span>Ding Yi</span> · Built with care · Nanjing Agricultural University</p>
+</footer>
+
+<button class="back-to-top" id="backToTop" title="回到顶部">↑</button>
+
+<script>
+// ---- SCROLL EFFECTS ----
+const navbar = document.getElementById('navbar');
+const backToTop = document.getElementById('backToTop');
+
+window.addEventListener('scroll', () => {
+  const y = window.scrollY;
+  navbar.classList.toggle('scrolled', y > 10);
+  backToTop.classList.toggle('show', y > 400);
+});
+
+backToTop.addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+// ---- FADE IN ON SCROLL ----
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.fade-section').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
