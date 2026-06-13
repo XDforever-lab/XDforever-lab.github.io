@@ -279,13 +279,48 @@ footer span { color: var(--accent-dark); }
 .back-to-top.show { opacity: 1; transform: translateY(0); }
 .back-to-top:hover { background: var(--accent-dark); }
 
+/* ---- MOBILE NAV HAMBURGER ---- */
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
+.hamburger span { width: 22px; height: 2px; background: var(--text); border-radius: 1px; transition: all 0.3s; }
+.hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
 /* ---- RESPONSIVE ---- */
-@media (max-width: 700px) {
-  .hero { flex-direction: column; align-items: center; text-align: center; gap: 24px; padding: 100px 0 40px; }
+@media (max-width: 768px) {
+  .hamburger { display: flex; }
+  .nav-links { display: none; position: absolute; top: 56px; left: 0; right: 0;
+    flex-direction: column; background: var(--nav-bg); backdrop-filter: blur(12px);
+    padding: 12px 28px; gap: 2px; border-bottom: 1px solid var(--border-light); }
+  .nav-links.open { display: flex; }
+  .nav-links a { font-size: 14px; padding: 10px 8px; border-radius: 6px; }
+  .nav-photo { border: none !important; opacity: 1; padding: 10px 8px !important; }
+
+  .hero { flex-direction: column; align-items: center; text-align: center; gap: 24px; padding: 90px 0 40px; }
   .hero-bio { max-width: 100%; }
-  .nav-links { display: none; }
-  .lead-period { min-width: 120px; }
+  .hero-avatar { width: 90px; height: 120px; }
+  .hero-name { font-size: 28px; }
+
+  .section { padding: 48px 0; }
+  .section-title { font-size: 20px; }
+
+  .card { padding: 18px 20px; }
+
+  .lead-period { min-width: 100px; font-size: 12px; }
+  .lead-item { flex-direction: column; gap: 4px; padding: 10px 0; }
+
   .edu-header { flex-direction: column; }
+
+  .contact-grid { flex-direction: column; }
+  .contact-item { width: 100%; }
+
+  .award-item { flex-direction: column; gap: 2px; }
+  .award-date { font-size: 12px; }
+
+  .container { padding: 0 20px; }
+  .nav-inner { padding: 0 20px; }
+
+  .back-to-top { bottom: 20px; right: 20px; width: 36px; height: 36px; font-size: 16px; }
 }
 </style>
 </head>
@@ -295,7 +330,10 @@ footer span { color: var(--accent-dark); }
 <nav id="navbar">
   <div class="nav-inner">
     <a href="#" class="nav-name">Ding<span>Yi</span></a>
-    <ul class="nav-links">
+    <button class="hamburger" id="hamburger" aria-label="菜单">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
       <li><a href="#about">关于</a></li>
       <li><a href="#research">研究</a></li>
       <li><a href="#projects">项目</a></li>
@@ -303,7 +341,11 @@ footer span { color: var(--accent-dark); }
       <li><a href="#contact">联系</a></li>
       <li><a href="#" class="nav-photo" title="摄影主页（即将上线）">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
-        摄影
+        摄影主页
+      </a></li>
+      <li><a href="#" class="nav-photo" title="生活主页（即将上线）">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        生活主页
       </a></li>
     </ul>
   </div>
@@ -585,6 +627,22 @@ window.addEventListener('scroll', () => {
 
 backToTop.addEventListener('click', () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+// ---- MOBILE NAV TOGGLE ----
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.getElementById('navLinks');
+
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('open');
+  navLinks.classList.toggle('open');
+});
+
+navLinks.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    hamburger.classList.remove('open');
+    navLinks.classList.remove('open');
+  });
 });
 
 // ---- FADE IN ON SCROLL ----
