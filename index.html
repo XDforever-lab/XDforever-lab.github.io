@@ -75,12 +75,11 @@ nav.scrolled { box-shadow: var(--shadow); }
 .nav-photo {
   display: inline-flex; align-items: center; gap: 4px;
   vertical-align: middle;
-  opacity: 0.65; border: 1px dashed var(--border) !important;
   padding: 6px 14px !important;
   line-height: 1;
 }
 .nav-photo svg { flex-shrink: 0; margin-top: -1px; }
-.nav-photo:hover { opacity: 1; border-color: var(--accent) !important; }
+.nav-photo:hover { background: var(--bg-alt); color: var(--text); }
 
 /* ---- CONTAINER ---- */
 .container { max-width: var(--max-w); margin: 0 auto; padding: 0 28px; }
@@ -294,7 +293,7 @@ footer span { color: var(--accent-dark); }
     padding: 12px 28px; gap: 2px; border-bottom: 1px solid var(--border-light); }
   .nav-links.open { display: flex; }
   .nav-links a { font-size: 14px; padding: 10px 8px; border-radius: 6px; }
-  .nav-photo { border: none !important; opacity: 1; padding: 10px 8px !important; }
+  .nav-photo { padding: 10px 8px !important; }
 
   .hero { flex-direction: column; align-items: center; text-align: center; gap: 24px; padding: 90px 0 40px; }
   .hero-bio { max-width: 100%; }
@@ -339,11 +338,11 @@ footer span { color: var(--accent-dark); }
       <li><a href="#projects">项目</a></li>
       <li><a href="#awards">荣誉</a></li>
       <li><a href="#contact">联系</a></li>
-      <li><a href="#" class="nav-photo" title="摄影主页（即将上线）">
+      <li><a href="photography.html" class="nav-photo" title="摄影主页">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
         摄影主页
       </a></li>
-      <li><a href="#" class="nav-photo" title="生活主页（即将上线）">
+      <li><a href="life.html" class="nav-photo" title="生活主页">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
         生活主页
       </a></li>

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>摄影 — Ding Yi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Noto+Serif+SC:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #FDFBF7;
+  --bg-alt: #F5F0E8;
+  --text: #1B2838;
+  --text-light: #5A6B7F;
+  --text-muted: #8B9DB5;
+  --accent: #C9A96E;
+  --accent-dark: #A8884A;
+  --border: #E5DDD0;
+  --border-light: #F0EBE0;
+  --shadow: 0 1px 3px rgba(27,40,56,0.06);
+  --shadow-lg: 0 4px 24px rgba(27,40,56,0.08);
+  --radius: 6px;
+  --max-w: 960px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg-alt);
+  color: var(--text);
+  line-height: 1.7;
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+}
+
+.container { max-width: var(--max-w); margin: 0 auto; padding: 0 28px; }
+
+/* ---- BACK BUTTON ---- */
+.back-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  color: var(--text-light); text-decoration: none;
+  font-size: 13px; font-weight: 500;
+  padding: 8px 16px; border-radius: 20px;
+  border: 1px solid var(--border);
+  transition: all 0.2s;
+  margin-top: 28px;
+}
+.back-link:hover { background: #fff; color: var(--text); border-color: var(--accent); }
+
+/* ---- HERO ---- */
+.photo-hero {
+  padding: 80px 0 48px;
+  text-align: center;
+}
+.photo-hero-icon {
+  font-size: 48px; margin-bottom: 16px; display: block;
+  opacity: 0.7;
+}
+.photo-hero h1 {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 34px; font-weight: 700; letter-spacing: 0.04em;
+  color: var(--text); margin-bottom: 6px;
+}
+.photo-hero .sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px; font-style: italic; color: var(--text-muted);
+  margin-bottom: 12px;
+}
+.photo-hero p {
+  color: var(--text-light); max-width: 420px; margin: 0 auto;
+  font-size: 14px;
+}
+
+/* ---- INTRO BAR ---- */
+.intro-bar {
+  text-align: center; padding-bottom: 12px;
+  font-size: 12px; color: var(--text-muted);
+  letter-spacing: 0.05em; text-transform: uppercase;
+}
+
+/* ---- GALLERY ---- */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding-bottom: 20px;
+}
+.gallery-item {
+  aspect-ratio: 4 / 3;
+  background: #fff;
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 8px; cursor: default;
+  transition: all 0.3s;
+  position: relative; overflow: hidden;
+}
+.gallery-item::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(135deg, transparent 40%, rgba(201,169,110,0.06));
+  opacity: 0; transition: opacity 0.3s;
+}
+.gallery-item:hover {
+  border-color: var(--accent);
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+}
+.gallery-item:hover::before { opacity: 1; }
+
+.gallery-icon {
+  font-size: 28px; color: var(--border); transition: color 0.3s;
+}
+.gallery-item:hover .gallery-icon { color: var(--accent); }
+
+.gallery-label {
+  font-size: 13px; color: var(--text-muted);
+  font-weight: 500; transition: color 0.3s;
+}
+.gallery-item:hover .gallery-label { color: var(--text); }
+
+.gallery-date {
+  font-size: 11px; color: var(--border);
+  transition: color 0.3s;
+}
+.gallery-item:hover .gallery-date { color: var(--text-muted); }
+
+/* ---- FOOTER ---- */
+.photo-footer {
+  text-align: center; padding: 40px 0 36px;
+  font-size: 13px; color: var(--text-muted);
+  border-top: 1px solid var(--border-light); margin-top: 24px;
+}
+.photo-footer span { color: var(--accent-dark); }
+
+/* ---- FADE ---- */
+.fade-in {
+  opacity: 0; transform: translateY(16px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+
+/* ---- RESPONSIVE ---- */
+@media (max-width: 768px) {
+  .gallery { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .photo-hero { padding: 64px 0 36px; }
+  .photo-hero h1 { font-size: 28px; }
+  .container { padding: 0 20px; }
+}
+@media (max-width: 480px) {
+  .gallery { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <a href="index.html" class="back-link">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    返回主页
+  </a>
+</div>
+
+<header class="photo-hero container">
+  <span class="photo-hero-icon">📷</span>
+  <h1>摄影</h1>
+  <div class="sub">Photography</div>
+  <p>用镜头捕捉瞬间，定格光影之美。每一次按下快门，都是一次与世界的对话。</p>
+</header>
+
+<div class="intro-bar container">即将上线 · 敬请期待</div>
+
+<section class="gallery container">
+  <div class="gallery-item fade-in">
+    <span class="gallery-icon">🌿</span>
+    <span class="gallery-label">校园风光</span>
+    <span class="gallery-date">南京农业大学</span>
+  </div>
+  <div class="gallery-item fade-in">
+    <span class="gallery-icon">🏙️</span>
+    <span class="gallery-label">城市掠影</span>
+    <span class="gallery-date">南京 · 东京</span>
+  </div>
+  <div class="gallery-item fade-in">
+    <span class="gallery-icon">🏃</span>
+    <span class="gallery-label">浦口马拉松</span>
+    <span class="gallery-date">2025</span>
+  </div>
+  <div class="gallery-item fade-in">
+    <span class="gallery-icon">🌸</span>
+    <span class="gallery-label">春日韵味</span>
+    <span class="gallery-date">摄影比赛一等奖</span>
+  </div>
+  <div class="gallery-item fade-in">
+    <span class="gallery-icon">🏛️</span>
+    <span class="gallery-label">东京印象</span>
+    <span class="gallery-date">短期研修 2024</span>
+  </div>
+  <div class="gallery-item fade-in">
+    <span class="gallery-icon">🌅</span>
+    <span class="gallery-label">光影瞬间</span>
+    <span class="gallery-date">更多作品</span>
+  </div>
+</section>
+
+<footer class="photo-footer container">
+  <p>© 2026 <span>Ding Yi</span> · Photography</p>
+</footer>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('visible');
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.fade-in').forEach((el, i) => {
+  el.style.transitionDelay = (i * 0.08) + 's';
+  observer.observe(el);
+});
+</script>
+
+</body>
+</html>

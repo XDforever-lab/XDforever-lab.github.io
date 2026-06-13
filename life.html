@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>生活 — Ding Yi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Noto+Serif+SC:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #FDFBF7;
+  --bg-alt: #F5F0E8;
+  --text: #1B2838;
+  --text-light: #5A6B7F;
+  --text-muted: #8B9DB5;
+  --accent: #C9A96E;
+  --accent-dark: #A8884A;
+  --border: #E5DDD0;
+  --border-light: #F0EBE0;
+  --shadow: 0 1px 3px rgba(27,40,56,0.06);
+  --shadow-lg: 0 4px 24px rgba(27,40,56,0.08);
+  --radius: 8px;
+  --max-w: 760px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+}
+
+.container { max-width: var(--max-w); margin: 0 auto; padding: 0 28px; }
+
+/* ---- BACK BUTTON ---- */
+.back-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  color: var(--text-light); text-decoration: none;
+  font-size: 13px; font-weight: 500;
+  padding: 8px 16px; border-radius: 20px;
+  border: 1px solid var(--border);
+  transition: all 0.2s;
+  margin-top: 28px;
+}
+.back-link:hover { background: var(--bg-alt); color: var(--text); border-color: var(--accent); }
+
+/* ---- HERO ---- */
+.life-hero {
+  padding: 80px 0 52px;
+  text-align: center;
+}
+.life-hero-icon {
+  font-size: 48px; margin-bottom: 16px; display: block;
+}
+.life-hero h1 {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 34px; font-weight: 700; letter-spacing: 0.04em;
+  color: var(--text); margin-bottom: 6px;
+}
+.life-hero .sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px; font-style: italic; color: var(--text-muted);
+  margin-bottom: 12px;
+}
+.life-hero p {
+  color: var(--text-light); max-width: 420px; margin: 0 auto;
+  font-size: 14px;
+}
+
+/* ---- CARDS ---- */
+.life-card {
+  background: #fff; border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 24px 28px;
+  margin-bottom: 16px;
+  display: flex; gap: 18px; align-items: flex-start;
+  transition: all 0.3s;
+}
+.life-card:hover {
+  box-shadow: var(--shadow-lg);
+  border-color: #D5C9B5;
+  transform: translateY(-1px);
+}
+.life-card:last-child { margin-bottom: 0; }
+
+.life-card-icon {
+  width: 44px; height: 44px; border-radius: 12px;
+  background: var(--bg-alt);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; flex-shrink: 0;
+  transition: background 0.3s;
+}
+.life-card:hover .life-card-icon { background: #EDE5D6; }
+
+.life-card-body { flex: 1; min-width: 0; }
+.life-card-title {
+  font-size: 15px; font-weight: 600; color: var(--text);
+  margin-bottom: 2px;
+}
+.life-card-date {
+  font-size: 12px; color: var(--text-muted); margin-bottom: 6px;
+}
+.life-card-desc {
+  font-size: 14px; color: var(--text-light); line-height: 1.7;
+}
+.life-card a {
+  color: var(--accent-dark); text-decoration: none;
+  font-weight: 500; font-size: 13px;
+  display: inline-flex; align-items: center; gap: 4px;
+  margin-top: 6px;
+  transition: color 0.2s;
+}
+.life-card a:hover { color: var(--text); }
+
+/* ---- QUOTE ---- */
+.life-quote {
+  text-align: center; padding: 40px 0 8px;
+  font-family: 'Noto Serif SC', serif;
+  font-size: 16px; color: var(--text-muted); font-style: italic;
+  letter-spacing: 0.03em;
+}
+
+/* ---- FOOTER ---- */
+.life-footer {
+  text-align: center; padding: 40px 0 36px;
+  font-size: 13px; color: var(--text-muted);
+  border-top: 1px solid var(--border-light); margin-top: 24px;
+}
+.life-footer span { color: var(--accent-dark); }
+
+/* ---- FADE ---- */
+.fade-in {
+  opacity: 0; transform: translateY(16px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+
+/* ---- RESPONSIVE ---- */
+@media (max-width: 768px) {
+  .life-hero { padding: 64px 0 40px; }
+  .life-hero h1 { font-size: 28px; }
+  .life-card { padding: 20px; }
+  .life-card-icon { width: 38px; height: 38px; font-size: 18px; border-radius: 10px; }
+  .container { padding: 0 20px; }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <a href="index.html" class="back-link">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    返回主页
+  </a>
+</div>
+
+<header class="life-hero container">
+  <span class="life-hero-icon">🌟</span>
+  <h1>生活</h1>
+  <div class="sub">Life Beyond Academia</div>
+  <p>学术之外，亦有山海与热爱。运动、辩论、志愿、摄影——每一面都是我。</p>
+</header>
+
+<section class="container" style="padding-bottom: 24px;">
+
+  <div class="life-card fade-in">
+    <div class="life-card-icon">🏃</div>
+    <div class="life-card-body">
+      <div class="life-card-title">三院联合运动会 · 男子4×100米第五名</div>
+      <div class="life-card-date">2025.10</div>
+      <div class="life-card-desc">赛道上的冲刺与交接，团队协作的力量在每一次接力棒的传递中绽放。</div>
+    </div>
+  </div>
+
+  <div class="life-card fade-in">
+    <div class="life-card-icon">🗣️</div>
+    <div class="life-card-body">
+      <div class="life-card-title">信息管理学院新生辩论赛 · 团体亚军</div>
+      <div class="life-card-date">2023.11</div>
+      <div class="life-card-desc">逻辑的碰撞、语言的交锋，辩论让我学会在多元视角中寻找思辨之美。</div>
+    </div>
+  </div>
+
+  <div class="life-card fade-in">
+    <div class="life-card-icon">🤝</div>
+    <div class="life-card-body">
+      <div class="life-card-title">浦口马拉松志愿者 &amp; 校优秀志愿者</div>
+      <div class="life-card-date">2024.12</div>
+      <div class="life-card-desc">为完成全马的选手递上奖牌与补给，听到他们一声声称赞的那一刻，深刻体会到奉献的快乐与责任的意义。</div>
+    </div>
+  </div>
+
+  <div class="life-card fade-in">
+    <div class="life-card-icon">📷</div>
+    <div class="life-card-body">
+      <div class="life-card-title">信息管理学院摄影比赛 · 一等奖</div>
+      <div class="life-card-date">2025.05</div>
+      <div class="life-card-desc">摄影是一场不断发现美好、捕捉瞬间的旅程。每一次按下快门，都是与世界的对话。</div>
+      <a href="photography.html">
+        浏览摄影作品 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <div class="life-card fade-in">
+    <div class="life-card-icon">🗾</div>
+    <div class="life-card-body">
+      <div class="life-card-title">东京大学 · 新质生产力短期研修</div>
+      <div class="life-card-date">2024.08</div>
+      <div class="life-card-desc">江苏省政府奖学金项目，开展人工智能赋能弱势群体课题研究，获小组第一（92.5/100）及优秀个人。在异国他乡的学术探索与文化交流，拓宽了视野也收获了友谊。</div>
+    </div>
+  </div>
+
+  <div class="life-card fade-in">
+    <div class="life-card-icon">🏛️</div>
+    <div class="life-card-body">
+      <div class="life-card-title">校学生会主任 · 班级组织委员</div>
+      <div class="life-card-date">2023 – 2025</div>
+      <div class="life-card-desc">组织跨校区活动、21天行动派打卡计划、班级团建……学生工作让我学会了担当与协作，也收获了优秀学生干部、优秀共青团干部的认可。</div>
+    </div>
+  </div>
+
+  <div class="life-quote fade-in">"生活不止一种颜色，每一面都是真实的自己"</div>
+
+</section>
+
+<footer class="life-footer container">
+  <p>© 2026 <span>Ding Yi</span> · Life</p>
+</footer>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('visible');
+  });
+}, { threshold: 0.08 });
+
+document.querySelectorAll('.fade-in').forEach((el, i) => {
+  el.style.transitionDelay = (i * 0.06) + 's';
+  observer.observe(el);
+});
+</script>
+
+</body>
+</html>
