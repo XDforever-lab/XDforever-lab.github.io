@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>摄影 — Ding Yi</title>
+<title>摄影作品集 — Ding Yi</title>
+<meta name="description" content="丁一的个人摄影作品集，记录光影瞬间。校园风光、城市掠影、浦口马拉松、春日韵味、东京印象。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Noto+Serif+SC:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -11,215 +12,835 @@
 :root {
   --bg: #FDFBF7;
   --bg-alt: #F5F0E8;
+  --bg-gallery: #F9F7F2;
   --text: #1B2838;
   --text-light: #5A6B7F;
   --text-muted: #8B9DB5;
   --accent: #C9A96E;
   --accent-dark: #A8884A;
+  --accent-glow: rgba(201,169,110,0.15);
   --border: #E5DDD0;
   --border-light: #F0EBE0;
-  --shadow: 0 1px 3px rgba(27,40,56,0.06);
-  --shadow-lg: 0 4px 24px rgba(27,40,56,0.08);
-  --radius: 6px;
-  --max-w: 960px;
+  --shadow-sm: 0 1px 3px rgba(27,40,56,0.05);
+  --shadow-md: 0 4px 16px rgba(27,40,56,0.08);
+  --shadow-lg: 0 12px 40px rgba(27,40,56,0.12);
+  --radius: 8px;
+  --max-w: 1240px;
+  --ease-out: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
+html { scroll-behavior: smooth; }
+
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  background: var(--bg-alt);
+  background: var(--bg);
   color: var(--text);
   line-height: 1.7;
   font-size: 15px;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
-.container { max-width: var(--max-w); margin: 0 auto; padding: 0 28px; }
+.container { max-width: var(--max-w); margin: 0 auto; padding: 0 32px; }
 
-/* ---- BACK BUTTON ---- */
-.back-link {
+/* ==================== NAV ==================== */
+.photo-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(253, 251, 247, 0.85);
+  backdrop-filter: blur(16px) saturate(1.2);
+  -webkit-backdrop-filter: blur(16px) saturate(1.2);
+  border-bottom: 1px solid transparent;
+  transition: all 0.4s var(--ease-out);
+}
+.photo-nav.scrolled {
+  border-bottom-color: var(--border-light);
+  box-shadow: var(--shadow-sm);
+}
+.nav-inner {
+  max-width: var(--max-w); margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 32px; height: 56px;
+}
+.nav-brand {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 19px; font-weight: 600;
+  color: var(--text); text-decoration: none;
+  letter-spacing: 0.03em;
+  transition: opacity 0.3s;
+}
+.nav-brand:hover { opacity: 0.7; }
+.nav-brand span { color: var(--accent-dark); }
+.nav-back {
   display: inline-flex; align-items: center; gap: 6px;
   color: var(--text-light); text-decoration: none;
   font-size: 13px; font-weight: 500;
-  padding: 8px 16px; border-radius: 20px;
+  padding: 7px 16px; border-radius: 20px;
   border: 1px solid var(--border);
-  transition: all 0.2s;
-  margin-top: 28px;
+  transition: all 0.25s var(--ease-out);
 }
-.back-link:hover { background: #fff; color: var(--text); border-color: var(--accent); }
+.nav-back:hover {
+  background: var(--bg-alt); color: var(--text);
+  border-color: var(--accent); transform: translateX(-2px);
+}
+.nav-back svg { transition: transform 0.25s; }
+.nav-back:hover svg { transform: translateX(-2px); }
 
-/* ---- HERO ---- */
-.photo-hero {
-  padding: 80px 0 48px;
-  text-align: center;
+/* ==================== HERO ==================== */
+.hero {
+  padding: 140px 0 72px;
+  text-align: center; position: relative;
+  overflow: hidden;
 }
-.photo-hero-icon {
-  font-size: 48px; margin-bottom: 16px; display: block;
-  opacity: 0.7;
+.hero::before {
+  content: ''; position: absolute; top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 1px; height: 60px;
+  background: linear-gradient(to bottom, transparent, var(--accent), transparent);
+  opacity: 0.5;
 }
-.photo-hero h1 {
+.hero::after {
+  content: ''; position: absolute; top: -120px; left: 50%;
+  transform: translateX(-50%);
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(201,169,110,0.04) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-label {
+  display: inline-block; font-size: 10px;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--accent-dark); font-weight: 600;
+  padding: 5px 18px; border: 1px solid var(--accent);
+  border-radius: 20px; margin-bottom: 28px; position: relative;
+  opacity: 0; transform: translateY(14px);
+  animation: fadeUp 0.7s 0.05s forwards;
+}
+.hero h1 {
   font-family: 'Noto Serif SC', serif;
-  font-size: 34px; font-weight: 700; letter-spacing: 0.04em;
-  color: var(--text); margin-bottom: 6px;
+  font-size: clamp(36px, 7vw, 56px); font-weight: 700;
+  letter-spacing: 0.06em; color: var(--text);
+  margin-bottom: 8px; line-height: 1.15; position: relative;
+  opacity: 0; transform: translateY(14px);
+  animation: fadeUp 0.7s 0.15s forwards;
 }
-.photo-hero .sub {
+.hero .sub {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 20px; font-style: italic; color: var(--text-muted);
-  margin-bottom: 12px;
+  font-size: clamp(18px, 3vw, 23px); font-style: italic;
+  color: var(--text-muted); margin-bottom: 18px; position: relative;
+  opacity: 0; transform: translateY(14px);
+  animation: fadeUp 0.7s 0.25s forwards;
 }
-.photo-hero p {
-  color: var(--text-light); max-width: 420px; margin: 0 auto;
-  font-size: 14px;
+.hero .desc {
+  color: var(--text-light); max-width: 480px; margin: 0 auto;
+  font-size: 15px; line-height: 1.85; position: relative;
+  opacity: 0; transform: translateY(14px);
+  animation: fadeUp 0.7s 0.35s forwards;
+}
+.hero-stats {
+  display: flex; justify-content: center; gap: 56px;
+  margin-top: 40px; position: relative;
+  opacity: 0; transform: translateY(14px);
+  animation: fadeUp 0.7s 0.45s forwards;
+}
+.hero-stat { text-align: center; }
+.hero-stat-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 34px; font-weight: 600; color: var(--text);
+  line-height: 1; transition: color 0.3s;
+}
+.hero-stat-label {
+  font-size: 11px; color: var(--text-muted); margin-top: 8px;
+  letter-spacing: 0.06em; text-transform: uppercase;
+}
+.hero-divider {
+  width: 1px; background: var(--border); align-self: stretch;
 }
 
-/* ---- INTRO BAR ---- */
-.intro-bar {
-  text-align: center; padding-bottom: 12px;
-  font-size: 12px; color: var(--text-muted);
-  letter-spacing: 0.05em; text-transform: uppercase;
+@keyframes fadeUp {
+  to { opacity: 1; transform: translateY(0); }
 }
 
-/* ---- GALLERY ---- */
+/* ==================== FILTER BAR ==================== */
+.filter-bar {
+  position: sticky; top: 56px; z-index: 50;
+  background: rgba(249, 247, 242, 0.88);
+  backdrop-filter: blur(12px) saturate(1.1);
+  -webkit-backdrop-filter: blur(12px) saturate(1.1);
+  border-bottom: 1px solid var(--border-light);
+  padding: 14px 0;
+  transition: all 0.3s var(--ease-out);
+}
+.filter-inner {
+  max-width: var(--max-w); margin: 0 auto;
+  padding: 0 32px;
+  display: flex; align-items: center; gap: 8px;
+  flex-wrap: wrap; justify-content: center;
+}
+.filter-btn {
+  padding: 8px 22px; border-radius: 22px;
+  font-size: 13px; font-weight: 500; cursor: pointer;
+  border: 1px solid var(--border);
+  background: transparent; color: var(--text-light);
+  transition: all 0.3s var(--ease-out);
+  white-space: nowrap; font-family: inherit;
+  user-select: none;
+}
+.filter-btn:hover {
+  border-color: var(--accent); color: var(--text);
+  background: var(--accent-glow); transform: translateY(-1px);
+}
+.filter-btn.active {
+  background: var(--text); color: #fff; border-color: var(--text);
+  box-shadow: 0 2px 8px rgba(27,40,56,0.2);
+}
+.filter-btn.active:hover { transform: none; }
+
+/* ==================== GALLERY ==================== */
+.gallery-section {
+  padding: 44px 0 80px;
+  background: var(--bg-gallery);
+  min-height: 50vh;
+}
 .gallery {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  padding-bottom: 20px;
+  columns: 3; column-gap: 20px;
 }
 .gallery-item {
-  aspect-ratio: 4 / 3;
-  background: #fff;
-  border: 1px dashed var(--border);
+  break-inside: avoid;
+  margin-bottom: 20px;
+  position: relative;
   border-radius: var(--radius);
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  gap: 8px; cursor: default;
-  transition: all 0.3s;
-  position: relative; overflow: hidden;
+  overflow: hidden;
+  cursor: pointer;
+  background: #EBE6DC;
+  transition: transform 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out);
+  opacity: 0; transform: translateY(30px);
+  will-change: transform, opacity;
 }
-.gallery-item::before {
-  content: ''; position: absolute; inset: 0;
-  background: linear-gradient(135deg, transparent 40%, rgba(201,169,110,0.06));
-  opacity: 0; transition: opacity 0.3s;
+.gallery-item.revealed {
+  opacity: 1; transform: translateY(0);
 }
 .gallery-item:hover {
-  border-color: var(--accent);
+  transform: translateY(-5px) !important;
   box-shadow: var(--shadow-lg);
-  transform: translateY(-2px);
 }
-.gallery-item:hover::before { opacity: 1; }
-
-.gallery-icon {
-  font-size: 28px; color: var(--border); transition: color 0.3s;
+.gallery-item img {
+  width: 100%; display: block;
+  transition: transform 0.7s var(--ease-out);
+  background: #EBE6DC;
 }
-.gallery-item:hover .gallery-icon { color: var(--accent); }
-
-.gallery-label {
-  font-size: 13px; color: var(--text-muted);
-  font-weight: 500; transition: color 0.3s;
+.gallery-item:hover img {
+  transform: scale(1.05);
 }
-.gallery-item:hover .gallery-label { color: var(--text); }
 
-.gallery-date {
-  font-size: 11px; color: var(--border);
-  transition: color 0.3s;
+/* Skeleton loading shimmer */
+.gallery-item.loading img { opacity: 0; }
+.gallery-item.loading::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(90deg, #EBE6DC 25%, #F0ECE4 50%, #EBE6DC 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
 }
-.gallery-item:hover .gallery-date { color: var(--text-muted); }
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
 
-/* ---- FOOTER ---- */
+/* Overlay */
+.gallery-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg,
+    transparent 35%,
+    rgba(27,40,56,0.35) 65%,
+    rgba(27,40,56,0.72) 100%);
+  opacity: 0; transition: opacity 0.35s var(--ease-out);
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 28px 24px;
+}
+.gallery-item:hover .gallery-overlay { opacity: 1; }
+.gallery-overlay-title {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 16px; font-weight: 600; color: #fff;
+  margin-bottom: 4px; letter-spacing: 0.03em;
+  transform: translateY(10px); transition: transform 0.35s var(--ease-out);
+}
+.gallery-overlay-sub {
+  font-size: 12px; color: rgba(255,255,255,0.72);
+  transform: translateY(10px);
+  transition: transform 0.35s var(--ease-out) 0.04s;
+}
+.gallery-item:hover .gallery-overlay-title,
+.gallery-item:hover .gallery-overlay-sub {
+  transform: translateY(0);
+}
+
+/* Zoom indicator */
+.gallery-zoom {
+  position: absolute; top: 16px; right: 16px;
+  width: 32px; height: 32px; border-radius: 50%;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; transform: scale(0.8);
+  transition: all 0.3s var(--ease-out);
+}
+.gallery-zoom svg { color: #fff; width: 14px; height: 14px; }
+.gallery-item:hover .gallery-zoom {
+  opacity: 1; transform: scale(1);
+}
+
+/* ==================== LIGHTBOX ==================== */
+.lightbox {
+  position: fixed; inset: 0; z-index: 200;
+  background: rgba(12, 14, 20, 0.97);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.35s ease;
+}
+.lightbox.open { opacity: 1; pointer-events: auto; }
+.lightbox-content {
+  position: relative; max-width: 88vw; max-height: 82vh;
+  display: flex; align-items: center; justify-content: center;
+}
+.lightbox-content img {
+  max-width: 100%; max-height: 82vh;
+  object-fit: contain; border-radius: 4px;
+  box-shadow: 0 20px 80px rgba(0,0,0,0.5);
+  opacity: 0; transform: scale(0.94);
+  transition: all 0.4s var(--ease-out);
+}
+.lightbox.open .lightbox-content img { opacity: 1; transform: scale(1); }
+
+.lightbox-close {
+  position: absolute; top: 24px; right: 32px; z-index: 10;
+  width: 44px; height: 44px; border-radius: 50%;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.8); font-size: 20px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.25s var(--ease-out);
+}
+.lightbox-close:hover {
+  background: rgba(255,255,255,0.14);
+  color: #fff;
+}
+
+.lightbox-nav {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  width: 48px; height: 48px; border-radius: 50%;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.7); cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.25s var(--ease-out);
+  z-index: 10;
+}
+.lightbox-nav:hover {
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+}
+.lightbox-prev { left: 24px; }
+.lightbox-next { right: 24px; }
+
+.lightbox-info {
+  position: absolute; bottom: 36px; left: 50%;
+  transform: translateX(-50%); text-align: center;
+}
+.lightbox-title {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 15px; color: rgba(255,255,255,0.85);
+  font-weight: 500; letter-spacing: 0.03em;
+}
+.lightbox-counter {
+  font-size: 11px; color: rgba(255,255,255,0.4);
+  font-family: 'Cormorant Garamond', serif;
+  margin-top: 4px; letter-spacing: 0.04em;
+}
+
+/* ==================== ABOUT ==================== */
+.about-photo {
+  padding: 84px 0; text-align: center;
+  background: var(--bg);
+  position: relative;
+  overflow: hidden;
+}
+.about-photo::before {
+  content: ''; position: absolute; bottom: -80px; left: 50%;
+  transform: translateX(-50%);
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(201,169,110,0.03) 0%, transparent 70%);
+  pointer-events: none;
+}
+.about-photo h2 {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 26px; font-weight: 600;
+  color: var(--text); margin-bottom: 18px;
+  letter-spacing: 0.04em; position: relative;
+}
+.about-photo p {
+  color: var(--text-light); max-width: 560px; margin: 0 auto;
+  font-size: 15px; line-height: 1.85; position: relative;
+}
+.accent-line {
+  width: 48px; height: 2px;
+  background: var(--accent); margin: 28px auto;
+  opacity: 0.6;
+}
+
+/* ==================== FOOTER ==================== */
 .photo-footer {
   text-align: center; padding: 40px 0 36px;
   font-size: 13px; color: var(--text-muted);
-  border-top: 1px solid var(--border-light); margin-top: 24px;
+  border-top: 1px solid var(--border-light);
+  background: var(--bg);
 }
 .photo-footer span { color: var(--accent-dark); }
 
-/* ---- FADE ---- */
-.fade-in {
-  opacity: 0; transform: translateY(16px);
-  transition: opacity 0.5s ease, transform 0.5s ease;
+/* ==================== BACK TO TOP ==================== */
+.back-to-top {
+  position: fixed; bottom: 32px; right: 32px; z-index: 50;
+  width: 42px; height: 42px; border-radius: 50%;
+  background: var(--text); color: #fff; border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; opacity: 0; transform: translateY(12px);
+  transition: opacity 0.3s, transform 0.3s, background 0.25s;
+  box-shadow: 0 4px 16px rgba(27,40,56,0.25);
+  pointer-events: none;
 }
-.fade-in.visible { opacity: 1; transform: translateY(0); }
+.back-to-top.show {
+  opacity: 1; transform: translateY(0);
+  pointer-events: auto;
+}
+.back-to-top:hover { background: var(--accent-dark); transform: translateY(-2px); }
 
-/* ---- RESPONSIVE ---- */
-@media (max-width: 768px) {
-  .gallery { grid-template-columns: repeat(2, 1fr); gap: 14px; }
-  .photo-hero { padding: 64px 0 36px; }
-  .photo-hero h1 { font-size: 28px; }
-  .container { padding: 0 20px; }
+/* ==================== EMPTY STATE ==================== */
+.empty-state {
+  text-align: center; padding: 72px 0;
+  display: none;
+  animation: fadeUp 0.4s forwards;
 }
+.empty-state.show { display: block; }
+.empty-state-icon { font-size: 52px; margin-bottom: 16px; opacity: 0.5; }
+.empty-state-text {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 18px; color: var(--text-muted); letter-spacing: 0.03em;
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 1024px) {
+  .gallery { columns: 2; column-gap: 16px; }
+  .gallery-item { margin-bottom: 16px; }
+  .hero { padding: 120px 0 56px; }
+}
+
+@media (max-width: 768px) {
+  .hero { padding: 104px 0 48px; }
+  .hero h1 { font-size: clamp(30px, 8vw, 42px); }
+  .hero .sub { font-size: clamp(16px, 3vw, 20px); }
+  .hero-stats { gap: 36px; }
+  .hero-stat-num { font-size: 28px; }
+  .gallery { columns: 2; column-gap: 12px; }
+  .gallery-item { margin-bottom: 12px; }
+  .container { padding: 0 20px; }
+  .nav-inner { padding: 0 20px; }
+  .filter-inner { padding: 0 20px; }
+  .filter-btn { padding: 7px 16px; font-size: 12px; }
+  .lightbox-nav { width: 40px; height: 40px; }
+  .lightbox-prev { left: 12px; }
+  .lightbox-next { right: 12px; }
+  .lightbox-close { top: 16px; right: 16px; width: 38px; height: 38px; }
+  .lightbox-content { max-width: 92vw; }
+  .about-photo { padding: 60px 0; }
+  .back-to-top { bottom: 20px; right: 20px; width: 38px; height: 38px; }
+}
+
 @media (max-width: 480px) {
-  .gallery { grid-template-columns: 1fr; }
+  .gallery { columns: 1; column-gap: 0; }
+  .gallery-item { margin-bottom: 14px; }
+  .hero { padding: 96px 0 40px; }
+  .hero-stats { gap: 28px; }
+  .hero-stat-num { font-size: 24px; }
+  .hero-divider { display: none; }
+  .filter-btn { font-size: 11px; padding: 6px 14px; }
+  .gallery-overlay { padding: 20px 16px; }
+  .gallery-overlay-title { font-size: 15px; }
+  .lightbox-nav { width: 36px; height: 36px; }
+  .lightbox-prev { left: 8px; }
+  .lightbox-next { right: 8px; }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 </style>
 </head>
 <body>
 
-<div class="container">
-  <a href="index.html" class="back-link">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-    返回主页
-  </a>
-</div>
+<!-- ==================== NAV ==================== -->
+<nav class="photo-nav" id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand">Ding<span>Yi</span></a>
+    <a href="index.html" class="nav-back">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      返回主页
+    </a>
+  </div>
+</nav>
 
-<header class="photo-hero container">
-  <span class="photo-hero-icon">📷</span>
-  <h1>摄影</h1>
-  <div class="sub">Photography</div>
-  <p>用镜头捕捉瞬间，定格光影之美。每一次按下快门，都是一次与世界的对话。</p>
+<!-- ==================== HERO ==================== -->
+<header class="hero container">
+  <div class="hero-label">Photography Portfolio</div>
+  <h1>光影之间</h1>
+  <div class="sub">Capturing Moments Between Light &amp; Shadow</div>
+  <p class="desc">每一帧画面，都是时间河流中被打捞的切片。从校园的一草一木，到远方的山海城邦——用镜头，记录世界的呼吸。</p>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-num" id="photoCount">19</div>
+      <div class="hero-stat-label">作品</div>
+    </div>
+    <div class="hero-divider"></div>
+    <div class="hero-stat">
+      <div class="hero-stat-num" id="categoryCount">5</div>
+      <div class="hero-stat-label">主题</div>
+    </div>
+    <div class="hero-divider"></div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">2023–</div>
+      <div class="hero-stat-label">创作年份</div>
+    </div>
+  </div>
 </header>
 
-<div class="intro-bar container">即将上线 · 敬请期待</div>
+<!-- ==================== FILTER ==================== -->
+<div class="filter-bar" id="filterBar">
+  <div class="filter-inner" id="filterInner">
+    <!-- Filter buttons generated dynamically from photo data -->
+  </div>
+</div>
 
-<section class="gallery container">
-  <div class="gallery-item fade-in">
-    <span class="gallery-icon">🌿</span>
-    <span class="gallery-label">校园风光</span>
-    <span class="gallery-date">南京农业大学</span>
-  </div>
-  <div class="gallery-item fade-in">
-    <span class="gallery-icon">🏙️</span>
-    <span class="gallery-label">城市掠影</span>
-    <span class="gallery-date">南京 · 东京</span>
-  </div>
-  <div class="gallery-item fade-in">
-    <span class="gallery-icon">🏃</span>
-    <span class="gallery-label">浦口马拉松</span>
-    <span class="gallery-date">2025</span>
-  </div>
-  <div class="gallery-item fade-in">
-    <span class="gallery-icon">🌸</span>
-    <span class="gallery-label">春日韵味</span>
-    <span class="gallery-date">摄影比赛一等奖</span>
-  </div>
-  <div class="gallery-item fade-in">
-    <span class="gallery-icon">🏛️</span>
-    <span class="gallery-label">东京印象</span>
-    <span class="gallery-date">短期研修 2024</span>
-  </div>
-  <div class="gallery-item fade-in">
-    <span class="gallery-icon">🌅</span>
-    <span class="gallery-label">光影瞬间</span>
-    <span class="gallery-date">更多作品</span>
+<!-- ==================== GALLERY ==================== -->
+<section class="gallery-section">
+  <div class="gallery container" id="gallery"></div>
+  <div class="empty-state container" id="emptyState">
+    <div class="empty-state-icon">📷</div>
+    <div class="empty-state-text">该分类暂无作品，敬请期待</div>
   </div>
 </section>
 
+<!-- ==================== ABOUT ==================== -->
+<section class="about-photo container">
+  <h2>关于我的摄影</h2>
+  <div class="accent-line"></div>
+  <p>摄影对我而言，不只是按下快门那么简单。它是观察世界的方式，是与光线、构图和情绪的对话。信管院摄影比赛一等奖的认可，让我更加坚定地用镜头去发现和记录那些转瞬即逝的美好。</p>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
 <footer class="photo-footer container">
-  <p>© 2026 <span>Ding Yi</span> · Photography</p>
+  <p>© 2026 <span>Ding Yi</span> · Photography Portfolio</p>
+  <p style="margin-top:4px;font-size:11px"><a href="admin.html" style="color:var(--text-muted);text-decoration:none;opacity:0.4">管理后台</a></p>
 </footer>
 
-<script>
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) entry.target.classList.add('visible');
-  });
-}, { threshold: 0.1 });
+<!-- ==================== BACK TO TOP ==================== -->
+<button class="back-to-top" id="backToTop" title="回到顶部" aria-label="回到顶部">↑</button>
 
-document.querySelectorAll('.fade-in').forEach((el, i) => {
-  el.style.transitionDelay = (i * 0.08) + 's';
-  observer.observe(el);
+<!-- ==================== LIGHTBOX ==================== -->
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <button class="lightbox-close" id="lightboxClose" title="关闭" aria-label="关闭灯箱">✕</button>
+  <button class="lightbox-nav lightbox-prev" id="lightboxPrev" title="上一张" aria-label="上一张">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+  </button>
+  <button class="lightbox-nav lightbox-next" id="lightboxNext" title="下一张" aria-label="下一张">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+  </button>
+  <div class="lightbox-content">
+    <img src="" alt="" id="lightboxImg">
+  </div>
+  <div class="lightbox-info">
+    <div class="lightbox-title" id="lightboxTitle"></div>
+    <div class="lightbox-counter" id="lightboxCounter"></div>
+  </div>
+</div>
+
+<!-- ==================== SCRIPTS ==================== -->
+<script>
+// ============================================
+//  PHOTO DATA — 从管理后台加载
+// ============================================
+const STORAGE_KEY = 'dingyi_photos';
+const CATEGORY_LABELS = {
+  campus: '🌿 校园风光',
+  city: '🏙️ 城市掠影',
+  marathon: '🏃 浦口马拉松',
+  spring: '🌸 春日韵味',
+  tokyo: '🏛️ 东京印象'
+};
+
+const DEFAULT_PHOTOS = [
+  { id: 1,  src: 'https://picsum.photos/seed/njau1/1000/1250', thumb: 'https://picsum.photos/seed/njau1/600/750', title: '梧桐大道', sub: '南京农业大学 · 秋', category: 'campus' },
+  { id: 2,  src: 'https://picsum.photos/seed/njau2/1000/1333', thumb: 'https://picsum.photos/seed/njau2/600/800', title: '主楼倒影', sub: '南京农业大学 · 雨后', category: 'campus' },
+  { id: 3,  src: 'https://picsum.photos/seed/njau3/1000/750',  thumb: 'https://picsum.photos/seed/njau3/600/450', title: '图书馆光影', sub: '南京农业大学 · 傍晚', category: 'campus' },
+  { id: 4,  src: 'https://picsum.photos/seed/njau4/1000/1500', thumb: 'https://picsum.photos/seed/njau4/600/900', title: '操场落日', sub: '南京农业大学 · 黄昏', category: 'campus' },
+  { id: 5,  src: 'https://picsum.photos/seed/njcity1/1000/1250', thumb: 'https://picsum.photos/seed/njcity1/600/750', title: '紫峰大厦', sub: '南京 · 城市天际线', category: 'city' },
+  { id: 6,  src: 'https://picsum.photos/seed/njcity2/1000/1000', thumb: 'https://picsum.photos/seed/njcity2/600/600', title: '夫子庙夜色', sub: '南京 · 秦淮河畔', category: 'city' },
+  { id: 7,  src: 'https://picsum.photos/seed/njcity3/1000/1333', thumb: 'https://picsum.photos/seed/njcity3/600/800', title: '颐和路', sub: '南京 · 梧桐光影', category: 'city' },
+  { id: 8,  src: 'https://picsum.photos/seed/njcity4/1000/750',  thumb: 'https://picsum.photos/seed/njcity4/600/450', title: '玄武湖晨曦', sub: '南京 · 清晨', category: 'city' },
+  { id: 9,  src: 'https://picsum.photos/seed/pkrun1/1000/1375', thumb: 'https://picsum.photos/seed/pkrun1/600/825', title: '起跑瞬间', sub: '浦口马拉松 · 2025', category: 'marathon' },
+  { id: 10, src: 'https://picsum.photos/seed/pkrun2/1000/750',  thumb: 'https://picsum.photos/seed/pkrun2/600/450', title: '冲刺时刻', sub: '浦口马拉松 · 终点线', category: 'marathon' },
+  { id: 11, src: 'https://picsum.photos/seed/pkrun3/1000/1125', thumb: 'https://picsum.photos/seed/pkrun3/600/675', title: '赛道风景', sub: '浦口马拉松 · 沿途', category: 'marathon' },
+  { id: 12, src: 'https://picsum.photos/seed/njflwr1/1000/1250', thumb: 'https://picsum.photos/seed/njflwr1/600/750', title: '樱花季', sub: '南京 · 鸡鸣寺', category: 'spring' },
+  { id: 13, src: 'https://picsum.photos/seed/njflwr2/1000/1000', thumb: 'https://picsum.photos/seed/njflwr2/600/600', title: '梅花山', sub: '南京 · 明孝陵', category: 'spring' },
+  { id: 14, src: 'https://picsum.photos/seed/njflwr3/1000/1333', thumb: 'https://picsum.photos/seed/njflwr3/600/800', title: '春日韵味', sub: '摄影比赛一等奖作品', category: 'spring' },
+  { id: 15, src: 'https://picsum.photos/seed/njflwr4/1000/750',  thumb: 'https://picsum.photos/seed/njflwr4/600/450', title: '绿意盎然', sub: '校园 · 春', category: 'spring' },
+  { id: 16, src: 'https://picsum.photos/seed/tko1/1000/1250', thumb: 'https://picsum.photos/seed/tko1/600/750', title: '东京塔之夜', sub: '东京 · 港区', category: 'tokyo' },
+  { id: 17, src: 'https://picsum.photos/seed/tko2/1000/1000', thumb: 'https://picsum.photos/seed/tko2/600/600', title: '浅草寺', sub: '东京 · 午后', category: 'tokyo' },
+  { id: 18, src: 'https://picsum.photos/seed/tko3/1000/1333', thumb: 'https://picsum.photos/seed/tko3/600/800', title: '涩谷十字路口', sub: '东京 · 夜幕', category: 'tokyo' },
+  { id: 19, src: 'https://picsum.photos/seed/tko4/1000/750',  thumb: 'https://picsum.photos/seed/tko4/600/450', title: '上野公园', sub: '东京 · 日常', category: 'tokyo' }
+];
+
+function loadPhotos() {
+  try {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored) {
+      const parsed = JSON.parse(stored);
+      if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+    }
+  } catch(e) {}
+  return JSON.parse(JSON.stringify(DEFAULT_PHOTOS));
+}
+
+function getCategoryLabel(cat) {
+  return CATEGORY_LABELS[cat] || cat;
+}
+
+function getCategoriesFromPhotos(photoList) {
+  const cats = new Set();
+  photoList.forEach(p => cats.add(p.category));
+  return Array.from(cats).sort();
+}
+
+let photos = loadPhotos();
+
+// ============================================
+//  STATE
+// ============================================
+const gallery = document.getElementById('gallery');
+const emptyState = document.getElementById('emptyState');
+const filterInner = document.querySelector('.filter-inner');
+let currentCategory = 'all';
+let currentLightboxIndex = -1;
+let filteredPhotos = [...photos];
+
+// ============================================
+//  RENDER GALLERY
+// ============================================
+function renderGallery() {
+  gallery.innerHTML = '';
+  filteredPhotos = currentCategory === 'all'
+    ? [...photos]
+    : photos.filter(p => p.category === currentCategory);
+
+  if (filteredPhotos.length === 0) {
+    emptyState.classList.add('show');
+  } else {
+    emptyState.classList.remove('show');
+
+    filteredPhotos.forEach((photo, index) => {
+      const item = document.createElement('div');
+      item.className = 'gallery-item loading';
+      item.setAttribute('data-index', index);
+      item.addEventListener('click', () => openLightbox(index));
+
+      const fallbackSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="600" height="450"><defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#D5CFC0"/><stop offset="100%" stop-color="#C4B99A"/></linearGradient></defs><rect fill="url(#g)" width="600" height="450"/><text x="300" y="215" text-anchor="middle" fill="#A89878" font-size="16" font-family="serif">📷</text></svg>';
+
+      item.innerHTML = `
+        <img src="${photo.thumb}" alt="${photo.title}" loading="lazy" decoding="async"
+             onload="this.parentElement.classList.remove('loading')"
+             onerror="this.onerror=null;this.src='data:image/svg+xml,${encodeURIComponent(fallbackSvg)}';this.parentElement.classList.remove('loading')">
+        <div class="gallery-overlay">
+          <div class="gallery-overlay-title">${photo.title}</div>
+          <div class="gallery-overlay-sub">${photo.sub}</div>
+        </div>
+        <div class="gallery-zoom">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35M11 8v6M8 11h6"/></svg>
+        </div>
+      `;
+
+      gallery.appendChild(item);
+    });
+  }
+
+  document.getElementById('photoCount').textContent = photos.length;
+  document.getElementById('categoryCount').textContent = getCategoriesFromPhotos(photos).length;
+}
+
+// ============================================
+//  SCROLL REVEAL (IntersectionObserver)
+// ============================================
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      const el = entry.target;
+      const siblings = Array.from(el.parentNode.children).filter(c => c.classList.contains('gallery-item'));
+      const idx = siblings.indexOf(el);
+      el.style.transitionDelay = (idx * 0.05) + 's';
+      requestAnimationFrame(() => el.classList.add('revealed'));
+      revealObserver.unobserve(el);
+    }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+function observeGalleryItems() {
+  document.querySelectorAll('.gallery-item').forEach(el => revealObserver.observe(el));
+}
+
+// ============================================
+//  FILTER — 动态生成
+// ============================================
+function buildFilters() {
+  filterInner.innerHTML = '';
+  const btnAll = document.createElement('button');
+  btnAll.className = 'filter-btn active';
+  btnAll.dataset.category = 'all';
+  btnAll.textContent = '全部作品';
+  filterInner.appendChild(btnAll);
+
+  const cats = getCategoriesFromPhotos(photos);
+  const labels = {
+    campus: '🌿 校园风光', city: '🏙️ 城市掠影',
+    marathon: '🏃 浦口马拉松', spring: '🌸 春日韵味',
+    tokyo: '🏛️ 东京印象'
+  };
+  cats.forEach(cat => {
+    const btn = document.createElement('button');
+    btn.className = 'filter-btn';
+    btn.dataset.category = cat;
+    btn.textContent = labels[cat] || cat;
+    filterInner.appendChild(btn);
+  });
+
+  // Bind filter events
+  filterInner.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (btn.dataset.category === currentCategory) return;
+      filterInner.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentCategory = btn.dataset.category;
+      if (lightbox.classList.contains('open')) closeLightbox();
+      renderGallery();
+      observeGalleryItems();
+    });
+  });
+}
+
+// ============================================
+//  LIGHTBOX
+// ============================================
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightboxImg');
+const lightboxTitle = document.getElementById('lightboxTitle');
+const lightboxCounter = document.getElementById('lightboxCounter');
+
+function openLightbox(index) {
+  currentLightboxIndex = index;
+  updateLightboxContent();
+  lightbox.classList.add('open');
+  lightbox.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+  document.addEventListener('keydown', handleLightboxKeys);
+}
+
+function closeLightbox() {
+  lightbox.classList.remove('open');
+  lightbox.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+  document.removeEventListener('keydown', handleLightboxKeys);
+  currentLightboxIndex = -1;
+}
+
+function updateLightboxContent() {
+  const photo = filteredPhotos[currentLightboxIndex];
+  if (!photo) return;
+  lightboxImg.src = photo.src;
+  lightboxImg.alt = photo.title;
+  lightboxTitle.textContent = photo.title + ' · ' + photo.sub;
+  lightboxCounter.textContent = `${currentLightboxIndex + 1} / ${filteredPhotos.length}`;
+}
+
+function navigateLightbox(direction) {
+  if (filteredPhotos.length === 0) return;
+  currentLightboxIndex = (currentLightboxIndex + direction + filteredPhotos.length) % filteredPhotos.length;
+
+  lightboxImg.style.opacity = '0';
+  lightboxImg.style.transform = 'scale(0.95)';
+  setTimeout(() => {
+    updateLightboxContent();
+    lightboxImg.offsetHeight;
+    lightboxImg.style.opacity = '1';
+    lightboxImg.style.transform = 'scale(1)';
+  }, 180);
+}
+
+document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+document.getElementById('lightboxPrev').addEventListener('click', () => navigateLightbox(-1));
+document.getElementById('lightboxNext').addEventListener('click', () => navigateLightbox(1));
+
+lightbox.addEventListener('click', (e) => {
+  if (e.target === lightbox || e.target.classList.contains('lightbox-content')) {
+    closeLightbox();
+  }
 });
+
+// Swipe support for mobile
+let touchStartX = 0;
+lightbox.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
+lightbox.addEventListener('touchend', (e) => {
+  const diff = touchStartX - e.changedTouches[0].screenX;
+  if (Math.abs(diff) > 60) navigateLightbox(diff > 0 ? 1 : -1);
+});
+
+function handleLightboxKeys(e) {
+  switch(e.key) {
+    case 'Escape': closeLightbox(); break;
+    case 'ArrowLeft':  e.preventDefault(); navigateLightbox(-1); break;
+    case 'ArrowRight': e.preventDefault(); navigateLightbox(1); break;
+  }
+}
+
+// ============================================
+//  SCROLL EFFECTS
+// ============================================
+const navbar = document.getElementById('navbar');
+const backToTopBtn = document.getElementById('backToTop');
+let ticking = false;
+
+window.addEventListener('scroll', () => {
+  if (!ticking) {
+    requestAnimationFrame(() => {
+      const y = window.scrollY;
+      navbar.classList.toggle('scrolled', y > 10);
+      backToTopBtn.classList.toggle('show', y > 500);
+      ticking = false;
+    });
+    ticking = true;
+  }
+}, { passive: true });
+
+backToTopBtn.addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+// ============================================
+//  INIT
+// ============================================
+buildFilters();
+renderGallery();
+observeGalleryItems();
 </script>
 
 </body>

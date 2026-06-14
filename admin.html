@@ -1,0 +1,1348 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>摄影管理后台 — Ding Yi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Noto+Serif+SC:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #FDFBF7;
+  --bg-alt: #F5F0E8;
+  --bg-card: #FFFFFF;
+  --text: #1B2838;
+  --text-light: #5A6B7F;
+  --text-muted: #8B9DB5;
+  --accent: #C9A96E;
+  --accent-dark: #A8884A;
+  --accent-glow: rgba(201,169,110,0.12);
+  --danger: #C0392B;
+  --danger-bg: #FDF0ED;
+  --success: #27AE60;
+  --success-bg: #EDFAF2;
+  --border: #E5DDD0;
+  --border-light: #F0EBE0;
+  --shadow-sm: 0 1px 3px rgba(27,40,56,0.04);
+  --shadow-md: 0 4px 16px rgba(27,40,56,0.07);
+  --shadow-lg: 0 12px 40px rgba(27,40,56,0.10);
+  --radius: 10px;
+  --radius-sm: 6px;
+  --ease-out: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+/* ==================== LOGIN SCREEN ==================== */
+.login-screen {
+  display: flex; align-items: center; justify-content: center;
+  min-height: 100vh; padding: 20px;
+  background: linear-gradient(160deg, var(--bg) 0%, #F2EDE3 50%, var(--bg) 100%);
+}
+.login-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 48px 40px;
+  width: 100%; max-width: 400px;
+  box-shadow: var(--shadow-lg);
+  text-align: center;
+  animation: fadeUp 0.6s var(--ease-out);
+}
+.login-icon {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 20px;
+  font-size: 24px;
+  box-shadow: 0 4px 16px rgba(201,169,110,0.3);
+}
+.login-card h1 {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 24px; font-weight: 700;
+  color: var(--text); margin-bottom: 6px;
+  letter-spacing: 0.03em;
+}
+.login-card .sub {
+  font-size: 13px; color: var(--text-muted);
+  margin-bottom: 32px;
+}
+.form-group {
+  text-align: left; margin-bottom: 18px;
+}
+.form-group label {
+  display: block; font-size: 12px; font-weight: 600;
+  color: var(--text-light); margin-bottom: 6px;
+  letter-spacing: 0.04em; text-transform: uppercase;
+}
+.form-group input {
+  width: 100%; padding: 11px 15px;
+  border: 1px solid var(--border); border-radius: var(--radius-sm);
+  font-size: 14px; font-family: inherit;
+  color: var(--text); background: var(--bg);
+  transition: all 0.25s var(--ease-out);
+  outline: none;
+}
+.form-group input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+.form-group input::placeholder { color: var(--text-muted); }
+.login-error {
+  background: var(--danger-bg); color: var(--danger);
+  font-size: 13px; padding: 10px 16px;
+  border-radius: var(--radius-sm); margin-bottom: 16px;
+  display: none;
+}
+.login-error.show { display: block; animation: shake 0.4s ease; }
+.login-btn {
+  width: 100%; padding: 13px;
+  background: var(--text); color: #fff;
+  border: none; border-radius: var(--radius-sm);
+  font-size: 15px; font-weight: 600; cursor: pointer;
+  font-family: inherit;
+  transition: all 0.25s var(--ease-out);
+  letter-spacing: 0.03em;
+}
+.login-btn:hover {
+  background: #2C3E50; transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(27,40,56,0.25);
+}
+.login-btn:active { transform: translateY(0); }
+
+/* ==================== ADMIN DASHBOARD ==================== */
+.admin-screen { display: none; }
+.admin-screen.active { display: block; }
+.login-screen.hidden { display: none; }
+
+/* Top Bar */
+.top-bar {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(253, 251, 247, 0.92);
+  backdrop-filter: blur(16px) saturate(1.2);
+  -webkit-backdrop-filter: blur(16px) saturate(1.2);
+  border-bottom: 1px solid var(--border-light);
+}
+.top-bar-inner {
+  max-width: 1240px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 32px; height: 56px;
+}
+.top-brand {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px; font-weight: 600;
+  color: var(--text); letter-spacing: 0.03em;
+  display: flex; align-items: center; gap: 8px;
+}
+.top-brand span { color: var(--accent-dark); }
+.top-brand .badge {
+  font-size: 10px; font-weight: 600;
+  background: var(--accent); color: #fff;
+  padding: 2px 8px; border-radius: 10px;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  font-family: 'Inter', sans-serif;
+}
+.top-actions { display: flex; align-items: center; gap: 12px; }
+.top-actions .btn {
+  padding: 7px 16px; border-radius: 20px;
+  font-size: 12px; font-weight: 600; cursor: pointer;
+  border: 1px solid var(--border);
+  background: transparent; color: var(--text-light);
+  transition: all 0.25s var(--ease-out);
+  font-family: inherit; letter-spacing: 0.02em;
+}
+.top-actions .btn:hover {
+  border-color: var(--accent); color: var(--text);
+  background: var(--accent-glow);
+}
+.top-actions .btn-push {
+  background: var(--text); color: #fff; border-color: var(--text);
+  font-weight: 600;
+}
+.top-actions .btn-push:hover {
+  background: var(--accent-dark); border-color: var(--accent-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(27,40,56,0.2);
+}
+.top-actions .btn-logout { color: var(--danger); border-color: transparent; }
+.top-actions .btn-logout:hover { background: var(--danger-bg); border-color: var(--danger-bg); }
+
+/* Main Container */
+.admin-main {
+  max-width: 1240px; margin: 0 auto; padding: 32px;
+}
+
+/* Stats Bar */
+.stats-bar {
+  display: flex; gap: 16px; margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+.stat-card {
+  flex: 1; min-width: 140px;
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 18px 22px;
+  text-align: center;
+  transition: all 0.3s var(--ease-out);
+}
+.stat-card:hover {
+  border-color: var(--accent);
+  box-shadow: var(--shadow-md);
+}
+.stat-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 32px; font-weight: 600; color: var(--text);
+  line-height: 1;
+}
+.stat-label {
+  font-size: 11px; color: var(--text-muted);
+  margin-top: 6px; letter-spacing: 0.05em; text-transform: uppercase;
+}
+
+/* Section Header */
+.section-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 20px; flex-wrap: wrap; gap: 12px;
+}
+.section-header h2 {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 20px; font-weight: 600;
+  color: var(--text); letter-spacing: 0.03em;
+}
+.section-header-actions { display: flex; gap: 8px; }
+
+/* Buttons */
+.btn {
+  padding: 9px 20px; border-radius: 22px;
+  font-size: 13px; font-weight: 500; cursor: pointer;
+  border: 1px solid var(--border);
+  background: transparent; color: var(--text-light);
+  transition: all 0.25s var(--ease-out);
+  font-family: inherit; display: inline-flex; align-items: center; gap: 6px;
+  white-space: nowrap;
+}
+.btn:hover { border-color: var(--accent); color: var(--text); background: var(--accent-glow); }
+.btn-primary {
+  background: var(--text); color: #fff; border-color: var(--text);
+}
+.btn-primary:hover {
+  background: #2C3E50; border-color: #2C3E50;
+  transform: translateY(-1px); box-shadow: 0 4px 12px rgba(27,40,56,0.2);
+}
+.btn-danger { color: var(--danger); border-color: transparent; }
+.btn-danger:hover { background: var(--danger-bg); border-color: var(--danger-bg); }
+.btn-ghost { border-color: transparent; }
+
+/* Photo Grid */
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+.photo-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius); overflow: hidden;
+  transition: all 0.3s var(--ease-out);
+  cursor: pointer; position: relative;
+}
+.photo-card:hover {
+  border-color: var(--accent);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+.photo-card.selected {
+  border-color: var(--text);
+  box-shadow: 0 0 0 2px rgba(27,40,56,0.15);
+}
+.photo-card-img {
+  width: 100%; height: 180px; object-fit: cover;
+  background: #EBE6DC; display: block;
+}
+.photo-card-body { padding: 14px 16px; }
+.photo-card-title {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 15px; font-weight: 600;
+  color: var(--text); margin-bottom: 2px;
+}
+.photo-card-sub {
+  font-size: 12px; color: var(--text-muted);
+  margin-bottom: 8px;
+}
+.photo-card-cat {
+  display: inline-block; font-size: 10px; font-weight: 600;
+  padding: 3px 10px; border-radius: 10px;
+  background: var(--bg-alt); color: var(--text-light);
+  letter-spacing: 0.04em; text-transform: uppercase;
+}
+.photo-card-actions {
+  position: absolute; top: 8px; right: 8px;
+  display: flex; gap: 4px; opacity: 0;
+  transition: opacity 0.25s;
+}
+.photo-card:hover .photo-card-actions { opacity: 1; }
+.photo-card-actions button {
+  width: 32px; height: 32px; border-radius: 50%;
+  border: none; cursor: pointer; font-size: 13px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(255,255,255,0.9); color: var(--text);
+  backdrop-filter: blur(4px);
+  transition: all 0.2s;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+.photo-card-actions .edit-btn:hover { background: var(--accent); color: #fff; }
+.photo-card-actions .del-btn:hover { background: var(--danger); color: #fff; }
+
+/* Select checkbox */
+.photo-card-check {
+  position: absolute; top: 10px; left: 10px; z-index: 2;
+  width: 22px; height: 22px; border-radius: 4px;
+  border: 2px solid rgba(255,255,255,0.7);
+  background: rgba(0,0,0,0.2);
+  display: none; align-items: center; justify-content: center;
+  font-size: 12px; color: #fff;
+}
+.bulk-mode .photo-card-check { display: flex; }
+.bulk-mode .photo-card { cursor: pointer; }
+.bulk-mode .photo-card.selected .photo-card-check {
+  background: var(--text); border-color: var(--text);
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center; padding: 64px 20px;
+  color: var(--text-muted);
+}
+.empty-state-icon { font-size: 56px; margin-bottom: 16px; opacity: 0.5; }
+.empty-state-text {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 17px; margin-bottom: 8px; letter-spacing: 0.03em;
+}
+.empty-state-sub { font-size: 13px; }
+
+/* ==================== MODAL ==================== */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 200;
+  background: rgba(12, 14, 20, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.3s ease;
+  padding: 20px;
+}
+.modal-overlay.open { opacity: 1; pointer-events: auto; }
+.modal {
+  background: var(--bg-card); border-radius: 16px;
+  width: 100%; max-width: 560px; max-height: 85vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(27,40,56,0.2);
+  transform: translateY(20px);
+  transition: transform 0.35s var(--ease-out);
+}
+.modal-overlay.open .modal { transform: translateY(0); }
+.modal-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 24px 28px 0;
+}
+.modal-header h2 {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 20px; font-weight: 600; color: var(--text);
+}
+.modal-close {
+  width: 36px; height: 36px; border-radius: 50%;
+  border: 1px solid var(--border); background: transparent;
+  color: var(--text-muted); font-size: 18px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s;
+}
+.modal-close:hover { border-color: var(--text); color: var(--text); }
+.modal-body { padding: 20px 28px 28px; }
+
+/* Form in modal */
+.modal .form-group { margin-bottom: 16px; }
+.modal .form-group label {
+  display: block; font-size: 12px; font-weight: 600;
+  color: var(--text-light); margin-bottom: 5px;
+  letter-spacing: 0.04em; text-transform: uppercase;
+}
+.modal .form-group input,
+.modal .form-group select,
+.modal .form-group textarea {
+  width: 100%; padding: 10px 14px;
+  border: 1px solid var(--border); border-radius: var(--radius-sm);
+  font-size: 14px; font-family: inherit;
+  color: var(--text); background: var(--bg);
+  transition: all 0.25s var(--ease-out); outline: none;
+}
+.modal .form-group input:focus,
+.modal .form-group select:focus,
+.modal .form-group textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+.modal .form-group textarea { resize: vertical; min-height: 60px; }
+.modal .form-group input::placeholder,
+.modal .form-group textarea::placeholder { color: var(--text-muted); }
+.form-row { display: flex; gap: 12px; }
+.form-row .form-group { flex: 1; }
+
+/* Image upload area */
+.upload-area {
+  border: 2px dashed var(--border);
+  border-radius: var(--radius);
+  padding: 32px; text-align: center;
+  cursor: pointer; transition: all 0.3s var(--ease-out);
+  background: var(--bg);
+  position: relative; overflow: hidden;
+}
+.upload-area:hover, .upload-area.drag-over {
+  border-color: var(--accent);
+  background: var(--accent-glow);
+}
+.upload-area.has-image { padding: 8px; }
+.upload-area img {
+  max-width: 100%; max-height: 280px;
+  border-radius: var(--radius-sm); display: block;
+}
+.upload-icon { font-size: 40px; margin-bottom: 8px; opacity: 0.6; }
+.upload-text { font-size: 14px; color: var(--text-light); font-weight: 500; }
+.upload-hint { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+
+/* URL input toggle */
+.url-toggle {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 12px; color: var(--accent-dark);
+  cursor: pointer; margin-top: 8px;
+  font-weight: 500;
+}
+.url-toggle:hover { text-decoration: underline; }
+
+/* Modal footer */
+.modal-footer {
+  display: flex; gap: 10px; justify-content: flex-end;
+  margin-top: 8px; padding-top: 16px;
+  border-top: 1px solid var(--border-light);
+}
+.modal-footer .btn {
+  padding: 10px 24px; border-radius: 22px; font-weight: 600;
+}
+
+/* ==================== TOAST ==================== */
+.toast {
+  position: fixed; top: 24px; left: 50%; transform: translateX(-50%);
+  z-index: 300; padding: 12px 24px;
+  border-radius: 24px; font-size: 13px; font-weight: 600;
+  box-shadow: 0 8px 24px rgba(27,40,56,0.18);
+  opacity: 0; pointer-events: none;
+  transition: all 0.35s var(--ease-out);
+  letter-spacing: 0.02em;
+}
+.toast.show {
+  opacity: 1; pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+.toast-success { background: var(--success); color: #fff; }
+.toast-error { background: var(--danger); color: #fff; }
+.toast-info { background: var(--text); color: #fff; }
+
+/* ==================== CONFIRM DIALOG ==================== */
+.confirm-overlay {
+  position: fixed; inset: 0; z-index: 250;
+  background: rgba(12,14,20,0.5);
+  backdrop-filter: blur(2px);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.25s;
+}
+.confirm-overlay.open { opacity: 1; pointer-events: auto; }
+.confirm-dialog {
+  background: var(--bg-card); border-radius: 14px;
+  padding: 28px; max-width: 380px; width: 100%;
+  text-align: center; box-shadow: var(--shadow-lg);
+}
+.confirm-dialog p { margin-bottom: 20px; color: var(--text-light); line-height: 1.6; }
+.confirm-dialog .btn-group { display: flex; gap: 10px; justify-content: center; }
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 768px) {
+  .admin-main { padding: 20px 16px; }
+  .top-bar-inner { padding: 0 16px; }
+  .photo-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; }
+  .photo-card-img { height: 130px; }
+  .photo-card-body { padding: 10px 12px; }
+  .photo-card-title { font-size: 13px; }
+  .stats-bar { gap: 8px; }
+  .stat-card { padding: 12px 14px; }
+  .stat-num { font-size: 24px; }
+  .login-card { padding: 32px 24px; }
+  .modal { margin: 0 8px; }
+  .modal-header { padding: 20px 20px 0; }
+  .modal-body { padding: 16px 20px 20px; }
+  .form-row { flex-direction: column; gap: 0; }
+}
+
+/* Animations */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-6px); }
+  40% { transform: translateX(6px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+}
+
+/* Focus visible */
+*:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+</style>
+</head>
+<body>
+
+<!-- ==================== LOGIN SCREEN ==================== -->
+<div class="login-screen" id="loginScreen">
+  <div class="login-card">
+    <div class="login-icon">📷</div>
+    <h1>摄影管理后台</h1>
+    <p class="sub">Ding Yi Photography Admin</p>
+    <div class="login-error" id="loginError">账号或密码错误，请重试</div>
+    <div class="form-group">
+      <label>账号</label>
+      <input type="text" id="username" placeholder="请输入管理员账号" autocomplete="username">
+    </div>
+    <div class="form-group">
+      <label>密码</label>
+      <input type="password" id="password" placeholder="请输入管理员密码" autocomplete="current-password">
+    </div>
+    <button class="login-btn" id="loginBtn">验证登录</button>
+  </div>
+</div>
+
+<!-- ==================== ADMIN SCREEN ==================== -->
+<div class="admin-screen" id="adminScreen">
+
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div class="top-bar-inner">
+      <div class="top-brand">
+        Ding<span>Yi</span>
+        <span class="badge">Admin</span>
+      </div>
+      <div class="top-actions">
+        <button class="btn" id="viewSiteBtn" title="预览摄影主页">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          预览主页
+        </button>
+        <button class="btn btn-push" id="pushBtn" title="保存并推送到摄影主页">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+          保存并推送
+        </button>
+        <button class="btn btn-logout" id="logoutBtn">退出</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="admin-main">
+
+    <!-- Stats -->
+    <div class="stats-bar">
+      <div class="stat-card">
+        <div class="stat-num" id="statTotal">0</div>
+        <div class="stat-label">照片总数</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="statCategories">0</div>
+        <div class="stat-label">分类数量</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="statLastPush">—</div>
+        <div class="stat-label">最近推送</div>
+      </div>
+    </div>
+
+    <!-- Section Header -->
+    <div class="section-header">
+      <h2>📸 照片管理</h2>
+      <div class="section-header-actions">
+        <button class="btn" id="bulkSelectBtn">批量选择</button>
+        <button class="btn btn-danger" id="bulkDeleteBtn" style="display:none">删除选中</button>
+        <button class="btn btn-primary" id="addPhotoBtn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          添加照片
+        </button>
+      </div>
+    </div>
+
+    <!-- Photo Grid -->
+    <div class="photo-grid" id="photoGrid"></div>
+
+    <!-- Empty State -->
+    <div class="empty-state" id="emptyState" style="display:none">
+      <div class="empty-state-icon">📷</div>
+      <div class="empty-state-text">还没有任何照片</div>
+      <div class="empty-state-sub">点击上方"添加照片"按钮开始上传你的摄影作品</div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== ADD/EDIT MODAL ==================== -->
+<div class="modal-overlay" id="photoModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="modalTitle">添加照片</h2>
+      <button class="modal-close" id="modalClose">✕</button>
+    </div>
+    <div class="modal-body">
+      <!-- Image upload -->
+      <div class="form-group">
+        <label>照片图片</label>
+        <div class="upload-area" id="uploadArea">
+          <div class="upload-placeholder" id="uploadPlaceholder">
+            <div class="upload-icon">🖼️</div>
+            <div class="upload-text">点击或拖拽图片到此处</div>
+            <div class="upload-hint">支持 JPG / PNG / WebP，自动压缩至合适大小</div>
+          </div>
+          <img id="uploadPreview" style="display:none" alt="预览">
+          <input type="file" id="fileInput" accept="image/*" style="display:none">
+        </div>
+        <div class="url-toggle" id="urlToggle">🔗 或使用图片URL地址</div>
+        <input type="text" id="imageUrl" placeholder="输入图片URL地址 (https://...)" style="display:none; margin-top:8px;">
+      </div>
+
+      <!-- Title & Category -->
+      <div class="form-row">
+        <div class="form-group">
+          <label>作品标题</label>
+          <input type="text" id="photoTitle" placeholder="例如：梧桐大道">
+        </div>
+        <div class="form-group">
+          <label>分类</label>
+          <select id="photoCategory">
+            <option value="">选择分类...</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Description -->
+      <div class="form-group">
+        <label>描述</label>
+        <input type="text" id="photoSub" placeholder="例如：南京农业大学 · 秋">
+      </div>
+
+      <!-- New category -->
+      <div class="form-group" style="margin-top:-4px">
+        <div class="url-toggle" id="newCatToggle">➕ 添加新分类</div>
+        <input type="text" id="newCategory" placeholder="输入新分类名称（英文标识，如 travel）" style="display:none; margin-top:8px;">
+      </div>
+
+      <input type="hidden" id="editPhotoId">
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button class="btn" id="modalCancel">取消</button>
+        <button class="btn btn-primary" id="modalSave">保存照片</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== CONFIRM DIALOG ==================== -->
+<div class="confirm-overlay" id="confirmOverlay">
+  <div class="confirm-dialog">
+    <p id="confirmMsg">确定要删除这张照片吗？此操作不可撤销。</p>
+    <div class="btn-group">
+      <button class="btn" id="confirmCancel">取消</button>
+      <button class="btn btn-danger" id="confirmOk">确认删除</button>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== TOAST ==================== -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ============================================
+//  CONSTANTS
+// ============================================
+const STORAGE_KEY = 'dingyi_photos';
+const AUTH_KEY = 'dingyi_photo_admin_auth';
+const PUSH_TIME_KEY = 'dingyi_photo_last_push';
+
+const ADMIN_USERNAME = 'xdforever';
+const ADMIN_PASSWORD = '134679258';
+
+const CATEGORY_LABELS = {
+  campus: '🌿 校园风光',
+  city: '🏙️ 城市掠影',
+  marathon: '🏃 浦口马拉松',
+  spring: '🌸 春日韵味',
+  tokyo: '🏛️ 东京印象'
+};
+
+// ============================================
+//  DEFAULT PHOTOS
+// ============================================
+const DEFAULT_PHOTOS = [
+  { id: 1,  src: 'https://picsum.photos/seed/njau1/1000/1250', thumb: 'https://picsum.photos/seed/njau1/600/750', title: '梧桐大道', sub: '南京农业大学 · 秋', category: 'campus' },
+  { id: 2,  src: 'https://picsum.photos/seed/njau2/1000/1333', thumb: 'https://picsum.photos/seed/njau2/600/800', title: '主楼倒影', sub: '南京农业大学 · 雨后', category: 'campus' },
+  { id: 3,  src: 'https://picsum.photos/seed/njau3/1000/750',  thumb: 'https://picsum.photos/seed/njau3/600/450', title: '图书馆光影', sub: '南京农业大学 · 傍晚', category: 'campus' },
+  { id: 4,  src: 'https://picsum.photos/seed/njau4/1000/1500', thumb: 'https://picsum.photos/seed/njau4/600/900', title: '操场落日', sub: '南京农业大学 · 黄昏', category: 'campus' },
+  { id: 5,  src: 'https://picsum.photos/seed/njcity1/1000/1250', thumb: 'https://picsum.photos/seed/njcity1/600/750', title: '紫峰大厦', sub: '南京 · 城市天际线', category: 'city' },
+  { id: 6,  src: 'https://picsum.photos/seed/njcity2/1000/1000', thumb: 'https://picsum.photos/seed/njcity2/600/600', title: '夫子庙夜色', sub: '南京 · 秦淮河畔', category: 'city' },
+  { id: 7,  src: 'https://picsum.photos/seed/njcity3/1000/1333', thumb: 'https://picsum.photos/seed/njcity3/600/800', title: '颐和路', sub: '南京 · 梧桐光影', category: 'city' },
+  { id: 8,  src: 'https://picsum.photos/seed/njcity4/1000/750',  thumb: 'https://picsum.photos/seed/njcity4/600/450', title: '玄武湖晨曦', sub: '南京 · 清晨', category: 'city' },
+  { id: 9,  src: 'https://picsum.photos/seed/pkrun1/1000/1375', thumb: 'https://picsum.photos/seed/pkrun1/600/825', title: '起跑瞬间', sub: '浦口马拉松 · 2025', category: 'marathon' },
+  { id: 10, src: 'https://picsum.photos/seed/pkrun2/1000/750',  thumb: 'https://picsum.photos/seed/pkrun2/600/450', title: '冲刺时刻', sub: '浦口马拉松 · 终点线', category: 'marathon' },
+  { id: 11, src: 'https://picsum.photos/seed/pkrun3/1000/1125', thumb: 'https://picsum.photos/seed/pkrun3/600/675', title: '赛道风景', sub: '浦口马拉松 · 沿途', category: 'marathon' },
+  { id: 12, src: 'https://picsum.photos/seed/njflwr1/1000/1250', thumb: 'https://picsum.photos/seed/njflwr1/600/750', title: '樱花季', sub: '南京 · 鸡鸣寺', category: 'spring' },
+  { id: 13, src: 'https://picsum.photos/seed/njflwr2/1000/1000', thumb: 'https://picsum.photos/seed/njflwr2/600/600', title: '梅花山', sub: '南京 · 明孝陵', category: 'spring' },
+  { id: 14, src: 'https://picsum.photos/seed/njflwr3/1000/1333', thumb: 'https://picsum.photos/seed/njflwr3/600/800', title: '春日韵味', sub: '摄影比赛一等奖作品', category: 'spring' },
+  { id: 15, src: 'https://picsum.photos/seed/njflwr4/1000/750',  thumb: 'https://picsum.photos/seed/njflwr4/600/450', title: '绿意盎然', sub: '校园 · 春', category: 'spring' },
+  { id: 16, src: 'https://picsum.photos/seed/tko1/1000/1250', thumb: 'https://picsum.photos/seed/tko1/600/750', title: '东京塔之夜', sub: '东京 · 港区', category: 'tokyo' },
+  { id: 17, src: 'https://picsum.photos/seed/tko2/1000/1000', thumb: 'https://picsum.photos/seed/tko2/600/600', title: '浅草寺', sub: '东京 · 午后', category: 'tokyo' },
+  { id: 18, src: 'https://picsum.photos/seed/tko3/1000/1333', thumb: 'https://picsum.photos/seed/tko3/600/800', title: '涩谷十字路口', sub: '东京 · 夜幕', category: 'tokyo' },
+  { id: 19, src: 'https://picsum.photos/seed/tko4/1000/750',  thumb: 'https://picsum.photos/seed/tko4/600/450', title: '上野公园', sub: '东京 · 日常', category: 'tokyo' }
+];
+
+// ============================================
+//  STATE
+// ============================================
+let photos = [];
+let editingId = null;
+let bulkMode = false;
+let selectedIds = new Set();
+let uploadedImageData = null; // base64 data URL
+
+// ============================================
+//  DATA MANAGEMENT
+// ============================================
+function loadPhotos() {
+  try {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored) {
+      photos = JSON.parse(stored);
+      if (!Array.isArray(photos) || photos.length === 0) {
+        photos = JSON.parse(JSON.stringify(DEFAULT_PHOTOS));
+        savePhotos();
+      }
+    } else {
+      photos = JSON.parse(JSON.stringify(DEFAULT_PHOTOS));
+      savePhotos();
+    }
+  } catch (e) {
+    photos = JSON.parse(JSON.stringify(DEFAULT_PHOTOS));
+    savePhotos();
+  }
+}
+
+function savePhotos() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(photos));
+    return true;
+  } catch (e) {
+    if (e.name === 'QuotaExceededError') {
+      showToast('存储空间不足！请删除一些照片或压缩图片大小', 'error');
+    }
+    return false;
+  }
+}
+
+function getNextId() {
+  let maxId = 0;
+  photos.forEach(p => { if (p.id > maxId) maxId = p.id; });
+  return maxId + 1;
+}
+
+function getCategories() {
+  const cats = new Set();
+  photos.forEach(p => cats.add(p.category));
+  return Array.from(cats).sort();
+}
+
+function getCategoryLabel(cat) {
+  return CATEGORY_LABELS[cat] || cat;
+}
+
+// ============================================
+//  AUTHENTICATION
+// ============================================
+const loginScreen = document.getElementById('loginScreen');
+const adminScreen = document.getElementById('adminScreen');
+const loginError = document.getElementById('loginError');
+
+function checkAuth() {
+  const authed = sessionStorage.getItem(AUTH_KEY);
+  if (authed === 'true') {
+    loginScreen.classList.add('hidden');
+    adminScreen.classList.add('active');
+    initAdmin();
+  }
+}
+
+document.getElementById('loginBtn').addEventListener('click', () => {
+  const username = document.getElementById('username').value.trim();
+  const password = document.getElementById('password').value;
+
+  if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+    sessionStorage.setItem(AUTH_KEY, 'true');
+    loginError.classList.remove('show');
+    loginScreen.classList.add('hidden');
+    adminScreen.classList.add('active');
+    initAdmin();
+  } else {
+    loginError.classList.add('show');
+    document.getElementById('password').value = '';
+    document.getElementById('password').focus();
+  }
+});
+
+// Enter key to login
+document.getElementById('password').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') document.getElementById('loginBtn').click();
+});
+document.getElementById('username').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') document.getElementById('password').focus();
+});
+
+document.getElementById('logoutBtn').addEventListener('click', () => {
+  sessionStorage.removeItem(AUTH_KEY);
+  adminScreen.classList.remove('active');
+  loginScreen.classList.remove('hidden');
+  document.getElementById('username').value = '';
+  document.getElementById('password').value = '';
+  loginError.classList.remove('show');
+});
+
+// ============================================
+//  INIT ADMIN
+// ============================================
+function initAdmin() {
+  loadPhotos();
+  renderAll();
+}
+
+function renderAll() {
+  renderPhotoGrid();
+  renderStats();
+  updateCategorySelect();
+}
+
+function renderStats() {
+  document.getElementById('statTotal').textContent = photos.length;
+  document.getElementById('statCategories').textContent = getCategories().length;
+
+  const lastPush = localStorage.getItem(PUSH_TIME_KEY);
+  if (lastPush) {
+    const d = new Date(parseInt(lastPush));
+    document.getElementById('statLastPush').textContent =
+      `${d.getMonth()+1}/${d.getDate()} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
+  } else {
+    document.getElementById('statLastPush').textContent = '—';
+  }
+}
+
+function renderPhotoGrid() {
+  const grid = document.getElementById('photoGrid');
+  const empty = document.getElementById('emptyState');
+
+  if (photos.length === 0) {
+    grid.innerHTML = '';
+    empty.style.display = 'block';
+  } else {
+    empty.style.display = 'none';
+    grid.innerHTML = photos.map(p => {
+      const imgSrc = p.thumb || p.src;
+      return `
+        <div class="photo-card ${bulkMode && selectedIds.has(p.id) ? 'selected' : ''}" data-id="${p.id}">
+          <div class="photo-card-check">✓</div>
+          <img class="photo-card-img" src="${imgSrc}" alt="${p.title}" loading="lazy"
+               onerror="this.onerror=null;this.src='data:image/svg+xml,${encodeURIComponent('<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"400\" height=\"300\"><rect fill=\"%23EBE6DC\" width=\"400\" height=\"300\"/><text x=\"200\" y=\"145\" text-anchor=\"middle\" fill=\"%238B9DB5\" font-size=\"14\" font-family=\"sans-serif\">📷</text></svg>')}'">
+          <div class="photo-card-body">
+            <div class="photo-card-title">${p.title}</div>
+            <div class="photo-card-sub">${p.sub}</div>
+            <span class="photo-card-cat">${getCategoryLabel(p.category)}</span>
+          </div>
+          <div class="photo-card-actions">
+            <button class="edit-btn" title="编辑" data-action="edit" data-id="${p.id}">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            </button>
+            <button class="del-btn" title="删除" data-action="delete" data-id="${p.id}">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+            </button>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    // Bind events
+    grid.querySelectorAll('.photo-card').forEach(card => {
+      if (bulkMode) {
+        card.addEventListener('click', (e) => {
+          if (e.target.closest('[data-action]')) return;
+          toggleSelect(parseInt(card.dataset.id));
+        });
+      }
+    });
+    grid.querySelectorAll('[data-action="edit"]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openEditModal(parseInt(btn.dataset.id));
+      });
+    });
+    grid.querySelectorAll('[data-action="delete"]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        confirmDelete(parseInt(btn.dataset.id));
+      });
+    });
+  }
+}
+
+// ============================================
+//  BULK SELECT
+// ============================================
+document.getElementById('bulkSelectBtn').addEventListener('click', () => {
+  bulkMode = !bulkMode;
+  const btn = document.getElementById('bulkSelectBtn');
+  const bulkDelBtn = document.getElementById('bulkDeleteBtn');
+
+  if (bulkMode) {
+    btn.textContent = '取消选择';
+    btn.classList.add('btn-primary');
+    bulkDelBtn.style.display = 'inline-flex';
+    document.getElementById('photoGrid').classList.add('bulk-mode');
+  } else {
+    btn.textContent = '批量选择';
+    btn.classList.remove('btn-primary');
+    bulkDelBtn.style.display = 'none';
+    selectedIds.clear();
+    document.getElementById('photoGrid').classList.remove('bulk-mode');
+  }
+  renderPhotoGrid();
+});
+
+document.getElementById('bulkDeleteBtn').addEventListener('click', () => {
+  if (selectedIds.size === 0) {
+    showToast('请先选择要删除的照片', 'info');
+    return;
+  }
+  showConfirm(
+    `确定要删除选中的 ${selectedIds.size} 张照片吗？此操作不可撤销。`,
+    () => {
+      photos = photos.filter(p => !selectedIds.has(p.id));
+      selectedIds.clear();
+      savePhotos();
+      renderAll();
+      showToast(`已删除 ${selectedIds.size} 张照片`, 'success');
+    }
+  );
+});
+
+function toggleSelect(id) {
+  if (selectedIds.has(id)) {
+    selectedIds.delete(id);
+  } else {
+    selectedIds.add(id);
+  }
+  renderPhotoGrid();
+}
+
+// ============================================
+//  MODAL
+// ============================================
+const modal = document.getElementById('photoModal');
+const modalTitle = document.getElementById('modalTitle');
+const uploadArea = document.getElementById('uploadArea');
+const uploadPlaceholder = document.getElementById('uploadPlaceholder');
+const uploadPreview = document.getElementById('uploadPreview');
+const fileInput = document.getElementById('fileInput');
+const imageUrlInput = document.getElementById('imageUrl');
+const urlToggle = document.getElementById('urlToggle');
+
+function openAddModal() {
+  editingId = null;
+  uploadedImageData = null;
+  modalTitle.textContent = '添加照片';
+  document.getElementById('photoTitle').value = '';
+  document.getElementById('photoSub').value = '';
+  document.getElementById('photoCategory').value = '';
+  document.getElementById('imageUrl').value = '';
+  document.getElementById('editPhotoId').value = '';
+  document.getElementById('newCategory').value = '';
+  resetUploadArea();
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function openEditModal(id) {
+  const photo = photos.find(p => p.id === id);
+  if (!photo) return;
+
+  editingId = id;
+  uploadedImageData = null;
+  modalTitle.textContent = '编辑照片';
+  document.getElementById('photoTitle').value = photo.title;
+  document.getElementById('photoSub').value = photo.sub || '';
+  document.getElementById('photoCategory').value = photo.category;
+  document.getElementById('editPhotoId').value = id;
+  document.getElementById('newCategory').value = '';
+
+  // Show existing image
+  if (photo.src && (photo.src.startsWith('data:') || photo.src.startsWith('http') || photo.src.startsWith('/') || !photo.src.startsWith('data:'))) {
+    uploadPlaceholder.style.display = 'none';
+    uploadPreview.style.display = 'block';
+    uploadPreview.src = photo.thumb || photo.src;
+    uploadArea.classList.add('has-image');
+    imageUrlInput.style.display = 'none';
+    imageUrlInput.value = '';
+    urlToggle.querySelector('span') || urlToggle.appendChild(document.createElement('span'));
+    urlToggle.innerHTML = '🔗 或使用图片URL地址';
+  } else {
+    resetUploadArea();
+  }
+
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  modal.classList.remove('open');
+  document.body.style.overflow = '';
+  editingId = null;
+  uploadedImageData = null;
+}
+
+function resetUploadArea() {
+  uploadPlaceholder.style.display = 'block';
+  uploadPreview.style.display = 'none';
+  uploadPreview.src = '';
+  uploadArea.classList.remove('has-image');
+  imageUrlInput.style.display = 'none';
+  imageUrlInput.value = '';
+  urlToggle.innerHTML = '🔗 或使用图片URL地址';
+  fileInput.value = '';
+  uploadedImageData = null;
+}
+
+document.getElementById('addPhotoBtn').addEventListener('click', openAddModal);
+document.getElementById('modalClose').addEventListener('click', closeModal);
+document.getElementById('modalCancel').addEventListener('click', closeModal);
+
+modal.addEventListener('click', (e) => {
+  if (e.target === modal) closeModal();
+});
+
+// Upload area events
+uploadArea.addEventListener('click', () => fileInput.click());
+
+uploadArea.addEventListener('dragover', (e) => {
+  e.preventDefault();
+  uploadArea.classList.add('drag-over');
+});
+
+uploadArea.addEventListener('dragleave', () => {
+  uploadArea.classList.remove('drag-over');
+});
+
+uploadArea.addEventListener('drop', (e) => {
+  e.preventDefault();
+  uploadArea.classList.remove('drag-over');
+  const file = e.dataTransfer.files[0];
+  if (file) handleImageFile(file);
+});
+
+fileInput.addEventListener('change', () => {
+  const file = fileInput.files[0];
+  if (file) handleImageFile(file);
+});
+
+function handleImageFile(file) {
+  if (!file.type.startsWith('image/')) {
+    showToast('请选择图片文件 (JPG/PNG/WebP)', 'error');
+    return;
+  }
+
+  // Compress and convert to base64
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    const img = new Image();
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      const MAX_W = 1200;
+      const MAX_H = 1600;
+      let w = img.width;
+      let h = img.height;
+
+      if (w > MAX_W || h > MAX_H) {
+        const ratio = Math.min(MAX_W / w, MAX_H / h);
+        w = Math.round(w * ratio);
+        h = Math.round(h * ratio);
+      }
+
+      canvas.width = w;
+      canvas.height = h;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, w, h);
+
+      const quality = file.size > 1024 * 1024 ? 0.7 : 0.85;
+      uploadedImageData = canvas.toDataURL('image/jpeg', quality);
+
+      // Also create thumbnail
+      const thumbCanvas = document.createElement('canvas');
+      const THUMB_W = 600;
+      const thumbRatio = Math.min(THUMB_W / img.width, (THUMB_W * 1.5) / img.height);
+      thumbCanvas.width = Math.round(img.width * thumbRatio);
+      thumbCanvas.height = Math.round(img.height * thumbRatio);
+      const thumbCtx = thumbCanvas.getContext('2d');
+      thumbCtx.drawImage(img, 0, 0, thumbCanvas.width, thumbCanvas.height);
+      uploadedThumbData = thumbCanvas.toDataURL('image/jpeg', 0.75);
+
+      uploadPlaceholder.style.display = 'none';
+      uploadPreview.style.display = 'block';
+      uploadPreview.src = uploadedThumbData;
+      uploadArea.classList.add('has-image');
+      imageUrlInput.style.display = 'none';
+      imageUrlInput.value = '';
+      urlToggle.innerHTML = '🔗 或使用图片URL地址';
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+let uploadedThumbData = null;
+
+// URL toggle
+urlToggle.addEventListener('click', () => {
+  if (imageUrlInput.style.display === 'none') {
+    imageUrlInput.style.display = 'block';
+    imageUrlInput.focus();
+    urlToggle.innerHTML = '📷 或上传本地图片';
+    resetUploadArea();
+  } else {
+    imageUrlInput.style.display = 'none';
+    imageUrlInput.value = '';
+    urlToggle.innerHTML = '🔗 或使用图片URL地址';
+  }
+});
+
+// New category toggle
+document.getElementById('newCatToggle').addEventListener('click', () => {
+  const input = document.getElementById('newCategory');
+  if (input.style.display === 'none') {
+    input.style.display = 'block';
+    input.focus();
+    document.getElementById('newCatToggle').textContent = '✖ 取消添加分类';
+  } else {
+    input.style.display = 'none';
+    input.value = '';
+    document.getElementById('newCatToggle').textContent = '➕ 添加新分类';
+  }
+});
+
+// Save photo
+document.getElementById('modalSave').addEventListener('click', () => {
+  const title = document.getElementById('photoTitle').value.trim();
+  const sub = document.getElementById('photoSub').value.trim();
+  let category = document.getElementById('photoCategory').value;
+  const newCategory = document.getElementById('newCategory').value.trim();
+  const imageUrl = imageUrlInput.style.display !== 'none' ? imageUrlInput.value.trim() : '';
+  const id = document.getElementById('editPhotoId').value;
+
+  if (!title) { showToast('请输入作品标题', 'error'); return; }
+  if (newCategory) category = newCategory.toLowerCase().replace(/\s+/g, '-');
+
+  if (!category) { showToast('请选择或添加分类', 'error'); return; }
+
+  let src = '';
+  let thumb = '';
+
+  if (uploadedImageData) {
+    src = uploadedImageData;
+    thumb = uploadedThumbData || uploadedImageData;
+  } else if (imageUrl) {
+    src = imageUrl;
+    thumb = imageUrl; // Use same URL for thumb
+  } else if (id) {
+    // Editing - keep existing
+    const existing = photos.find(p => p.id === parseInt(id));
+    if (existing) {
+      src = existing.src;
+      thumb = existing.thumb;
+    }
+  }
+
+  if (!src && !id) {
+    showToast('请上传照片或输入图片URL', 'error');
+    return;
+  }
+
+  if (id) {
+    // Update existing
+    const idx = photos.findIndex(p => p.id === parseInt(id));
+    if (idx !== -1) {
+      photos[idx] = {
+        ...photos[idx],
+        title, sub, category, src, thumb
+      };
+    }
+    showToast('照片已更新', 'success');
+  } else {
+    // Add new
+    const newPhoto = {
+      id: getNextId(),
+      title, sub, category, src, thumb
+    };
+    photos.push(newPhoto);
+    showToast('照片已添加', 'success');
+  }
+
+  savePhotos();
+  closeModal();
+  renderAll();
+});
+
+function updateCategorySelect() {
+  const select = document.getElementById('photoCategory');
+  const cats = getCategories();
+  const current = select.value;
+  select.innerHTML = '<option value="">选择分类...</option>';
+  cats.forEach(cat => {
+    const opt = document.createElement('option');
+    opt.value = cat;
+    opt.textContent = getCategoryLabel(cat);
+    select.appendChild(opt);
+  });
+  if (current && cats.includes(current)) select.value = current;
+}
+
+// ============================================
+//  DELETE CONFIRMATION
+// ============================================
+let confirmCallback = null;
+const confirmOverlay = document.getElementById('confirmOverlay');
+
+function showConfirm(msg, callback) {
+  document.getElementById('confirmMsg').textContent = msg;
+  confirmCallback = callback;
+  confirmOverlay.classList.add('open');
+}
+
+function hideConfirm() {
+  confirmOverlay.classList.remove('open');
+  confirmCallback = null;
+}
+
+document.getElementById('confirmCancel').addEventListener('click', hideConfirm);
+document.getElementById('confirmOk').addEventListener('click', () => {
+  if (confirmCallback) confirmCallback();
+  hideConfirm();
+});
+confirmOverlay.addEventListener('click', (e) => {
+  if (e.target === confirmOverlay) hideConfirm();
+});
+
+function confirmDelete(id) {
+  const photo = photos.find(p => p.id === id);
+  if (!photo) return;
+  showConfirm(
+    `确定要删除照片「${photo.title}」吗？此操作不可撤销。`,
+    () => {
+      photos = photos.filter(p => p.id !== id);
+      savePhotos();
+      renderAll();
+      showToast('照片已删除', 'success');
+    }
+  );
+}
+
+// ============================================
+//  SAVE & PUSH
+// ============================================
+document.getElementById('pushBtn').addEventListener('click', () => {
+  if (savePhotos()) {
+    localStorage.setItem(PUSH_TIME_KEY, Date.now().toString());
+    renderStats();
+    showToast('✅ 已保存并推送到摄影主页！刷新摄影主页即可查看', 'success');
+  }
+});
+
+// ============================================
+//  VIEW SITE
+// ============================================
+document.getElementById('viewSiteBtn').addEventListener('click', () => {
+  window.open('photography.html', '_blank');
+});
+
+// ============================================
+//  TOAST
+// ============================================
+const toast = document.getElementById('toast');
+let toastTimer;
+
+function showToast(msg, type) {
+  toast.textContent = msg;
+  toast.className = `toast toast-${type} show`;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => {
+    toast.classList.remove('show');
+  }, 2800);
+}
+
+// ============================================
+//  KEYBOARD SHORTCUTS
+// ============================================
+document.addEventListener('keydown', (e) => {
+  if (!adminScreen.classList.contains('active')) return;
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') return;
+
+  switch(e.key) {
+    case 'Escape':
+      if (modal.classList.contains('open')) closeModal();
+      if (confirmOverlay.classList.contains('open')) hideConfirm();
+      if (bulkMode) {
+        bulkMode = false;
+        document.getElementById('bulkSelectBtn').click();
+      }
+      break;
+    case 'n':
+      if (e.ctrlKey || e.metaKey) {
+        e.preventDefault();
+        openAddModal();
+      }
+      break;
+    case 's':
+      if (e.ctrlKey || e.metaKey) {
+        e.preventDefault();
+        document.getElementById('pushBtn').click();
+      }
+      break;
+  }
+});
+
+// ============================================
+//  INIT
+// ============================================
+checkAuth();
+</script>
+
+</body>
+</html>
