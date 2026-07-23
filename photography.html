@@ -3,752 +3,447 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>摄影作品集 — Ding Yi</title>
-<meta name="description" content="丁一的个人摄影作品集，记录光影瞬间。校园风光、城市掠影、浦口马拉松、春日韵味、东京印象。">
+<title>XDforever · Photography</title>
+<meta name="description" content="XDforever 的摄影作品集：自然、建筑、铁道、人文。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Noto+Serif+SC:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500&display=swap" rel="stylesheet">
 <style>
+/* ==================== TOKENS ==================== */
 :root {
-  --bg: #FDFBF7;
-  --bg-alt: #F5F0E8;
-  --bg-gallery: #F9F7F2;
-  --text: #1B2838;
-  --text-light: #5A6B7F;
-  --text-muted: #8B9DB5;
-  --accent: #C9A96E;
-  --accent-dark: #A8884A;
-  --accent-glow: rgba(201,169,110,0.15);
-  --border: #E5DDD0;
-  --border-light: #F0EBE0;
-  --shadow-sm: 0 1px 3px rgba(27,40,56,0.05);
-  --shadow-md: 0 4px 16px rgba(27,40,56,0.08);
-  --shadow-lg: 0 12px 40px rgba(27,40,56,0.12);
-  --radius: 8px;
-  --max-w: 1240px;
-  --ease-out: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --bg: #0A0A0A;
+  --surface: #111111;
+  --placeholder: #1A1A1A;
+  --text: #F5F5F7;
+  --text-dim: #86868B;
+  --text-hover: #CCCCCC;
+  --nav-bg: rgba(10, 10, 10, 0.85);
+  --nav-line: rgba(255, 255, 255, 0.06);
+  --radius: 4px;
+  --nav-h: 52px;
+  --lb-bg: rgba(0, 0, 0, 0.96);
+  --dur-fade: 200ms;
+  --dur-med: 300ms;
+  --dur-lb: 250ms;
 }
 
+/* ==================== BASE ==================== */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
-html { scroll-behavior: smooth; }
+/* 预留滚动条槽：灯箱锁定滚动时页面不因滚动条消失而整体重排 */
+html { scrollbar-gutter: stable; }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", "Noto Sans SC", sans-serif;
   background: var(--bg);
   color: var(--text);
-  line-height: 1.7;
   font-size: 15px;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
 }
 
-.container { max-width: var(--max-w); margin: 0 auto; padding: 0 32px; }
+button { font-family: inherit; }
 
 /* ==================== NAV ==================== */
-.photo-nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  background: rgba(253, 251, 247, 0.85);
-  backdrop-filter: blur(16px) saturate(1.2);
-  -webkit-backdrop-filter: blur(16px) saturate(1.2);
-  border-bottom: 1px solid transparent;
-  transition: all 0.4s var(--ease-out);
-}
-.photo-nav.scrolled {
-  border-bottom-color: var(--border-light);
-  box-shadow: var(--shadow-sm);
+.site-nav {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--nav-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--nav-line);
 }
 .nav-inner {
-  max-width: var(--max-w); margin: 0 auto;
+  height: var(--nav-h);
   display: flex; align-items: center; justify-content: space-between;
-  padding: 0 32px; height: 56px;
+  padding: 0 24px;
 }
 .nav-brand {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 19px; font-weight: 600;
-  color: var(--text); text-decoration: none;
-  letter-spacing: 0.03em;
-  transition: opacity 0.3s;
-}
-.nav-brand:hover { opacity: 0.7; }
-.nav-brand span { color: var(--accent-dark); }
-.nav-back {
-  display: inline-flex; align-items: center; gap: 6px;
-  color: var(--text-light); text-decoration: none;
   font-size: 13px; font-weight: 500;
-  padding: 7px 16px; border-radius: 20px;
-  border: 1px solid var(--border);
-  transition: all 0.25s var(--ease-out);
+  color: var(--text); text-decoration: none;
+  letter-spacing: 0.01em;
 }
-.nav-back:hover {
-  background: var(--bg-alt); color: var(--text);
-  border-color: var(--accent); transform: translateX(-2px);
-}
-.nav-back svg { transition: transform 0.25s; }
-.nav-back:hover svg { transform: translateX(-2px); }
+.nav-filters { display: flex; align-items: center; gap: 32px; }
 
-/* ==================== HERO ==================== */
-.hero {
-  padding: 140px 0 72px;
-  text-align: center; position: relative;
-  overflow: hidden;
+.filter {
+  background: none; border: none; cursor: pointer;
+  font-size: 12px; font-weight: 400;
+  color: var(--text-dim);
+  padding: 4px 0;
+  transition: color 200ms ease;
 }
-.hero::before {
-  content: ''; position: absolute; top: 0; left: 50%;
-  transform: translateX(-50%);
-  width: 1px; height: 60px;
-  background: linear-gradient(to bottom, transparent, var(--accent), transparent);
-  opacity: 0.5;
+.filter:hover { color: var(--text-hover); }
+.filter.active { color: var(--text); box-shadow: 0 1.5px 0 0 var(--text); }
+.filter[aria-expanded="true"] { color: var(--text); }
+
+.filter-toggle {
+  display: none;
+  background: none; border: none; cursor: pointer;
+  font-size: 12px; color: var(--text-dim);
+  padding: 4px 0;
+  transition: color 200ms ease;
 }
-.hero::after {
-  content: ''; position: absolute; top: -120px; left: 50%;
-  transform: translateX(-50%);
-  width: 600px; height: 600px;
-  background: radial-gradient(circle, rgba(201,169,110,0.04) 0%, transparent 70%);
-  pointer-events: none;
+.filter-toggle:hover { color: var(--text-hover); }
+
+/* ==================== ABOUT PANEL ==================== */
+.about-panel {
+  max-height: 0; overflow: hidden;
+  background: var(--surface);
+  transition: max-height var(--dur-med) ease;
 }
-.hero-label {
-  display: inline-block; font-size: 10px;
-  letter-spacing: 0.18em; text-transform: uppercase;
-  color: var(--accent-dark); font-weight: 600;
-  padding: 5px 18px; border: 1px solid var(--accent);
-  border-radius: 20px; margin-bottom: 28px; position: relative;
-  opacity: 0; transform: translateY(14px);
-  animation: fadeUp 0.7s 0.05s forwards;
-}
-.hero h1 {
-  font-family: 'Noto Serif SC', serif;
-  font-size: clamp(36px, 7vw, 56px); font-weight: 700;
-  letter-spacing: 0.06em; color: var(--text);
-  margin-bottom: 8px; line-height: 1.15; position: relative;
-  opacity: 0; transform: translateY(14px);
-  animation: fadeUp 0.7s 0.15s forwards;
-}
-.hero .sub {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(18px, 3vw, 23px); font-style: italic;
-  color: var(--text-muted); margin-bottom: 18px; position: relative;
-  opacity: 0; transform: translateY(14px);
-  animation: fadeUp 0.7s 0.25s forwards;
-}
-.hero .desc {
-  color: var(--text-light); max-width: 480px; margin: 0 auto;
-  font-size: 15px; line-height: 1.85; position: relative;
-  opacity: 0; transform: translateY(14px);
-  animation: fadeUp 0.7s 0.35s forwards;
-}
-.hero-stats {
-  display: flex; justify-content: center; gap: 56px;
-  margin-top: 40px; position: relative;
-  opacity: 0; transform: translateY(14px);
-  animation: fadeUp 0.7s 0.45s forwards;
-}
-.hero-stat { text-align: center; }
-.hero-stat-num {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 34px; font-weight: 600; color: var(--text);
-  line-height: 1; transition: color 0.3s;
-}
-.hero-stat-label {
-  font-size: 11px; color: var(--text-muted); margin-top: 8px;
-  letter-spacing: 0.06em; text-transform: uppercase;
-}
-.hero-divider {
-  width: 1px; background: var(--border); align-self: stretch;
+.about-panel.open { max-height: 160px; }
+.about-panel p {
+  height: 140px;
+  display: flex; align-items: center; justify-content: center;
+  padding: 0 24px;
+  font-size: 13px; color: var(--text-dim);
 }
 
-@keyframes fadeUp {
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* ==================== FILTER BAR ==================== */
-.filter-bar {
-  position: sticky; top: 56px; z-index: 50;
-  background: rgba(249, 247, 242, 0.88);
-  backdrop-filter: blur(12px) saturate(1.1);
-  -webkit-backdrop-filter: blur(12px) saturate(1.1);
-  border-bottom: 1px solid var(--border-light);
-  padding: 14px 0;
-  transition: all 0.3s var(--ease-out);
-}
-.filter-inner {
-  max-width: var(--max-w); margin: 0 auto;
-  padding: 0 32px;
-  display: flex; align-items: center; gap: 8px;
-  flex-wrap: wrap; justify-content: center;
-}
-.filter-btn {
-  padding: 8px 22px; border-radius: 22px;
-  font-size: 13px; font-weight: 500; cursor: pointer;
-  border: 1px solid var(--border);
-  background: transparent; color: var(--text-light);
-  transition: all 0.3s var(--ease-out);
-  white-space: nowrap; font-family: inherit;
-  user-select: none;
-}
-.filter-btn:hover {
-  border-color: var(--accent); color: var(--text);
-  background: var(--accent-glow); transform: translateY(-1px);
-}
-.filter-btn.active {
-  background: var(--text); color: #fff; border-color: var(--text);
-  box-shadow: 0 2px 8px rgba(27,40,56,0.2);
-}
-.filter-btn.active:hover { transform: none; }
+/* ==================== MOBILE FILTER PANEL ==================== */
+.mobile-panel { display: none; }
 
 /* ==================== GALLERY ==================== */
-.gallery-section {
-  padding: 44px 0 80px;
-  background: var(--bg-gallery);
-  min-height: 50vh;
+.gallery-wrap {
+  padding: 24px 24px 80px;
+  min-height: 60vh;
 }
-.gallery {
-  columns: 3; column-gap: 20px;
-}
-.gallery-item {
+.gallery { columns: 4; column-gap: 12px; }
+.g-item {
   break-inside: avoid;
-  margin-bottom: 20px;
-  position: relative;
-  border-radius: var(--radius);
-  overflow: hidden;
+  margin-bottom: 12px;
+  background: var(--placeholder);
   cursor: pointer;
-  background: #EBE6DC;
-  transition: transform 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out);
-  opacity: 0; transform: translateY(30px);
-  will-change: transform, opacity;
 }
-.gallery-item.revealed {
-  opacity: 1; transform: translateY(0);
+.g-item img {
+  width: 100%; height: auto; display: block;
+  border-radius: 0;
+  opacity: 0;
+  transition: opacity var(--dur-fade) ease, filter var(--dur-med) ease-out;
 }
-.gallery-item:hover {
-  transform: translateY(-5px) !important;
-  box-shadow: var(--shadow-lg);
-}
-.gallery-item img {
-  width: 100%; display: block;
-  transition: transform 0.7s var(--ease-out);
-  background: #EBE6DC;
-}
-.gallery-item:hover img {
-  transform: scale(1.05);
-}
+.g-item img.loaded { opacity: 1; }
+.g-item:hover img { filter: brightness(1.08); }
 
-/* Skeleton loading shimmer */
-.gallery-item.loading img { opacity: 0; }
-.gallery-item.loading::after {
-  content: ''; position: absolute; inset: 0;
-  background: linear-gradient(90deg, #EBE6DC 25%, #F0ECE4 50%, #EBE6DC 75%);
-  background-size: 200% 100%;
-  animation: shimmer 1.5s infinite;
-}
-@keyframes shimmer {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
-}
-
-/* Overlay */
-.gallery-overlay {
-  position: absolute; inset: 0;
-  background: linear-gradient(180deg,
-    transparent 35%,
-    rgba(27,40,56,0.35) 65%,
-    rgba(27,40,56,0.72) 100%);
-  opacity: 0; transition: opacity 0.35s var(--ease-out);
-  display: flex; flex-direction: column; justify-content: flex-end;
-  padding: 28px 24px;
-}
-.gallery-item:hover .gallery-overlay { opacity: 1; }
-.gallery-overlay-title {
-  font-family: 'Noto Serif SC', serif;
-  font-size: 16px; font-weight: 600; color: #fff;
-  margin-bottom: 4px; letter-spacing: 0.03em;
-  transform: translateY(10px); transition: transform 0.35s var(--ease-out);
-}
-.gallery-overlay-sub {
-  font-size: 12px; color: rgba(255,255,255,0.72);
-  transform: translateY(10px);
-  transition: transform 0.35s var(--ease-out) 0.04s;
-}
-.gallery-item:hover .gallery-overlay-title,
-.gallery-item:hover .gallery-overlay-sub {
-  transform: translateY(0);
-}
-
-/* Zoom indicator */
-.gallery-zoom {
-  position: absolute; top: 16px; right: 16px;
-  width: 32px; height: 32px; border-radius: 50%;
-  background: rgba(255,255,255,0.15);
-  backdrop-filter: blur(4px);
-  display: flex; align-items: center; justify-content: center;
-  opacity: 0; transform: scale(0.8);
-  transition: all 0.3s var(--ease-out);
-}
-.gallery-zoom svg { color: #fff; width: 14px; height: 14px; }
-.gallery-item:hover .gallery-zoom {
-  opacity: 1; transform: scale(1);
+.empty {
+  text-align: center;
+  padding: 72px 24px;
+  font-size: 13px; color: var(--text-dim);
 }
 
 /* ==================== LIGHTBOX ==================== */
 .lightbox {
   position: fixed; inset: 0; z-index: 200;
-  background: rgba(12, 14, 20, 0.97);
+  background: var(--lb-bg);
   display: flex; align-items: center; justify-content: center;
-  opacity: 0; pointer-events: none;
-  transition: opacity 0.35s ease;
+  opacity: 0; visibility: hidden;
+  transition: opacity var(--dur-lb) ease-out, visibility 0s var(--dur-lb);
 }
-.lightbox.open { opacity: 1; pointer-events: auto; }
-.lightbox-content {
-  position: relative; max-width: 88vw; max-height: 82vh;
-  display: flex; align-items: center; justify-content: center;
+.lightbox.open {
+  opacity: 1; visibility: visible;
+  transition: opacity var(--dur-lb) ease-out;
 }
-.lightbox-content img {
-  max-width: 100%; max-height: 82vh;
-  object-fit: contain; border-radius: 4px;
-  box-shadow: 0 20px 80px rgba(0,0,0,0.5);
-  opacity: 0; transform: scale(0.94);
-  transition: all 0.4s var(--ease-out);
+.lb-img {
+  max-width: 90vw; max-height: 85vh;
+  object-fit: contain;
+  transform: scale(0.96);
+  transition: transform var(--dur-lb) ease-out;
+  user-select: none;
+  -webkit-user-drag: none;
 }
-.lightbox.open .lightbox-content img { opacity: 1; transform: scale(1); }
+.lightbox.open .lb-img { transform: scale(1); }
 
-.lightbox-close {
-  position: absolute; top: 24px; right: 32px; z-index: 10;
-  width: 44px; height: 44px; border-radius: 50%;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.12);
-  color: rgba(255,255,255,0.8); font-size: 20px; cursor: pointer;
+.lb-close {
+  position: absolute; top: 20px; right: 20px;
+  width: 36px; height: 36px; border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.08); border: none; cursor: pointer;
   display: flex; align-items: center; justify-content: center;
-  transition: all 0.25s var(--ease-out);
+  color: rgba(255, 255, 255, 0.5);
+  transition: color 200ms ease, background 200ms ease;
 }
-.lightbox-close:hover {
-  background: rgba(255,255,255,0.14);
-  color: #fff;
-}
+.lb-close:hover { color: #FFFFFF; background: rgba(255, 255, 255, 0.14); }
+.lb-close svg { width: 14px; height: 14px; }
 
-.lightbox-nav {
+.lb-arrow {
   position: absolute; top: 50%; transform: translateY(-50%);
-  width: 48px; height: 48px; border-radius: 50%;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.12);
-  color: rgba(255,255,255,0.7); cursor: pointer;
+  width: 40px; height: 40px; border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.08); border: none; cursor: pointer;
   display: flex; align-items: center; justify-content: center;
-  transition: all 0.25s var(--ease-out);
-  z-index: 10;
+  color: rgba(255, 255, 255, 0.5);
+  opacity: 0; pointer-events: none;
+  transition: opacity 200ms ease, color 200ms ease, background 200ms ease;
 }
-.lightbox-nav:hover {
-  background: rgba(255,255,255,0.15);
-  color: #fff;
-}
-.lightbox-prev { left: 24px; }
-.lightbox-next { right: 24px; }
+.lb-arrow:hover { color: #FFFFFF; background: rgba(255, 255, 255, 0.14); }
+.lb-arrow svg { width: 18px; height: 18px; }
+.lb-prev { left: 20px; }
+.lb-next { right: 20px; }
+.lightbox:hover .lb-arrow { opacity: 1; pointer-events: auto; }
 
-.lightbox-info {
-  position: absolute; bottom: 36px; left: 50%;
-  transform: translateX(-50%); text-align: center;
-}
-.lightbox-title {
-  font-family: 'Noto Serif SC', serif;
-  font-size: 15px; color: rgba(255,255,255,0.85);
-  font-weight: 500; letter-spacing: 0.03em;
-}
-.lightbox-counter {
-  font-size: 11px; color: rgba(255,255,255,0.4);
-  font-family: 'Cormorant Garamond', serif;
-  margin-top: 4px; letter-spacing: 0.04em;
-}
-
-/* ==================== ABOUT ==================== */
-.about-photo {
-  padding: 84px 0; text-align: center;
-  background: var(--bg);
-  position: relative;
-  overflow: hidden;
-}
-.about-photo::before {
-  content: ''; position: absolute; bottom: -80px; left: 50%;
-  transform: translateX(-50%);
-  width: 500px; height: 500px;
-  background: radial-gradient(circle, rgba(201,169,110,0.03) 0%, transparent 70%);
-  pointer-events: none;
-}
-.about-photo h2 {
-  font-family: 'Noto Serif SC', serif;
-  font-size: 26px; font-weight: 600;
-  color: var(--text); margin-bottom: 18px;
-  letter-spacing: 0.04em; position: relative;
-}
-.about-photo p {
-  color: var(--text-light); max-width: 560px; margin: 0 auto;
-  font-size: 15px; line-height: 1.85; position: relative;
-}
-.accent-line {
-  width: 48px; height: 2px;
-  background: var(--accent); margin: 28px auto;
-  opacity: 0.6;
-}
-
-/* ==================== FOOTER ==================== */
-.photo-footer {
-  text-align: center; padding: 40px 0 36px;
-  font-size: 13px; color: var(--text-muted);
-  border-top: 1px solid var(--border-light);
-  background: var(--bg);
-}
-.photo-footer span { color: var(--accent-dark); }
-
-/* ==================== BACK TO TOP ==================== */
-.back-to-top {
-  position: fixed; bottom: 32px; right: 32px; z-index: 50;
-  width: 42px; height: 42px; border-radius: 50%;
-  background: var(--text); color: #fff; border: none; cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 16px; opacity: 0; transform: translateY(12px);
-  transition: opacity 0.3s, transform 0.3s, background 0.25s;
-  box-shadow: 0 4px 16px rgba(27,40,56,0.25);
-  pointer-events: none;
-}
-.back-to-top.show {
-  opacity: 1; transform: translateY(0);
-  pointer-events: auto;
-}
-.back-to-top:hover { background: var(--accent-dark); transform: translateY(-2px); }
-
-/* ==================== EMPTY STATE ==================== */
-.empty-state {
-  text-align: center; padding: 72px 0;
-  display: none;
-  animation: fadeUp 0.4s forwards;
-}
-.empty-state.show { display: block; }
-.empty-state-icon { font-size: 52px; margin-bottom: 16px; opacity: 0.5; }
-.empty-state-text {
-  font-family: 'Noto Serif SC', serif;
-  font-size: 18px; color: var(--text-muted); letter-spacing: 0.03em;
+@media (hover: none) {
+  .lb-arrow { opacity: 0.6; pointer-events: auto; }
 }
 
 /* ==================== RESPONSIVE ==================== */
 @media (max-width: 1024px) {
-  .gallery { columns: 2; column-gap: 16px; }
-  .gallery-item { margin-bottom: 16px; }
-  .hero { padding: 120px 0 56px; }
+  .gallery { columns: 3; column-gap: 10px; }
+  .g-item { margin-bottom: 10px; }
 }
 
 @media (max-width: 768px) {
-  .hero { padding: 104px 0 48px; }
-  .hero h1 { font-size: clamp(30px, 8vw, 42px); }
-  .hero .sub { font-size: clamp(16px, 3vw, 20px); }
-  .hero-stats { gap: 36px; }
-  .hero-stat-num { font-size: 28px; }
-  .gallery { columns: 2; column-gap: 12px; }
-  .gallery-item { margin-bottom: 12px; }
-  .container { padding: 0 20px; }
-  .nav-inner { padding: 0 20px; }
-  .filter-inner { padding: 0 20px; }
-  .filter-btn { padding: 7px 16px; font-size: 12px; }
-  .lightbox-nav { width: 40px; height: 40px; }
-  .lightbox-prev { left: 12px; }
-  .lightbox-next { right: 12px; }
-  .lightbox-close { top: 16px; right: 16px; width: 38px; height: 38px; }
-  .lightbox-content { max-width: 92vw; }
-  .about-photo { padding: 60px 0; }
-  .back-to-top { bottom: 20px; right: 20px; width: 38px; height: 38px; }
+  .nav-inner { padding: 0 16px; }
+  .nav-filters { display: none; }
+  .filter-toggle { display: block; }
+
+  .mobile-panel {
+    display: block;
+    max-height: 0; overflow: hidden;
+    background: var(--surface);
+    border-radius: var(--radius);
+    transition: max-height var(--dur-med) ease;
+  }
+  .mobile-panel.open { max-height: 320px; }
+  .mobile-panel .filter {
+    display: block; width: 100%;
+    text-align: left;
+    padding: 12px 20px;
+    font-size: 13px;
+  }
+  .mobile-panel .filter.active { box-shadow: none; color: var(--text); }
+
+  .gallery { columns: 2; column-gap: 8px; }
+  .g-item { margin-bottom: 8px; }
+  .gallery-wrap { padding: 16px 16px 64px; }
 }
 
 @media (max-width: 480px) {
-  .gallery { columns: 1; column-gap: 0; }
-  .gallery-item { margin-bottom: 14px; }
-  .hero { padding: 96px 0 40px; }
-  .hero-stats { gap: 28px; }
-  .hero-stat-num { font-size: 24px; }
-  .hero-divider { display: none; }
-  .filter-btn { font-size: 11px; padding: 6px 14px; }
-  .gallery-overlay { padding: 20px 16px; }
-  .gallery-overlay-title { font-size: 15px; }
-  .lightbox-nav { width: 36px; height: 36px; }
-  .lightbox-prev { left: 8px; }
-  .lightbox-next { right: 8px; }
+  .gallery { columns: 1; }
 }
 
-/* Reduced motion */
+/* ==================== REDUCED MOTION ==================== */
 @media (prefers-reduced-motion: reduce) {
   *, ::before, ::after {
+    transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
   }
+  .lb-img { transform: none; }
 }
 </style>
 </head>
 <body>
 
 <!-- ==================== NAV ==================== -->
-<nav class="photo-nav" id="navbar">
+<nav class="site-nav" id="siteNav">
   <div class="nav-inner">
-    <a href="index.html" class="nav-brand">Ding<span>Yi</span></a>
-    <a href="index.html" class="nav-back">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-      返回主页
-    </a>
+    <a class="nav-brand" href="index.html" target="_blank" rel="noopener">XDforever · Photography</a>
+    <div class="nav-filters" id="navFilters" role="group" aria-label="作品分类">
+      <button type="button" class="filter active" data-cat="all">全部</button>
+      <button type="button" class="filter" data-cat="nature">自然</button>
+      <button type="button" class="filter" data-cat="arch">建筑</button>
+      <button type="button" class="filter" data-cat="rail">铁道</button>
+      <button type="button" class="filter" data-cat="street">人文</button>
+      <button type="button" class="filter" data-cat="about" aria-expanded="false">关于</button>
+    </div>
+    <button type="button" class="filter-toggle" id="filterToggle" aria-expanded="false">筛选</button>
+  </div>
+  <div class="about-panel" id="aboutPanel">
+    <p>关于内容待补充</p>
+  </div>
+  <div class="mobile-panel" id="mobilePanel">
+    <button type="button" class="filter active" data-cat="all">全部</button>
+    <button type="button" class="filter" data-cat="nature">自然</button>
+    <button type="button" class="filter" data-cat="arch">建筑</button>
+    <button type="button" class="filter" data-cat="rail">铁道</button>
+    <button type="button" class="filter" data-cat="street">人文</button>
+    <button type="button" class="filter" data-cat="about" aria-expanded="false">关于</button>
   </div>
 </nav>
 
-<!-- ==================== HERO ==================== -->
-<header class="hero container">
-  <div class="hero-label">Photography Portfolio</div>
-  <h1>光影之间</h1>
-  <div class="sub">Capturing Moments Between Light &amp; Shadow</div>
-  <p class="desc">每一帧画面，都是时间河流中被打捞的切片。从校园的一草一木，到远方的山海城邦——用镜头，记录世界的呼吸。</p>
-  <div class="hero-stats">
-    <div class="hero-stat">
-      <div class="hero-stat-num" id="photoCount">19</div>
-      <div class="hero-stat-label">作品</div>
-    </div>
-    <div class="hero-divider"></div>
-    <div class="hero-stat">
-      <div class="hero-stat-num" id="categoryCount">5</div>
-      <div class="hero-stat-label">主题</div>
-    </div>
-    <div class="hero-divider"></div>
-    <div class="hero-stat">
-      <div class="hero-stat-num">2023–</div>
-      <div class="hero-stat-label">创作年份</div>
-    </div>
-  </div>
-</header>
-
-<!-- ==================== FILTER ==================== -->
-<div class="filter-bar" id="filterBar">
-  <div class="filter-inner" id="filterInner">
-    <!-- Filter buttons generated dynamically from photo data -->
-  </div>
-</div>
-
 <!-- ==================== GALLERY ==================== -->
-<section class="gallery-section">
-  <div class="gallery container" id="gallery"></div>
-  <div class="empty-state container" id="emptyState">
-    <div class="empty-state-icon">📷</div>
-    <div class="empty-state-text">该分类暂无作品，敬请期待</div>
-  </div>
-</section>
-
-<!-- ==================== ABOUT ==================== -->
-<section class="about-photo container">
-  <h2>关于我的摄影</h2>
-  <div class="accent-line"></div>
-  <p>摄影对我而言，不只是按下快门那么简单。它是观察世界的方式，是与光线、构图和情绪的对话。信管院摄影比赛一等奖的认可，让我更加坚定地用镜头去发现和记录那些转瞬即逝的美好。</p>
-</section>
-
-<!-- ==================== FOOTER ==================== -->
-<footer class="photo-footer container">
-  <p>© 2026 <span>Ding Yi</span> · Photography Portfolio</p>
-  <p style="margin-top:4px;font-size:11px"><a href="admin.html" style="color:var(--text-muted);text-decoration:none;opacity:0.4">管理后台</a></p>
-</footer>
-
-<!-- ==================== BACK TO TOP ==================== -->
-<button class="back-to-top" id="backToTop" title="回到顶部" aria-label="回到顶部">↑</button>
+<main class="gallery-wrap">
+  <div class="gallery" id="gallery"></div>
+  <div class="empty" id="emptyState" hidden>暂无作品</div>
+</main>
 
 <!-- ==================== LIGHTBOX ==================== -->
-<div class="lightbox" id="lightbox" aria-hidden="true">
-  <button class="lightbox-close" id="lightboxClose" title="关闭" aria-label="关闭灯箱">✕</button>
-  <button class="lightbox-nav lightbox-prev" id="lightboxPrev" title="上一张" aria-label="上一张">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+<div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-label="照片查看器">
+  <button type="button" class="lb-close" id="lbClose" aria-label="关闭">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
   </button>
-  <button class="lightbox-nav lightbox-next" id="lightboxNext" title="下一张" aria-label="下一张">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+  <button type="button" class="lb-arrow lb-prev" id="lbPrev" aria-label="上一张">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
   </button>
-  <div class="lightbox-content">
-    <img src="" alt="" id="lightboxImg">
-  </div>
-  <div class="lightbox-info">
-    <div class="lightbox-title" id="lightboxTitle"></div>
-    <div class="lightbox-counter" id="lightboxCounter"></div>
-  </div>
+  <button type="button" class="lb-arrow lb-next" id="lbNext" aria-label="下一张">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+  </button>
+  <img class="lb-img" id="lbImg" alt="" decoding="async">
 </div>
 
-<!-- ==================== SCRIPTS ==================== -->
 <script>
 // ============================================
-//  PHOTO DATA — 从管理后台加载
+//  ① 数据模块 — 静态硬编码（与 admin 后台解耦）
 // ============================================
-const STORAGE_KEY = 'dingyi_photos';
-const CATEGORY_LABELS = {
-  campus: '🌿 校园风光',
-  city: '🏙️ 城市掠影',
-  marathon: '🏃 浦口马拉松',
-  spring: '🌸 春日韵味',
-  tokyo: '🏛️ 东京印象'
-};
-
-const DEFAULT_PHOTOS = [
-  { id: 1,  src: 'https://picsum.photos/seed/njau1/1000/1250', thumb: 'https://picsum.photos/seed/njau1/600/750', title: '梧桐大道', sub: '南京农业大学 · 秋', category: 'campus' },
-  { id: 2,  src: 'https://picsum.photos/seed/njau2/1000/1333', thumb: 'https://picsum.photos/seed/njau2/600/800', title: '主楼倒影', sub: '南京农业大学 · 雨后', category: 'campus' },
-  { id: 3,  src: 'https://picsum.photos/seed/njau3/1000/750',  thumb: 'https://picsum.photos/seed/njau3/600/450', title: '图书馆光影', sub: '南京农业大学 · 傍晚', category: 'campus' },
-  { id: 4,  src: 'https://picsum.photos/seed/njau4/1000/1500', thumb: 'https://picsum.photos/seed/njau4/600/900', title: '操场落日', sub: '南京农业大学 · 黄昏', category: 'campus' },
-  { id: 5,  src: 'https://picsum.photos/seed/njcity1/1000/1250', thumb: 'https://picsum.photos/seed/njcity1/600/750', title: '紫峰大厦', sub: '南京 · 城市天际线', category: 'city' },
-  { id: 6,  src: 'https://picsum.photos/seed/njcity2/1000/1000', thumb: 'https://picsum.photos/seed/njcity2/600/600', title: '夫子庙夜色', sub: '南京 · 秦淮河畔', category: 'city' },
-  { id: 7,  src: 'https://picsum.photos/seed/njcity3/1000/1333', thumb: 'https://picsum.photos/seed/njcity3/600/800', title: '颐和路', sub: '南京 · 梧桐光影', category: 'city' },
-  { id: 8,  src: 'https://picsum.photos/seed/njcity4/1000/750',  thumb: 'https://picsum.photos/seed/njcity4/600/450', title: '玄武湖晨曦', sub: '南京 · 清晨', category: 'city' },
-  { id: 9,  src: 'https://picsum.photos/seed/pkrun1/1000/1375', thumb: 'https://picsum.photos/seed/pkrun1/600/825', title: '起跑瞬间', sub: '浦口马拉松 · 2025', category: 'marathon' },
-  { id: 10, src: 'https://picsum.photos/seed/pkrun2/1000/750',  thumb: 'https://picsum.photos/seed/pkrun2/600/450', title: '冲刺时刻', sub: '浦口马拉松 · 终点线', category: 'marathon' },
-  { id: 11, src: 'https://picsum.photos/seed/pkrun3/1000/1125', thumb: 'https://picsum.photos/seed/pkrun3/600/675', title: '赛道风景', sub: '浦口马拉松 · 沿途', category: 'marathon' },
-  { id: 12, src: 'https://picsum.photos/seed/njflwr1/1000/1250', thumb: 'https://picsum.photos/seed/njflwr1/600/750', title: '樱花季', sub: '南京 · 鸡鸣寺', category: 'spring' },
-  { id: 13, src: 'https://picsum.photos/seed/njflwr2/1000/1000', thumb: 'https://picsum.photos/seed/njflwr2/600/600', title: '梅花山', sub: '南京 · 明孝陵', category: 'spring' },
-  { id: 14, src: 'https://picsum.photos/seed/njflwr3/1000/1333', thumb: 'https://picsum.photos/seed/njflwr3/600/800', title: '春日韵味', sub: '摄影比赛一等奖作品', category: 'spring' },
-  { id: 15, src: 'https://picsum.photos/seed/njflwr4/1000/750',  thumb: 'https://picsum.photos/seed/njflwr4/600/450', title: '绿意盎然', sub: '校园 · 春', category: 'spring' },
-  { id: 16, src: 'https://picsum.photos/seed/tko1/1000/1250', thumb: 'https://picsum.photos/seed/tko1/600/750', title: '东京塔之夜', sub: '东京 · 港区', category: 'tokyo' },
-  { id: 17, src: 'https://picsum.photos/seed/tko2/1000/1000', thumb: 'https://picsum.photos/seed/tko2/600/600', title: '浅草寺', sub: '东京 · 午后', category: 'tokyo' },
-  { id: 18, src: 'https://picsum.photos/seed/tko3/1000/1333', thumb: 'https://picsum.photos/seed/tko3/600/800', title: '涩谷十字路口', sub: '东京 · 夜幕', category: 'tokyo' },
-  { id: 19, src: 'https://picsum.photos/seed/tko4/1000/750',  thumb: 'https://picsum.photos/seed/tko4/600/450', title: '上野公园', sub: '东京 · 日常', category: 'tokyo' }
+const PHOTOS = [
+  { id: 1,  src: 'https://picsum.photos/seed/nature01/1000/1333', thumb: 'https://picsum.photos/seed/nature01/600/800',  category: 'nature' },
+  { id: 2,  src: 'https://picsum.photos/seed/nature02/1000/750',  thumb: 'https://picsum.photos/seed/nature02/600/450',  category: 'nature' },
+  { id: 3,  src: 'https://picsum.photos/seed/nature03/1000/1000', thumb: 'https://picsum.photos/seed/nature03/600/600',  category: 'nature' },
+  { id: 4,  src: 'https://picsum.photos/seed/nature04/1000/1500', thumb: 'https://picsum.photos/seed/nature04/600/900',  category: 'nature' },
+  { id: 5,  src: 'https://picsum.photos/seed/arch01/1000/750',    thumb: 'https://picsum.photos/seed/arch01/600/450',    category: 'arch' },
+  { id: 6,  src: 'https://picsum.photos/seed/arch02/1000/1500',   thumb: 'https://picsum.photos/seed/arch02/600/900',    category: 'arch' },
+  { id: 7,  src: 'https://picsum.photos/seed/arch03/1000/1333',   thumb: 'https://picsum.photos/seed/arch03/600/800',    category: 'arch' },
+  { id: 8,  src: 'https://picsum.photos/seed/arch04/1000/625',    thumb: 'https://picsum.photos/seed/arch04/600/375',    category: 'arch' },
+  { id: 9,  src: 'https://picsum.photos/seed/rail01/1000/667',    thumb: 'https://picsum.photos/seed/rail01/600/400',    category: 'rail' },
+  { id: 10, src: 'https://picsum.photos/seed/rail02/1000/1333',   thumb: 'https://picsum.photos/seed/rail02/600/800',    category: 'rail' },
+  { id: 11, src: 'https://picsum.photos/seed/rail03/1000/563',    thumb: 'https://picsum.photos/seed/rail03/600/338',    category: 'rail' },
+  { id: 12, src: 'https://picsum.photos/seed/rail04/1000/1000',   thumb: 'https://picsum.photos/seed/rail04/600/600',    category: 'rail' },
+  { id: 13, src: 'https://picsum.photos/seed/street01/1000/1500', thumb: 'https://picsum.photos/seed/street01/600/900',  category: 'street' },
+  { id: 14, src: 'https://picsum.photos/seed/street02/1000/667',  thumb: 'https://picsum.photos/seed/street02/600/400',  category: 'street' },
+  { id: 15, src: 'https://picsum.photos/seed/street03/1000/750',  thumb: 'https://picsum.photos/seed/street03/600/450',  category: 'street' },
+  { id: 16, src: 'https://picsum.photos/seed/street04/1000/1333', thumb: 'https://picsum.photos/seed/street04/600/800',  category: 'street' }
 ];
 
-function loadPhotos() {
-  try {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored) {
-      const parsed = JSON.parse(stored);
-      if (Array.isArray(parsed) && parsed.length > 0) return parsed;
-    }
-  } catch(e) {}
-  return JSON.parse(JSON.stringify(DEFAULT_PHOTOS));
-}
-
-function getCategoryLabel(cat) {
-  return CATEGORY_LABELS[cat] || cat;
-}
-
-function getCategoriesFromPhotos(photoList) {
-  const cats = new Set();
-  photoList.forEach(p => cats.add(p.category));
-  return Array.from(cats).sort();
-}
-
-let photos = loadPhotos();
+const CATEGORY_ALTS = { nature: '自然', arch: '建筑', rail: '铁道', street: '人文' };
 
 // ============================================
-//  STATE
+//  状态
 // ============================================
 const gallery = document.getElementById('gallery');
 const emptyState = document.getElementById('emptyState');
-const filterInner = document.querySelector('.filter-inner');
-let currentCategory = 'all';
-let currentLightboxIndex = -1;
-let filteredPhotos = [...photos];
-
-// ============================================
-//  RENDER GALLERY
-// ============================================
-function renderGallery() {
-  gallery.innerHTML = '';
-  filteredPhotos = currentCategory === 'all'
-    ? [...photos]
-    : photos.filter(p => p.category === currentCategory);
-
-  if (filteredPhotos.length === 0) {
-    emptyState.classList.add('show');
-  } else {
-    emptyState.classList.remove('show');
-
-    filteredPhotos.forEach((photo, index) => {
-      const item = document.createElement('div');
-      item.className = 'gallery-item loading';
-      item.setAttribute('data-index', index);
-      item.addEventListener('click', () => openLightbox(index));
-
-      const fallbackSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="600" height="450"><defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#D5CFC0"/><stop offset="100%" stop-color="#C4B99A"/></linearGradient></defs><rect fill="url(#g)" width="600" height="450"/><text x="300" y="215" text-anchor="middle" fill="#A89878" font-size="16" font-family="serif">📷</text></svg>';
-
-      item.innerHTML = `
-        <img src="${photo.thumb}" alt="${photo.title}" loading="lazy" decoding="async"
-             onload="this.parentElement.classList.remove('loading')"
-             onerror="this.onerror=null;this.src='data:image/svg+xml,${encodeURIComponent(fallbackSvg)}';this.parentElement.classList.remove('loading')">
-        <div class="gallery-overlay">
-          <div class="gallery-overlay-title">${photo.title}</div>
-          <div class="gallery-overlay-sub">${photo.sub}</div>
-        </div>
-        <div class="gallery-zoom">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35M11 8v6M8 11h6"/></svg>
-        </div>
-      `;
-
-      gallery.appendChild(item);
-    });
-  }
-
-  document.getElementById('photoCount').textContent = photos.length;
-  document.getElementById('categoryCount').textContent = getCategoriesFromPhotos(photos).length;
-}
-
-// ============================================
-//  SCROLL REVEAL (IntersectionObserver)
-// ============================================
-const revealObserver = new IntersectionObserver((entries) => {
-  entries.forEach((entry) => {
-    if (entry.isIntersecting) {
-      const el = entry.target;
-      const siblings = Array.from(el.parentNode.children).filter(c => c.classList.contains('gallery-item'));
-      const idx = siblings.indexOf(el);
-      el.style.transitionDelay = (idx * 0.05) + 's';
-      requestAnimationFrame(() => el.classList.add('revealed'));
-      revealObserver.unobserve(el);
-    }
-  });
-}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-
-function observeGalleryItems() {
-  document.querySelectorAll('.gallery-item').forEach(el => revealObserver.observe(el));
-}
-
-// ============================================
-//  FILTER — 动态生成
-// ============================================
-function buildFilters() {
-  filterInner.innerHTML = '';
-  const btnAll = document.createElement('button');
-  btnAll.className = 'filter-btn active';
-  btnAll.dataset.category = 'all';
-  btnAll.textContent = '全部作品';
-  filterInner.appendChild(btnAll);
-
-  const cats = getCategoriesFromPhotos(photos);
-  const labels = {
-    campus: '🌿 校园风光', city: '🏙️ 城市掠影',
-    marathon: '🏃 浦口马拉松', spring: '🌸 春日韵味',
-    tokyo: '🏛️ 东京印象'
-  };
-  cats.forEach(cat => {
-    const btn = document.createElement('button');
-    btn.className = 'filter-btn';
-    btn.dataset.category = cat;
-    btn.textContent = labels[cat] || cat;
-    filterInner.appendChild(btn);
-  });
-
-  // Bind filter events
-  filterInner.querySelectorAll('.filter-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      if (btn.dataset.category === currentCategory) return;
-      filterInner.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      currentCategory = btn.dataset.category;
-      if (lightbox.classList.contains('open')) closeLightbox();
-      renderGallery();
-      observeGalleryItems();
-    });
-  });
-}
-
-// ============================================
-//  LIGHTBOX
-// ============================================
+const navFilters = document.getElementById('navFilters');
+const mobilePanel = document.getElementById('mobilePanel');
+const filterToggle = document.getElementById('filterToggle');
+const aboutPanel = document.getElementById('aboutPanel');
 const lightbox = document.getElementById('lightbox');
-const lightboxImg = document.getElementById('lightboxImg');
-const lightboxTitle = document.getElementById('lightboxTitle');
-const lightboxCounter = document.getElementById('lightboxCounter');
+const lbImg = document.getElementById('lbImg');
+
+let currentCat = 'all';
+let aboutOpen = false;
+let filtered = [...PHOTOS];
+let lbIndex = -1;
+let lbSeq = 0; // 大图加载令牌，防止慢请求覆盖已切换的照片
+
+const SWIPE_X = 50;
+const SWIPE_Y = 80;
+
+// ============================================
+//  ② 渲染模块 — 瞬间置换，无过渡动画
+// ============================================
+function renderGallery(cat) {
+  gallery.innerHTML = '';
+  filtered = cat === 'all' ? [...PHOTOS] : PHOTOS.filter(p => p.category === cat);
+
+  if (filtered.length === 0) {
+    emptyState.hidden = false;
+    return;
+  }
+  emptyState.hidden = true;
+
+  filtered.forEach((photo, index) => {
+    const item = document.createElement('div');
+    item.className = 'g-item';
+    item.addEventListener('click', () => openLightbox(index));
+
+    const img = document.createElement('img');
+    img.src = photo.thumb;
+    img.dataset.full = photo.src;
+    img.alt = CATEGORY_ALTS[photo.category] || '';
+    img.loading = 'lazy';
+    img.decoding = 'async';
+    // 从 thumb URL 解析宽高，预留比例空间（失败时保留占位色块）
+    const dim = photo.thumb.match(/(\d+)\/(\d+)$/);
+    if (dim) { img.width = dim[1]; img.height = dim[2]; }
+
+    img.addEventListener('load', () => img.classList.add('loaded'));
+    img.addEventListener('error', () => { /* 保持未 loaded，显示占位底色 */ });
+    if (img.complete && img.naturalWidth > 0) img.classList.add('loaded');
+
+    item.appendChild(img);
+    gallery.appendChild(item);
+  });
+}
+
+// ============================================
+//  ③ 筛选模块 — 桌面/移动两套 DOM 同一委托
+// ============================================
+function syncActive() {
+  document.querySelectorAll('.filter[data-cat]').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.cat === currentCat);
+  });
+}
+
+function handleFilterClick(e) {
+  const btn = e.target.closest('button[data-cat]');
+  if (!btn) return;
+  const cat = btn.dataset.cat;
+
+  if (cat === 'about') {
+    closeMobilePanel();
+    toggleAbout();
+    return;
+  }
+  if (cat === currentCat) {
+    closeMobilePanel();
+    return;
+  }
+  if (aboutOpen) toggleAbout(false);
+  currentCat = cat;
+  syncActive();
+  if (lightbox.classList.contains('open')) closeLightbox();
+  renderGallery(cat);
+  closeMobilePanel();
+}
+
+navFilters.addEventListener('click', handleFilterClick);
+mobilePanel.addEventListener('click', handleFilterClick);
+
+// ============================================
+//  ④ 关于面板模块
+// ============================================
+function toggleAbout(force) {
+  aboutOpen = force !== undefined ? force : !aboutOpen;
+  aboutPanel.classList.toggle('open', aboutOpen);
+  document.querySelectorAll('.filter[data-cat="about"]').forEach(btn => {
+    btn.setAttribute('aria-expanded', String(aboutOpen));
+  });
+}
+
+// ============================================
+//  移动端筛选下拉
+// ============================================
+function closeMobilePanel() {
+  mobilePanel.classList.remove('open');
+  filterToggle.setAttribute('aria-expanded', 'false');
+}
+
+filterToggle.addEventListener('click', () => {
+  const open = mobilePanel.classList.toggle('open');
+  filterToggle.setAttribute('aria-expanded', String(open));
+});
+
+// 点击导航区域外：收起关于面板与移动下拉
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('.site-nav')) {
+    if (aboutOpen) toggleAbout(false);
+    closeMobilePanel();
+  }
+});
+
+// ============================================
+//  ⑤ 灯箱模块
+// ============================================
+// 先用已缓存的缩略图立即出图，全尺寸图在后台加载完成后自动替换
+function showLightboxPhoto(photo) {
+  const seq = ++lbSeq;
+  lbImg.alt = CATEGORY_ALTS[photo.category] || '';
+  lbImg.src = photo.thumb;
+  const full = new Image();
+  full.decoding = 'async';
+  full.onload = () => { if (seq === lbSeq && lbIndex !== -1) lbImg.src = photo.src; };
+  full.src = photo.src;
+}
 
 function openLightbox(index) {
-  currentLightboxIndex = index;
-  updateLightboxContent();
+  lbIndex = index;
+  const photo = filtered[index];
+  if (!photo) return;
+  showLightboxPhoto(photo);
   lightbox.classList.add('open');
   lightbox.setAttribute('aria-hidden', 'false');
   document.body.style.overflow = 'hidden';
@@ -760,87 +455,69 @@ function closeLightbox() {
   lightbox.setAttribute('aria-hidden', 'true');
   document.body.style.overflow = '';
   document.removeEventListener('keydown', handleLightboxKeys);
-  currentLightboxIndex = -1;
-}
-
-function updateLightboxContent() {
-  const photo = filteredPhotos[currentLightboxIndex];
-  if (!photo) return;
-  lightboxImg.src = photo.src;
-  lightboxImg.alt = photo.title;
-  lightboxTitle.textContent = photo.title + ' · ' + photo.sub;
-  lightboxCounter.textContent = `${currentLightboxIndex + 1} / ${filteredPhotos.length}`;
+  lbIndex = -1;
+  // 待淡出结束后再清空 src，避免下次打开闪旧图
+  setTimeout(() => { if (lbIndex === -1) lbImg.removeAttribute('src'); }, 260);
 }
 
 function navigateLightbox(direction) {
-  if (filteredPhotos.length === 0) return;
-  currentLightboxIndex = (currentLightboxIndex + direction + filteredPhotos.length) % filteredPhotos.length;
-
-  lightboxImg.style.opacity = '0';
-  lightboxImg.style.transform = 'scale(0.95)';
-  setTimeout(() => {
-    updateLightboxContent();
-    lightboxImg.offsetHeight;
-    lightboxImg.style.opacity = '1';
-    lightboxImg.style.transform = 'scale(1)';
-  }, 180);
+  if (filtered.length === 0 || lbIndex === -1) return;
+  lbIndex = (lbIndex + direction + filtered.length) % filtered.length;
+  showLightboxPhoto(filtered[lbIndex]);
 }
 
-document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
-document.getElementById('lightboxPrev').addEventListener('click', () => navigateLightbox(-1));
-document.getElementById('lightboxNext').addEventListener('click', () => navigateLightbox(1));
+document.getElementById('lbClose').addEventListener('click', closeLightbox);
+document.getElementById('lbPrev').addEventListener('click', () => navigateLightbox(-1));
+document.getElementById('lbNext').addEventListener('click', () => navigateLightbox(1));
 
 lightbox.addEventListener('click', (e) => {
-  if (e.target === lightbox || e.target.classList.contains('lightbox-content')) {
-    closeLightbox();
-  }
-});
-
-// Swipe support for mobile
-let touchStartX = 0;
-lightbox.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
-lightbox.addEventListener('touchend', (e) => {
-  const diff = touchStartX - e.changedTouches[0].screenX;
-  if (Math.abs(diff) > 60) navigateLightbox(diff > 0 ? 1 : -1);
+  if (e.target === lightbox) closeLightbox();
 });
 
 function handleLightboxKeys(e) {
-  switch(e.key) {
+  switch (e.key) {
     case 'Escape': closeLightbox(); break;
-    case 'ArrowLeft':  e.preventDefault(); navigateLightbox(-1); break;
+    case 'ArrowLeft': e.preventDefault(); navigateLightbox(-1); break;
     case 'ArrowRight': e.preventDefault(); navigateLightbox(1); break;
   }
 }
 
-// ============================================
-//  SCROLL EFFECTS
-// ============================================
-const navbar = document.getElementById('navbar');
-const backToTopBtn = document.getElementById('backToTop');
-let ticking = false;
-
-window.addEventListener('scroll', () => {
-  if (!ticking) {
-    requestAnimationFrame(() => {
-      const y = window.scrollY;
-      navbar.classList.toggle('scrolled', y > 10);
-      backToTopBtn.classList.toggle('show', y > 500);
-      ticking = false;
-    });
-    ticking = true;
+// 触屏滑动翻页：水平位移 > 50px 且垂直位移 < 80px
+let touchStartX = 0;
+let touchStartY = 0;
+lightbox.addEventListener('touchstart', (e) => {
+  touchStartX = e.changedTouches[0].screenX;
+  touchStartY = e.changedTouches[0].screenY;
+}, { passive: true });
+lightbox.addEventListener('touchend', (e) => {
+  const diffX = touchStartX - e.changedTouches[0].screenX;
+  const diffY = touchStartY - e.changedTouches[0].screenY;
+  if (Math.abs(diffX) > SWIPE_X && Math.abs(diffY) < SWIPE_Y) {
+    navigateLightbox(diffX > 0 ? 1 : -1);
   }
 }, { passive: true });
 
-backToTopBtn.addEventListener('click', () => {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+// ============================================
+//  ⑥ 断点状态清理 — 跨越 768px 时收起移动下拉
+// ============================================
+const mobileMq = window.matchMedia('(max-width: 768px)');
+mobileMq.addEventListener('change', closeMobilePanel);
+
+// ============================================
+//  ⑦ 大图预载 — 页面空闲时提前拉取全尺寸图
+// ============================================
+window.addEventListener('load', () => {
+  const idle = window.requestIdleCallback || ((cb) => setTimeout(cb, 500));
+  idle(() => {
+    PHOTOS.forEach(p => { const img = new Image(); img.src = p.src; });
+  });
 });
 
 // ============================================
 //  INIT
 // ============================================
-buildFilters();
-renderGallery();
-observeGalleryItems();
+syncActive();
+renderGallery(currentCat);
 </script>
 
 </body>
