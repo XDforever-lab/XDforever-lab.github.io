@@ -7,7 +7,7 @@
 <meta name="description" content="丁一，南京农业大学信息管理学院本科生。研究方向：自然语言处理、计算人文、大语言模型。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Noto+Serif+SC:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Noto+Sans+SC:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
   --bg: #FDFBF7;
@@ -24,7 +24,7 @@
   --shadow: 0 1px 3px rgba(27,40,56,0.06);
   --shadow-lg: 0 4px 24px rgba(27,40,56,0.08);
   --radius: 6px;
-  --max-w: 860px;
+  --max-w: 1200px;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -41,7 +41,7 @@ body {
 }
 
 /* ---- NAVIGATION ---- */
-nav {
+#navbar {
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
   background: var(--nav-bg);
   backdrop-filter: blur(12px);
@@ -49,7 +49,7 @@ nav {
   border-bottom: 1px solid var(--border-light);
   transition: box-shadow 0.3s;
 }
-nav.scrolled { box-shadow: var(--shadow); }
+#navbar.scrolled { box-shadow: var(--shadow); }
 
 .nav-inner {
   max-width: var(--max-w); margin: 0 auto;
@@ -81,44 +81,64 @@ nav.scrolled { box-shadow: var(--shadow); }
 .nav-photo svg { flex-shrink: 0; margin-top: -1px; }
 .nav-photo:hover { background: var(--bg-alt); color: var(--text); }
 
-/* ---- CONTAINER ---- */
-.container { max-width: var(--max-w); margin: 0 auto; padding: 0 28px; }
-
-/* ---- HERO ---- */
-.hero {
-  padding: 120px 0 60px;
-  display: flex; align-items: flex-start; gap: 48px;
+/* ---- PAGE LAYOUT: left sidebar + right content ---- */
+.page-layout {
+  display: grid; grid-template-columns: 320px 1fr;
+  gap: 56px;
+  max-width: var(--max-w); margin: 0 auto;
+  padding: 88px 28px 0;
 }
-.hero-left { flex-shrink: 0; }
-.hero-avatar {
-  width: 120px; height: 160px; border-radius: 8px;
+
+/* ---- SIDEBAR ---- */
+.sidebar {
+  position: sticky; top: 72px;
+  align-self: start;
+  max-height: calc(100vh - 96px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+  padding-right: 6px;
+}
+.sidebar::-webkit-scrollbar { width: 4px; }
+.sidebar::-webkit-scrollbar-track { background: transparent; }
+.sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+.sidebar-avatar {
+  width: 100px; height: 133px; border-radius: 8px;
   object-fit: cover;
+  border: 1px solid var(--border);
+  background: var(--bg-alt);
   box-shadow: 0 2px 12px rgba(27,40,56,0.08);
-  user-select: none;
+  user-select: none; display: block; margin-bottom: 20px;
 }
-
-.hero-right { padding-top: 4px; }
-.hero-name {
-  font-family: 'Noto Serif SC', serif;
-  font-size: 36px; font-weight: 700; letter-spacing: 0.04em;
-  color: var(--text); margin-bottom: 4px;
+.sidebar-name {
+  font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 28px; font-weight: 700; letter-spacing: 0.04em;
+  color: var(--text); margin-bottom: 2px; line-height: 1.15;
 }
-.hero-name-en {
+.sidebar-name-en {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 20px; font-weight: 500; font-style: italic;
-  color: var(--text-muted); margin-bottom: 14px;
+  font-size: 17px; font-weight: 500; font-style: italic;
+  color: var(--text-muted); margin-bottom: 16px;
 }
-.hero-bio { color: var(--text-light); font-size: 15px; line-height: 1.8; max-width: 520px; }
-.hero-bio strong { color: var(--text); font-weight: 600; }
+.sidebar-bio {
+  color: var(--text-light); font-size: 13px; line-height: 1.7;
+  margin-bottom: 24px;
+}
+.sidebar-bio strong { color: var(--text); font-weight: 600; }
 
-/* ---- SECTION ---- */
+/* ---- RIGHT PANEL ---- */
+.right-panel { min-width: 0; }
+
 .section {
-  padding: 64px 0;
+  padding: 48px 0;
   border-top: 1px solid var(--border-light);
+  scroll-margin-top: 72px;
 }
+.section:first-child { border-top: none; }
 
 .section-title {
-  font-family: 'Noto Serif SC', serif;
+  font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 22px; font-weight: 600;
   color: var(--text); margin-bottom: 28px;
   display: flex; align-items: center; gap: 12px;
@@ -253,7 +273,7 @@ footer span { color: var(--accent-dark); }
 /* ---- ORNAMENT ---- */
 .ornament {
   text-align: center; padding: 20px 0 0;
-  font-family: 'Noto Serif SC', serif;
+  font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 18px; color: var(--border);
   user-select: none; letter-spacing: 0.2em;
 }
@@ -295,11 +315,12 @@ footer span { color: var(--accent-dark); }
   .nav-links a { font-size: 14px; padding: 10px 8px; border-radius: 6px; }
   .nav-photo { padding: 10px 8px !important; }
 
-  .hero { flex-direction: column; align-items: center; text-align: center; gap: 24px; padding: 90px 0 40px; }
-  .hero-bio { max-width: 100%; }
-  .hero-avatar { width: 90px; height: 120px; }
-  .hero-name { font-size: 28px; }
+  .nav-inner { padding: 0 20px; }
 
+  .page-layout { grid-template-columns: 1fr; gap: 32px; padding: 80px 20px 0; }
+  .sidebar { position: static; text-align: center; max-height: none; overflow: visible; padding-right: 0; }
+  .sidebar-avatar { margin: 0 auto 20px; width: 80px; height: 107px; }
+  .sidebar-name { font-size: 28px; }
   .section { padding: 48px 0; }
   .section-title { font-size: 20px; }
 
@@ -315,9 +336,6 @@ footer span { color: var(--accent-dark); }
 
   .award-item { flex-direction: column; gap: 2px; }
   .award-date { font-size: 12px; }
-
-  .container { padding: 0 20px; }
-  .nav-inner { padding: 0 20px; }
 
   .back-to-top { bottom: 20px; right: 20px; width: 36px; height: 36px; font-size: 16px; }
 }
@@ -350,23 +368,21 @@ footer span { color: var(--accent-dark); }
   </div>
 </nav>
 
-<!-- HERO -->
-<header class="hero container">
-  <div class="hero-left">
-    <img class="hero-avatar" src="avatar.jpg" alt="丁一">
-  </div>
-  <div class="hero-right">
-    <h1 class="hero-name">丁一</h1>
-    <div class="hero-name-en">Ding Yi</div>
-    <p class="hero-bio">
+<!-- SIDEBAR + RIGHT PANEL -->
+<div class="page-layout">
+  <aside class="sidebar">
+    <img class="sidebar-avatar" src="avatar.jpg" alt="丁一">
+    <h1 class="sidebar-name">丁一</h1>
+    <div class="sidebar-name-en">Ding Yi</div>
+    <p class="sidebar-bio">
       <strong>中共预备党员</strong>，南京农业大学<strong>信息管理学院</strong>本科生。研究兴趣涵盖<strong>自然语言处理</strong>、<strong>计算人文</strong>与<strong>大语言模型</strong>。致力于将人工智能技术应用于古典文学生成与数字人文研究，未来希望深耕情报学与数字人文交叉领域，以情报驱动的计算范式破解数据语义鸿沟。
     </p>
-  </div>
-</header>
+
+  </aside>
+  <main class="right-panel">
 
 <!-- ABOUT -->
 <section class="section fade-section" id="about">
-  <div class="container">
     <h2 class="section-title">教育背景</h2>
 
     <div class="edu-item">
@@ -375,13 +391,22 @@ footer span { color: var(--accent-dark); }
         <span class="edu-date">2023.09 – 2027.06（预期）</span>
       </div>
       <div class="edu-degree">信息管理与信息系统 本科</div>
-      <div class="edu-detail">GPA 3.96 / 4.50 · 专业排名 5/52 · 三好学生一等奖学金</div>
+      <div class="edu-detail">GPA 3.98 / 4.50 · 专业排名 4/52 · 三好学生一等奖学金</div>
+    </div>
+
+    <div class="edu-item">
+      <div class="edu-header">
+        <span class="edu-school">中国科学院大学 · 科技战略咨询研究院</span>
+        <span class="edu-date">2027.09 – 2030.06（预期）</span>
+      </div>
+      <div class="edu-degree">情报学 学术硕士</div>
+      <div class="edu-detail">研究方向：情报理论方法与应用</div>
     </div>
 
     <div class="edu-item">
       <div class="edu-header">
         <span class="edu-school">东京大学 · 新质生产力项目（短期研修）</span>
-        <span class="edu-date">2024.08</span>
+        <span class="edu-date">2024.07 – 2024.08</span>
       </div>
       <div class="edu-degree">江苏省高校学生境外学习政府奖学金项目</div>
       <div class="edu-detail">人工智能赋能弱势群体课题研究 · 小组第一（92.5/100）· 优秀个人</div>
@@ -422,12 +447,10 @@ footer span { color: var(--accent-dark); }
       <span class="skill-tag">日语 JLPT N2 96</span>
       <span class="skill-tag">普通话二级甲等</span>
     </div>
-  </div>
 </section>
 
 <!-- RESEARCH -->
 <section class="section fade-section" id="research">
-  <div class="container">
     <h2 class="section-title">研究工作</h2>
 
     <div class="card">
@@ -491,12 +514,10 @@ footer span { color: var(--accent-dark); }
         <span class="card-tag">Prompt Engineering</span>
       </div>
     </div>
-  </div>
 </section>
 
 <!-- PROJECTS -->
 <section class="section fade-section" id="projects">
-  <div class="container">
     <h2 class="section-title">竞赛与项目</h2>
 
     <div class="card">
@@ -552,12 +573,10 @@ footer span { color: var(--accent-dark); }
       <div class="card-title">第九届江苏省高校企业竞争模拟大赛 · 三等奖</div>
       <div class="card-meta">核心成员 · 省级 · 2025.03</div>
     </div>
-  </div>
 </section>
 
 <!-- AWARDS -->
 <section class="section fade-section" id="awards">
-  <div class="container">
     <h2 class="section-title">荣誉与奖项</h2>
 
     <div class="award-cat">🏅 奖学金</div>
@@ -589,12 +608,10 @@ footer span { color: var(--accent-dark); }
     <div class="award-item"><span class="award-name">信管院摄影比赛 · 一等奖</span><span class="award-date">2025.05</span></div>
     <div class="award-item"><span class="award-name">三院联合运动会男子4×100米 · 第五名</span><span class="award-date">2025.10</span></div>
     <div class="award-item"><span class="award-name">信息管理学院新生辩论赛 · 团体亚军</span><span class="award-date">2023.11</span></div>
-  </div>
 </section>
 
 <!-- LEADERSHIP -->
 <section class="section fade-section" id="leadership">
-  <div class="container">
     <h2 class="section-title">校园经历</h2>
     <ul class="lead-list">
       <li class="lead-item">
@@ -618,24 +635,20 @@ footer span { color: var(--accent-dark); }
         <span><span class="lead-role">成员 / 志愿者</span> · <span class="lead-org">南京农业大学学生会 &amp; 大学生艺术团数字中心</span></span>
       </li>
     </ul>
-  </div>
 </section>
 
 <!-- ABOUT ME -->
 <section class="section fade-section" id="about-me">
-  <div class="container">
     <h2 class="section-title">关于我</h2>
     <div class="card" style="border-left: 3px solid var(--accent); padding-left: 28px;">
       <div class="card-desc" style="font-size: 15px; line-height: 1.9; color: var(--text-light);">
         沉着冷静、永不言弃。未来希望深耕<strong>情报学与数字人文交叉领域</strong>，致力于以情报驱动的计算范式，破解数字人文中的数据语义鸿沟，同时运用大模型技术，让AI更好地赋能人文学术与实践。
       </div>
     </div>
-  </div>
 </section>
 
 <!-- CONTACT -->
 <section class="section fade-section" id="contact">
-  <div class="container">
     <h2 class="section-title">联系方式</h2>
     <div class="contact-grid">
       <a href="mailto:dingyi@stu.njau.edu.cn" class="contact-item">
@@ -667,12 +680,14 @@ footer span { color: var(--accent-dark); }
       </a>
 
     </div>
-  </div>
 </section>
 
-<div class="ornament container">◇</div>
+  </main>
+</div>
 
-<footer class="container">
+<div class="ornament">◇</div>
+
+<footer>
   <p>© 2026 <span>Ding Yi</span> · Built with care · Nanjing Agricultural University</p>
 </footer>
 
