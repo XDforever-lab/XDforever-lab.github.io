@@ -2,3 +2,10 @@
 Thumbs.db
 *.log
 .trae/
+
+# 原图（不提交，太大）
+photos/
+
+# npm
+node_modules/
+package-lock.json

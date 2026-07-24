@@ -278,25 +278,110 @@ button { font-family: inherit; }
 
 <script>
 // ============================================
-//  ① 数据模块 — 静态硬编码（与 admin 后台解耦）
+//  ① 数据模块 — 自动生成自 photos/ 目录
 // ============================================
 const PHOTOS = [
-  { id: 1,  src: 'https://picsum.photos/seed/nature01/1000/1333', thumb: 'https://picsum.photos/seed/nature01/600/800',  category: 'nature' },
-  { id: 2,  src: 'https://picsum.photos/seed/nature02/1000/750',  thumb: 'https://picsum.photos/seed/nature02/600/450',  category: 'nature' },
-  { id: 3,  src: 'https://picsum.photos/seed/nature03/1000/1000', thumb: 'https://picsum.photos/seed/nature03/600/600',  category: 'nature' },
-  { id: 4,  src: 'https://picsum.photos/seed/nature04/1000/1500', thumb: 'https://picsum.photos/seed/nature04/600/900',  category: 'nature' },
-  { id: 5,  src: 'https://picsum.photos/seed/arch01/1000/750',    thumb: 'https://picsum.photos/seed/arch01/600/450',    category: 'arch' },
-  { id: 6,  src: 'https://picsum.photos/seed/arch02/1000/1500',   thumb: 'https://picsum.photos/seed/arch02/600/900',    category: 'arch' },
-  { id: 7,  src: 'https://picsum.photos/seed/arch03/1000/1333',   thumb: 'https://picsum.photos/seed/arch03/600/800',    category: 'arch' },
-  { id: 8,  src: 'https://picsum.photos/seed/arch04/1000/625',    thumb: 'https://picsum.photos/seed/arch04/600/375',    category: 'arch' },
-  { id: 9,  src: 'https://picsum.photos/seed/rail01/1000/667',    thumb: 'https://picsum.photos/seed/rail01/600/400',    category: 'rail' },
-  { id: 10, src: 'https://picsum.photos/seed/rail02/1000/1333',   thumb: 'https://picsum.photos/seed/rail02/600/800',    category: 'rail' },
-  { id: 11, src: 'https://picsum.photos/seed/rail03/1000/563',    thumb: 'https://picsum.photos/seed/rail03/600/338',    category: 'rail' },
-  { id: 12, src: 'https://picsum.photos/seed/rail04/1000/1000',   thumb: 'https://picsum.photos/seed/rail04/600/600',    category: 'rail' },
-  { id: 13, src: 'https://picsum.photos/seed/street01/1000/1500', thumb: 'https://picsum.photos/seed/street01/600/900',  category: 'street' },
-  { id: 14, src: 'https://picsum.photos/seed/street02/1000/667',  thumb: 'https://picsum.photos/seed/street02/600/400',  category: 'street' },
-  { id: 15, src: 'https://picsum.photos/seed/street03/1000/750',  thumb: 'https://picsum.photos/seed/street03/600/450',  category: 'street' },
-  { id: 16, src: 'https://picsum.photos/seed/street04/1000/1333', thumb: 'https://picsum.photos/seed/street04/600/800',  category: 'street' }
+  { id: 1, src: 'images/full/000005.jpg', thumb: 'images/thumb/000005.jpg', category: "nature" },
+  { id: 2, src: 'images/full/1.jpg', thumb: 'images/thumb/1.jpg', category: "nature" },
+  { id: 3, src: 'images/full/11.jpg', thumb: 'images/thumb/11.jpg', category: "nature" },
+  { id: 4, src: 'images/full/2.jpg', thumb: 'images/thumb/2.jpg', category: "nature" },
+  { id: 5, src: 'images/full/20241231-DSC05349.jpg', thumb: 'images/thumb/20241231-DSC05349.jpg', category: "nature" },
+  { id: 6, src: 'images/full/20241231-DSC05366.jpg', thumb: 'images/thumb/20241231-DSC05366.jpg', category: "nature" },
+  { id: 7, src: 'images/full/20250218-DSC05461.jpg', thumb: 'images/thumb/20250218-DSC05461.jpg', category: "nature" },
+  { id: 8, src: 'images/full/20250218-DSC05464.jpg', thumb: 'images/thumb/20250218-DSC05464.jpg', category: "nature" },
+  { id: 9, src: 'images/full/20250218-DSC05480.jpg', thumb: 'images/thumb/20250218-DSC05480.jpg', category: "nature" },
+  { id: 10, src: 'images/full/20250218-DSC05481.jpg', thumb: 'images/thumb/20250218-DSC05481.jpg', category: "nature" },
+  { id: 11, src: 'images/full/20250218-DSC05485.jpg', thumb: 'images/thumb/20250218-DSC05485.jpg', category: "nature" },
+  { id: 12, src: 'images/full/20250218-DSC05499.jpg', thumb: 'images/thumb/20250218-DSC05499.jpg', category: "nature" },
+  { id: 13, src: 'images/full/20250218-DSC05508.jpg', thumb: 'images/thumb/20250218-DSC05508.jpg', category: "nature" },
+  { id: 14, src: 'images/full/20250218-DSC05528.jpg', thumb: 'images/thumb/20250218-DSC05528.jpg', category: "nature" },
+  { id: 15, src: 'images/full/20250222-DSC05556.jpg', thumb: 'images/thumb/20250222-DSC05556.jpg', category: "nature" },
+  { id: 16, src: 'images/full/20250222-DSC05557.jpg', thumb: 'images/thumb/20250222-DSC05557.jpg', category: "nature" },
+  { id: 17, src: 'images/full/20250222-DSC05558.jpg', thumb: 'images/thumb/20250222-DSC05558.jpg', category: "nature" },
+  { id: 18, src: 'images/full/20250222-DSC05561.jpg', thumb: 'images/thumb/20250222-DSC05561.jpg', category: "nature" },
+  { id: 19, src: 'images/full/20250222-DSC05562.jpg', thumb: 'images/thumb/20250222-DSC05562.jpg', category: "nature" },
+  { id: 20, src: 'images/full/20250308-DSC05572.jpg', thumb: 'images/thumb/20250308-DSC05572.jpg', category: "nature" },
+  { id: 21, src: 'images/full/20250308-DSC05575.jpg', thumb: 'images/thumb/20250308-DSC05575.jpg', category: "nature" },
+  { id: 22, src: 'images/full/20250308-DSC05585.jpg', thumb: 'images/thumb/20250308-DSC05585.jpg', category: "nature" },
+  { id: 23, src: 'images/full/20250308-DSC05588.jpg', thumb: 'images/thumb/20250308-DSC05588.jpg', category: "nature" },
+  { id: 24, src: 'images/full/20250308-DSC05591.jpg', thumb: 'images/thumb/20250308-DSC05591.jpg', category: "nature" },
+  { id: 25, src: 'images/full/20250308-DSC05597.jpg', thumb: 'images/thumb/20250308-DSC05597.jpg', category: "nature" },
+  { id: 26, src: 'images/full/20250322-DSC05621.jpg', thumb: 'images/thumb/20250322-DSC05621.jpg', category: "nature" },
+  { id: 27, src: 'images/full/20250322-DSC05622.jpg', thumb: 'images/thumb/20250322-DSC05622.jpg', category: "nature" },
+  { id: 28, src: 'images/full/20250322-DSC05623.jpg', thumb: 'images/thumb/20250322-DSC05623.jpg', category: "nature" },
+  { id: 29, src: 'images/full/21.jpg', thumb: 'images/thumb/21.jpg', category: "nature" },
+  { id: 30, src: 'images/full/3.jpg', thumb: 'images/thumb/3.jpg', category: "nature" },
+  { id: 31, src: 'images/full/4.jpg', thumb: 'images/thumb/4.jpg', category: "nature" },
+  { id: 32, src: 'images/full/61030031.jpg', thumb: 'images/thumb/61030031.jpg', category: ["nature","street"] },
+  { id: 33, src: 'images/full/DSC06763.jpg', thumb: 'images/thumb/DSC06763.jpg', category: "nature" },
+  { id: 34, src: 'images/full/DSC06764.jpg', thumb: 'images/thumb/DSC06764.jpg', category: "nature" },
+  { id: 35, src: 'images/full/DSC06766.jpg', thumb: 'images/thumb/DSC06766.jpg', category: "nature" },
+  { id: 36, src: 'images/full/DSC06767.jpg', thumb: 'images/thumb/DSC06767.jpg', category: "nature" },
+  { id: 37, src: 'images/full/DSC06768.jpg', thumb: 'images/thumb/DSC06768.jpg', category: "nature" },
+  { id: 38, src: 'images/full/DSC06769.jpg', thumb: 'images/thumb/DSC06769.jpg', category: "nature" },
+  { id: 39, src: 'images/full/DSC06772.jpg', thumb: 'images/thumb/DSC06772.jpg', category: "nature" },
+  { id: 40, src: 'images/full/DSC06783.jpg', thumb: 'images/thumb/DSC06783.jpg', category: "nature" },
+  { id: 41, src: 'images/full/富士山2.jpg', thumb: 'images/thumb/富士山2.jpg', category: ["nature","street"] },
+  { id: 42, src: 'images/full/嵊泗日出.jpg', thumb: 'images/thumb/嵊泗日出.jpg', category: "nature" },
+  { id: 43, src: 'images/full/2.jpg', thumb: 'images/thumb/2.jpg', category: "arch" },
+  { id: 44, src: 'images/full/20240728-DSC04515.jpg', thumb: 'images/thumb/20240728-DSC04515.jpg', category: "arch" },
+  { id: 45, src: 'images/full/20240728-DSC04543.jpg', thumb: 'images/thumb/20240728-DSC04543.jpg', category: "arch" },
+  { id: 46, src: 'images/full/20240801-DSC04684.jpg', thumb: 'images/thumb/20240801-DSC04684.jpg', category: "arch" },
+  { id: 47, src: 'images/full/20250316-DSC05613.jpg', thumb: 'images/thumb/20250316-DSC05613.jpg', category: "arch" },
+  { id: 48, src: 'images/full/20250316-DSC05615.jpg', thumb: 'images/thumb/20250316-DSC05615.jpg', category: ["arch","rail"] },
+  { id: 49, src: 'images/full/20250316-DSC05617.jpg', thumb: 'images/thumb/20250316-DSC05617.jpg', category: ["arch","rail"] },
+  { id: 50, src: 'images/full/20250322-DSC05624.jpg', thumb: 'images/thumb/20250322-DSC05624.jpg', category: "arch" },
+  { id: 51, src: 'images/full/20250326-DSC05626.jpg', thumb: 'images/thumb/20250326-DSC05626.jpg', category: ["arch","nature"] },
+  { id: 52, src: 'images/full/20250326-DSC05634.jpg', thumb: 'images/thumb/20250326-DSC05634.jpg', category: "arch" },
+  { id: 53, src: 'images/full/20250326-DSC05635.jpg', thumb: 'images/thumb/20250326-DSC05635.jpg', category: ["arch","nature"] },
+  { id: 54, src: 'images/full/20250326-DSC05639.jpg', thumb: 'images/thumb/20250326-DSC05639.jpg', category: ["arch","nature"] },
+  { id: 55, src: 'images/full/20250807-DSC06504.jpg', thumb: 'images/thumb/20250807-DSC06504.jpg', category: ["arch","rail"] },
+  { id: 56, src: 'images/full/20250809-DSC06526.jpg', thumb: 'images/thumb/20250809-DSC06526.jpg', category: ["arch","nature"] },
+  { id: 57, src: 'images/full/20250809-DSC06534.jpg', thumb: 'images/thumb/20250809-DSC06534.jpg', category: ["arch","street"] },
+  { id: 58, src: 'images/full/3.jpg', thumb: 'images/thumb/3.jpg', category: ["arch","street"] },
+  { id: 59, src: 'images/full/61030024.jpg', thumb: 'images/thumb/61030024.jpg', category: "arch" },
+  { id: 60, src: 'images/full/东京全景.jpg', thumb: 'images/thumb/东京全景.jpg', category: "arch" },
+  { id: 61, src: 'images/full/剪影.jpg', thumb: 'images/thumb/剪影.jpg', category: "arch" },
+  { id: 62, src: 'images/full/春日樱.jpg', thumb: 'images/thumb/春日樱.jpg', category: ["arch","nature"] },
+  { id: 63, src: 'images/full/晴空塔日落1.jpg', thumb: 'images/thumb/晴空塔日落1.jpg', category: "arch" },
+  { id: 64, src: 'images/full/未命名-8.jpg', thumb: 'images/thumb/未命名-8.jpg', category: "arch" },
+  { id: 65, src: 'images/full/长江大桥.jpg', thumb: 'images/thumb/长江大桥.jpg', category: ["arch","rail"] },
+  { id: 66, src: 'images/full/长江大桥AD钙.jpg', thumb: 'images/thumb/长江大桥AD钙.jpg', category: ["arch","rail"] },
+  { id: 67, src: 'images/full/20250807-DSC06499.jpg', thumb: 'images/thumb/20250807-DSC06499.jpg', category: "rail" },
+  { id: 68, src: 'images/full/20250807-DSC06502.jpg', thumb: 'images/thumb/20250807-DSC06502.jpg', category: "rail" },
+  { id: 69, src: 'images/full/20250807-DSC06512.jpg', thumb: 'images/thumb/20250807-DSC06512.jpg', category: "rail" },
+  { id: 70, src: 'images/full/61030001.jpg', thumb: 'images/thumb/61030001.jpg', category: "rail" },
+  { id: 71, src: 'images/full/61030002.jpg', thumb: 'images/thumb/61030002.jpg', category: "rail" },
+  { id: 72, src: 'images/full/61030004.jpg', thumb: 'images/thumb/61030004.jpg', category: "rail" },
+  { id: 73, src: 'images/full/61030012.jpg', thumb: 'images/thumb/61030012.jpg', category: ["rail","street"] },
+  { id: 74, src: 'images/full/61030013.jpg', thumb: 'images/thumb/61030013.jpg', category: "rail" },
+  { id: 75, src: 'images/full/61030014.jpg', thumb: 'images/thumb/61030014.jpg', category: ["rail","street"] },
+  { id: 76, src: 'images/full/61030015.jpg', thumb: 'images/thumb/61030015.jpg', category: "rail" },
+  { id: 77, src: 'images/full/61030017.jpg', thumb: 'images/thumb/61030017.jpg', category: ["rail","street"] },
+  { id: 78, src: 'images/full/AD钙奶.jpg', thumb: 'images/thumb/AD钙奶.jpg', category: "rail" },
+  { id: 79, src: 'images/full/圣桥1.jpg', thumb: 'images/thumb/圣桥1.jpg', category: "rail" },
+  { id: 80, src: 'images/full/富士山脚轨道.jpg', thumb: 'images/thumb/富士山脚轨道.jpg', category: "rail" },
+  { id: 81, src: 'images/full/山手线.jpg', thumb: 'images/thumb/山手线.jpg', category: "rail" },
+  { id: 82, src: 'images/full/山手线2.jpg', thumb: 'images/thumb/山手线2.jpg', category: "rail" },
+  { id: 83, src: 'images/full/山手线3-上野站-.jpg', thumb: 'images/thumb/山手线3-上野站-.jpg', category: "rail" },
+  { id: 84, src: 'images/full/未命名-2.jpg', thumb: 'images/thumb/未命名-2.jpg', category: "rail" },
+  { id: 85, src: 'images/full/未命名-3.jpg', thumb: 'images/thumb/未命名-3.jpg', category: "rail" },
+  { id: 86, src: 'images/full/未命名-4.jpg', thumb: 'images/thumb/未命名-4.jpg', category: "rail" },
+  { id: 87, src: 'images/full/未命名-5.jpg', thumb: 'images/thumb/未命名-5.jpg', category: "rail" },
+  { id: 88, src: 'images/full/未命名-6.jpg', thumb: 'images/thumb/未命名-6.jpg', category: "rail" },
+  { id: 89, src: 'images/full/未命名.jpg', thumb: 'images/thumb/未命名.jpg', category: "rail" },
+  { id: 90, src: 'images/full/空蝉桥-peonies-.jpg', thumb: 'images/thumb/空蝉桥-peonies-.jpg', category: "rail" },
+  { id: 91, src: 'images/full/人.jpg', thumb: 'images/thumb/人.jpg', category: "street" },
+  { id: 92, src: 'images/full/公交车站.jpg', thumb: 'images/thumb/公交车站.jpg', category: "street" },
+  { id: 93, src: 'images/full/品川站11.jpg', thumb: 'images/thumb/品川站11.jpg', category: "street" },
+  { id: 94, src: 'images/full/富士山.jpg', thumb: 'images/thumb/富士山.jpg', category: "street" },
+  { id: 95, src: 'images/full/船1.jpg', thumb: 'images/thumb/船1.jpg', category: "street" },
+  { id: 96, src: 'images/full/船2.jpg', thumb: 'images/thumb/船2.jpg', category: "street" },
+  { id: 97, src: 'images/full/船3.jpg', thumb: 'images/thumb/船3.jpg', category: "street" },
+  { id: 98, src: 'images/full/船4.jpg', thumb: 'images/thumb/船4.jpg', category: "street" },
+  { id: 99, src: 'images/full/船5.jpg', thumb: 'images/thumb/船5.jpg', category: "street" },
+  { id: 100, src: 'images/full/船6.jpg', thumb: 'images/thumb/船6.jpg', category: "street" },
+  { id: 101, src: 'images/full/邮便.jpg', thumb: 'images/thumb/邮便.jpg', category: "street" },
 ];
 
 const CATEGORY_ALTS = { nature: '自然', arch: '建筑', rail: '铁道', street: '人文' };
@@ -317,7 +402,7 @@ let currentCat = 'all';
 let aboutOpen = false;
 let filtered = [...PHOTOS];
 let lbIndex = -1;
-let lbSeq = 0; // 大图加载令牌，防止慢请求覆盖已切换的照片
+let lbSeq = 0; // 大图加载令牌
 
 const SWIPE_X = 50;
 const SWIPE_Y = 80;
@@ -327,7 +412,10 @@ const SWIPE_Y = 80;
 // ============================================
 function renderGallery(cat) {
   gallery.innerHTML = '';
-  filtered = cat === 'all' ? [...PHOTOS] : PHOTOS.filter(p => p.category === cat);
+  filtered = cat === 'all' ? [...PHOTOS] : PHOTOS.filter(p => {
+    const cats = Array.isArray(p.category) ? p.category : [p.category];
+    return cats.includes(cat);
+  });
 
   if (filtered.length === 0) {
     emptyState.hidden = false;
@@ -342,11 +430,11 @@ function renderGallery(cat) {
 
     const img = document.createElement('img');
     img.src = photo.thumb;
-    img.dataset.full = photo.src;
-    img.alt = CATEGORY_ALTS[photo.category] || '';
+    const cat = Array.isArray(photo.category) ? photo.category[0] : photo.category;
+    img.alt = CATEGORY_ALTS[cat] || '';
     img.loading = 'lazy';
     img.decoding = 'async';
-    // 从 thumb URL 解析宽高，预留比例空间（失败时保留占位色块）
+    // 从 thumb URL 解析宽高，预留比例空间
     const dim = photo.thumb.match(/(\d+)\/(\d+)$/);
     if (dim) { img.width = dim[1]; img.height = dim[2]; }
 
@@ -428,10 +516,11 @@ document.addEventListener('click', (e) => {
 // ============================================
 //  ⑤ 灯箱模块
 // ============================================
-// 先用已缓存的缩略图立即出图，全尺寸图在后台加载完成后自动替换
+// 先用缩略图即时出图，全尺寸在后台上载完成后自动替换
 function showLightboxPhoto(photo) {
   const seq = ++lbSeq;
-  lbImg.alt = CATEGORY_ALTS[photo.category] || '';
+  const cat = Array.isArray(photo.category) ? photo.category[0] : photo.category;
+  lbImg.alt = CATEGORY_ALTS[cat] || '';
   lbImg.src = photo.thumb;
   const full = new Image();
   full.decoding = 'async';
