@@ -546,143 +546,274 @@ body {
 
 <!-- CITY SILHOUETTE -->
 <div class="city-silhouette" aria-hidden="true">
-  <svg viewBox="0 0 1920 200" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
-    <!-- Far background - low buildings -->
-    <g fill="#D8E6F3" opacity="0.6">
-      <rect x="30" y="140" width="28" height="60"/>
-      <rect x="68" y="152" width="22" height="48"/>
-      <rect x="100" y="160" width="18" height="40"/>
-      <rect x="380" y="148" width="24" height="52"/>
-      <rect x="414" y="158" width="16" height="42"/>
-      <rect x="780" y="145" width="20" height="55"/>
-      <rect x="810" y="155" width="18" height="45"/>
-      <rect x="1150" y="150" width="22" height="50"/>
-      <rect x="1182" y="160" width="16" height="40"/>
-      <rect x="1550" y="148" width="24" height="52"/>
-      <rect x="1584" y="158" width="18" height="42"/>
+  <svg viewBox="0 0 1920 240" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="silHaze" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#CFE0F2" stop-opacity="0"/>
+        <stop offset="1" stop-color="#C4D8EC" stop-opacity="0.24"/>
+      </linearGradient>
+      <linearGradient id="silFar" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#D3E2F2" stop-opacity="0.3"/>
+        <stop offset="1" stop-color="#B6CDE4" stop-opacity="0.5"/>
+      </linearGradient>
+      <linearGradient id="silMid" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#B1CAE2" stop-opacity="0.5"/>
+        <stop offset="1" stop-color="#96B6D7" stop-opacity="0.78"/>
+      </linearGradient>
+      <linearGradient id="silNear" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#8AAACD" stop-opacity="0.72"/>
+        <stop offset="1" stop-color="#5E85B2" stop-opacity="0.92"/>
+      </linearGradient>
+      <linearGradient id="silGround" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#5E85B2" stop-opacity="0"/>
+        <stop offset="1" stop-color="#5E85B2" stop-opacity="0.5"/>
+      </linearGradient>
+      <radialGradient id="silGlow" cx="0.5" cy="0.5" r="0.5">
+        <stop offset="0" stop-color="#F6D9A8" stop-opacity="0.85"/>
+        <stop offset="1" stop-color="#F6D9A8" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+
+    <!-- 晨雾 -->
+    <rect x="0" y="150" width="1920" height="90" fill="url(#silHaze)"/>
+
+    <!-- 远景：低矮建筑群 -->
+    <g fill="url(#silFar)">
+      <rect x="18" y="212" width="32" height="28"/>
+      <rect x="58" y="220" width="24" height="20"/>
+      <rect x="92" y="206" width="20" height="34"/>
+      <rect x="126" y="216" width="38" height="24"/>
+      <rect x="176" y="204" width="24" height="36"/>
+      <rect x="212" y="220" width="30" height="20"/>
+      <rect x="252" y="210" width="22" height="30"/>
+      <rect x="286" y="218" width="34" height="22"/>
+      <rect x="330" y="202" width="26" height="38"/>
+      <rect x="368" y="214" width="20" height="26"/>
+      <rect x="398" y="220" width="32" height="20"/>
+      <rect x="440" y="206" width="24" height="34"/>
+      <rect x="474" y="218" width="38" height="22"/>
+      <rect x="522" y="210" width="22" height="30"/>
+      <rect x="554" y="220" width="30" height="20"/>
+      <rect x="594" y="204" width="24" height="36"/>
+      <rect x="628" y="216" width="34" height="24"/>
+      <rect x="672" y="208" width="22" height="32"/>
+      <rect x="704" y="220" width="30" height="20"/>
+      <rect x="744" y="204" width="26" height="36"/>
+      <rect x="780" y="214" width="20" height="26"/>
+      <rect x="810" y="218" width="34" height="22"/>
+      <rect x="854" y="208" width="24" height="32"/>
+      <rect x="888" y="220" width="30" height="20"/>
+      <rect x="928" y="204" width="22" height="36"/>
+      <rect x="960" y="216" width="36" height="24"/>
+      <rect x="1006" y="210" width="26" height="30"/>
+      <rect x="1042" y="220" width="32" height="20"/>
+      <rect x="1084" y="206" width="24" height="34"/>
+      <rect x="1118" y="218" width="30" height="22"/>
+      <rect x="1158" y="208" width="22" height="32"/>
+      <rect x="1190" y="220" width="34" height="20"/>
+      <rect x="1234" y="204" width="26" height="36"/>
+      <rect x="1270" y="214" width="20" height="26"/>
+      <rect x="1300" y="218" width="30" height="22"/>
+      <rect x="1340" y="206" width="24" height="34"/>
+      <rect x="1374" y="216" width="38" height="24"/>
+      <rect x="1422" y="208" width="22" height="32"/>
+      <rect x="1454" y="220" width="30" height="20"/>
+      <rect x="1494" y="204" width="26" height="36"/>
+      <rect x="1530" y="218" width="24" height="22"/>
+      <rect x="1564" y="220" width="34" height="20"/>
+      <rect x="1608" y="208" width="22" height="32"/>
+      <rect x="1640" y="216" width="30" height="24"/>
+      <rect x="1680" y="204" width="26" height="36"/>
+      <rect x="1716" y="214" width="20" height="26"/>
+      <rect x="1746" y="218" width="32" height="22"/>
+      <rect x="1788" y="206" width="24" height="34"/>
+      <rect x="1822" y="216" width="36" height="24"/>
+      <rect x="1868" y="210" width="26" height="30"/>
+      <rect x="1904" y="218" width="16" height="22"/>
     </g>
 
-    <!-- Mid ground - medium buildings -->
-    <g fill="#BCD4EA" opacity="0.75">
-      <rect x="0" y="130" width="35" height="70"/>
-      <rect x="140" y="120" width="40" height="80"/>
-      <polygon points="155,80 180,110 180,120 140,120 140,110"/>
-      <rect x="230" y="135" width="30" height="65"/>
-      <rect x="440" y="125" width="35" height="75"/>
-      <polygon points="455,90 480,115 480,125 440,125 440,115"/>
-      <rect x="530" y="140" width="28" height="60"/>
-      <rect x="640" y="115" width="42" height="85"/>
-      <polygon points="656,70 685,110 685,115 640,115 640,110"/>
-      <rect x="840" y="130" width="34" height="70"/>
-      <rect x="930" y="120" width="38" height="80"/>
-      <polygon points="945,85 970,115 970,120 930,120 930,115"/>
-      <rect x="1060" y="135" width="28" height="65"/>
-      <rect x="1210" y="125" width="36" height="75"/>
-      <rect x="1340" y="130" width="30" height="70"/>
-      <polygon points="1350,90 1380,120 1380,130 1340,130 1340,120"/>
-      <rect x="1460" y="120" width="40" height="80"/>
-      <polygon points="1475,75 1505,110 1505,120 1460,120 1460,110"/>
-      <rect x="1620" y="135" width="32" height="65"/>
-      <rect x="1720" y="125" width="35" height="75"/>
-      <rect x="1820" y="130" width="30" height="70"/>
-      <polygon points="1830,95 1860,125 1860,130 1820,130 1820,125"/>
+    <!-- 中景：中等建筑群与屋顶机房 -->
+    <g fill="url(#silMid)">
+      <rect x="0" y="160" width="46" height="80"/>
+      <rect x="56" y="138" width="34" height="102"/>
+      <rect x="100" y="170" width="42" height="70"/>
+      <rect x="152" y="146" width="30" height="94"/>
+      <rect x="192" y="176" width="50" height="64"/>
+      <rect x="252" y="132" width="38" height="108"/>
+      <rect x="300" y="158" width="32" height="82"/>
+      <rect x="342" y="178" width="54" height="62"/>
+      <rect x="406" y="142" width="36" height="98"/>
+      <rect x="452" y="166" width="42" height="74"/>
+      <rect x="504" y="152" width="30" height="88"/>
+      <rect x="544" y="180" width="48" height="60"/>
+      <rect x="602" y="134" width="36" height="106"/>
+      <rect x="648" y="168" width="44" height="72"/>
+      <rect x="702" y="150" width="34" height="90"/>
+      <rect x="746" y="176" width="50" height="64"/>
+      <rect x="806" y="138" width="38" height="102"/>
+      <rect x="854" y="162" width="32" height="78"/>
+      <rect x="896" y="178" width="48" height="62"/>
+      <rect x="954" y="144" width="36" height="96"/>
+      <rect x="1000" y="170" width="44" height="70"/>
+      <rect x="1054" y="156" width="30" height="84"/>
+      <rect x="1094" y="180" width="50" height="60"/>
+      <rect x="1154" y="136" width="38" height="104"/>
+      <rect x="1202" y="158" width="34" height="82"/>
+      <rect x="1246" y="174" width="46" height="66"/>
+      <rect x="1302" y="146" width="36" height="94"/>
+      <rect x="1348" y="164" width="42" height="76"/>
+      <rect x="1400" y="154" width="30" height="86"/>
+      <rect x="1440" y="178" width="48" height="62"/>
+      <rect x="1498" y="140" width="36" height="100"/>
+      <rect x="1544" y="168" width="44" height="72"/>
+      <rect x="1598" y="152" width="34" height="88"/>
+      <rect x="1642" y="176" width="48" height="64"/>
+      <rect x="1700" y="144" width="38" height="96"/>
+      <rect x="1748" y="166" width="44" height="74"/>
+      <rect x="1802" y="152" width="34" height="88"/>
+      <rect x="1846" y="174" width="48" height="66"/>
+      <rect x="62" y="90" width="20" height="12"/>
+      <rect x="258" y="96" width="26" height="12"/>
+      <rect x="608" y="98" width="22" height="10"/>
+      <rect x="812" y="102" width="24" height="10"/>
+      <rect x="960" y="108" width="22" height="10"/>
+      <rect x="1160" y="100" width="24" height="10"/>
+      <rect x="1504" y="104" width="22" height="10"/>
+      <rect x="1706" y="108" width="24" height="10"/>
     </g>
 
-    <!-- Foreground - tall buildings with detail -->
-    <g fill="#A8C8E2">
-      <!-- Building cluster 1 -->
-      <rect x="190" y="100" width="36" height="100"/>
-      <rect x="196" y="115" width="8" height="8" fill="#9BBDD9" opacity="0.6"/>
-      <rect x="210" y="115" width="8" height="8" fill="#9BBDD9" opacity="0.6"/>
-      <rect x="196" y="130" width="8" height="8" fill="#9BBDD9" opacity="0.6"/>
-      <rect x="210" y="130" width="8" height="8" fill="#9BBDD9" opacity="0.6"/>
-      <rect x="196" y="145" width="8" height="8" fill="#9BBDD9" opacity="0.6"/>
-      <rect x="210" y="145" width="8" height="8" fill="#9BBDD9" opacity="0.6"/>
+    <!-- 近景：主天际线 -->
+    <g fill="url(#silNear)">
+      <!-- 左区：宽基座 + 尖顶塔 + 圆顶塔 -->
+      <rect x="0" y="136" width="112" height="104"/>
+      <rect x="10" y="122" width="48" height="14"/>
+      <rect x="112" y="84" width="34" height="156"/>
+      <path d="M116,84 L129,56 L142,84 Z"/>
+      <rect x="128.5" y="40" width="1.5" height="16"/>
+      <rect x="150" y="150" width="64" height="90"/>
+      <rect x="158" y="140" width="24" height="10"/>
+      <rect x="222" y="100" width="24" height="140"/>
+      <path d="M222,100 Q234,82 246,100 Z"/>
+      <rect x="233.5" y="64" width="1.5" height="18"/>
 
-      <!-- Tall tower with spire -->
-      <rect x="280" y="55" width="20" height="145"/>
-      <rect x="285" y="30" width="10" height="25"/>
-      <rect x="288" y="20" width="4" height="10"/>
-      <rect x="286" y="70" width="8" height="8" fill="#9BBDD9" opacity="0.5"/>
-      <rect x="286" y="90" width="8" height="8" fill="#9BBDD9" opacity="0.5"/>
-      <rect x="286" y="110" width="8" height="8" fill="#9BBDD9" opacity="0.5"/>
+      <!-- 装饰艺术风格退台塔 -->
+      <rect x="330" y="74" width="46" height="166"/>
+      <rect x="338" y="58" width="30" height="16"/>
+      <rect x="352.5" y="36" width="3" height="22"/>
+      <rect x="386" y="134" width="54" height="106"/>
+      <rect x="394" y="124" width="30" height="10"/>
+      <rect x="450" y="102" width="34" height="138"/>
+      <path d="M454,102 L467,74 L480,102 Z"/>
+      <rect x="494" y="158" width="48" height="82"/>
 
-      <!-- wide building -->
-      <rect x="320" y="115" width="55" height="85"/>
-      <rect x="330" y="128" width="35" height="6" fill="#9BBDD9" opacity="0.5"/>
-      <rect x="330" y="142" width="35" height="6" fill="#9BBDD9" opacity="0.5"/>
-      <rect x="330" y="156" width="35" height="6" fill="#9BBDD9" opacity="0.5"/>
+      <!-- 吊桥 -->
+      <rect x="560" y="206" width="240" height="6"/>
+      <rect x="596" y="100" width="14" height="106"/>
+      <rect x="750" y="100" width="14" height="106"/>
+      <path d="M596,100 Q673,172 750,100" fill="none" stroke="#4F79A6" stroke-width="2.5" stroke-opacity="0.35"/>
+      <path d="M596,100 L560,206" fill="none" stroke="#4F79A6" stroke-width="2" stroke-opacity="0.35"/>
+      <path d="M750,100 L790,206" fill="none" stroke="#4F79A6" stroke-width="2" stroke-opacity="0.35"/>
+      <rect x="618" y="212" width="8" height="28"/>
+      <rect x="730" y="212" width="8" height="28"/>
+      <path d="M608.3,110.6 L608.3,206" stroke="#4F79A6" stroke-width="1.2" stroke-opacity="0.3"/>
+      <path d="M619.1,118.4 L619.1,206" stroke="#4F79A6" stroke-width="1.2" stroke-opacity="0.3"/>
+      <path d="M629.9,124.7 L629.9,206" stroke="#4F79A6" stroke-width="1.2" stroke-opacity="0.3"/>
+      <path d="M640.7,129.6 L640.7,206" stroke="#4F79A6" stroke-width="1.2" stroke-opacity="0.3"/>
+      <path d="M651.4,133.2 L651.4,206" stroke="#4F79A6" stroke-width="1.2" stroke-opacity="0.3"/>
+      <path d="M662.2,135.3 L662.2,206" stroke="#4F79A6" stroke-width="1.2" stroke-opacity="0.3"/>
+      <path d="M673,136 L673,206" stroke="#4F79A6" stroke-width="1.2" stroke-opacity="0.3"/>
+      <path d="M683.8,135.3 L683.8,206" stroke="#4F79A6" stroke-width="1.2" stroke-opacity="0.3"/>
+      <path d="M694.6,133.2 L694.6,206" stroke="#4F79A6" stroke-width="1.2" stroke-opacity="0.3"/>
+      <path d="M705.3,129.6 L705.3,206" stroke="#4F79A6" stroke-width="1.2" stroke-opacity="0.3"/>
+      <path d="M716.1,124.7 L716.1,206" stroke="#4F79A6" stroke-width="1.2" stroke-opacity="0.3"/>
+      <path d="M726.9,118.4 L726.9,206" stroke="#4F79A6" stroke-width="1.2" stroke-opacity="0.3"/>
 
-      <!-- Building cluster 2 -->
-      <rect x="490" y="90" width="30" height="110"/>
-      <rect x="497" y="105" width="16" height="8" fill="#9BBDD9" opacity="0.5"/>
-      <rect x="497" y="125" width="16" height="8" fill="#9BBDD9" opacity="0.5"/>
+      <!-- 双子塔 + 玻璃幕墙 + 地标塔 -->
+      <rect x="824" y="118" width="32" height="122"/>
+      <rect x="862" y="134" width="32" height="106"/>
+      <rect x="902" y="126" width="66" height="114"/>
+      <rect x="916" y="126" width="2" height="114" fill="#FFFFFF" fill-opacity="0.14"/>
+      <rect x="936" y="126" width="2" height="114" fill="#FFFFFF" fill-opacity="0.14"/>
+      <rect x="956" y="126" width="2" height="114" fill="#FFFFFF" fill-opacity="0.14"/>
+      <rect x="978" y="64" width="42" height="176"/>
+      <rect x="986" y="50" width="26" height="14"/>
+      <rect x="998.5" y="24" width="3" height="26"/>
+      <rect x="1034" y="146" width="50" height="94"/>
 
-      <!-- Twin towers -->
-      <rect x="570" y="60" width="22" height="140"/>
-      <rect x="575" y="72" width="12" height="10" fill="#9BBDD9" opacity="0.5"/>
-      <rect x="575" y="92" width="12" height="10" fill="#9BBDD9" opacity="0.5"/>
-      <rect x="575" y="112" width="12" height="10" fill="#9BBDD9" opacity="0.5"/>
-      <rect x="598" y="75" width="22" height="125"/>
-      <rect x="603" y="88" width="12" height="10" fill="#9BBDD9" opacity="0.5"/>
-      <rect x="603" y="108" width="12" height="10" fill="#9BBDD9" opacity="0.5"/>
+      <!-- 通信塔 -->
+      <rect x="1092" y="66" width="8" height="174"/>
+      <rect x="1082" y="88" width="28" height="3"/>
+      <rect x="1084" y="112" width="24" height="3"/>
+      <rect x="1086" y="136" width="20" height="3"/>
+      <rect x="1095" y="44" width="2" height="22"/>
+      <circle cx="1096" cy="40" r="2" fill="#F3CF96" fill-opacity="0.9"/>
 
-      <!-- Dome building -->
-      <path d="M 680,200 L 680,120 Q 710,80 740,120 L 740,200 Z"/>
-      <rect x="694" y="135" width="32" height="8" fill="#9BBDD9" opacity="0.5"/>
-      <rect x="694" y="150" width="32" height="8" fill="#9BBDD9" opacity="0.5"/>
-      <circle cx="710" cy="105" r="6" fill="#9BBDD9" opacity="0.4"/>
+      <!-- 退台楼 + 玻璃塔 + 塔吊 -->
+      <rect x="1180" y="106" width="56" height="134"/>
+      <rect x="1186" y="96" width="40" height="10"/>
+      <rect x="1246" y="132" width="80" height="108"/>
+      <rect x="1258" y="132" width="2" height="108" fill="#FFFFFF" fill-opacity="0.14"/>
+      <rect x="1272" y="132" width="2" height="108" fill="#FFFFFF" fill-opacity="0.14"/>
+      <rect x="1286" y="132" width="2" height="108" fill="#FFFFFF" fill-opacity="0.14"/>
+      <rect x="1300" y="132" width="2" height="108" fill="#FFFFFF" fill-opacity="0.14"/>
+      <rect x="1314" y="132" width="2" height="108" fill="#FFFFFF" fill-opacity="0.14"/>
+      <rect x="1338" y="88" width="28" height="152"/>
+      <path d="M1342,88 L1352,62 L1362,88 Z"/>
+      <rect x="1378" y="154" width="58" height="86"/>
+      <rect x="1456" y="100" width="7" height="140"/>
+      <rect x="1456" y="100" width="72" height="5"/>
+      <path d="M1522,105 L1470,160" stroke="#4F79A6" stroke-width="2" stroke-opacity="0.4" fill="none"/>
+      <path d="M1459.5,105 L1459.5,190" stroke="#4F79A6" stroke-width="1.5" stroke-opacity="0.4"/>
+      <rect x="1457" y="190" width="5" height="4"/>
 
-      <!-- Skyscraper group -->
-      <rect x="880" y="70" width="26" height="130"/>
-      <rect x="885" y="82" width="16" height="10" fill="#9BBDD9" opacity="0.5"/>
-      <rect x="885" y="100" width="16" height="10" fill="#9BBDD9" opacity="0.5"/>
-      <rect x="910" y="95" width="20" height="105"/>
-      <rect x="935" y="80" width="24" height="120"/>
-      <rect x="940" y="92" width="14" height="10" fill="#9BBDD9" opacity="0.5"/>
-
-      <!-- Communications tower -->
-      <rect x="990" y="40" width="12" height="160"/>
-      <rect x="994" y="20" width="4" height="20"/>
-      <circle cx="996" cy="18" r="3"/>
-      <rect x="990" y="60" width="20" height="6" fill="#9BBDD9" opacity="0.4"/>
-      <rect x="990" y="85" width="24" height="6" fill="#9BBDD9" opacity="0.4"/>
-
-      <!-- Modern complex -->
-      <rect x="1090" y="100" width="45" height="100"/>
-      <rect x="1100" y="115" width="25" height="6" fill="#9BBDD9" opacity="0.5"/>
-      <rect x="1100" y="132" width="25" height="6" fill="#9BBDD9" opacity="0.5"/>
-
-      <!-- Landmark tower -->
-      <rect x="1250" y="50" width="28" height="150"/>
-      <rect x="1256" y="30" width="16" height="20"/>
-      <rect x="1260" y="18" width="8" height="12"/>
-      <circle cx="1264" cy="14" r="4"/>
-      <rect x="1256" y="68" width="16" height="10" fill="#9BBDD9" opacity="0.5"/>
-      <rect x="1256" y="88" width="16" height="10" fill="#9BBDD9" opacity="0.5"/>
-
-      <!-- Bridge -->
-      <path d="M 1278,160 Q 1340,130 1410,160" stroke="#A8C8E2" stroke-width="6" fill="none"/>
-      <path d="M 1280,160 Q 1342,136 1408,160" stroke="#C0D8EC" stroke-width="2" fill="none"/>
-      <rect x="1290" y="155" width="4" height="45" fill="#A8C8E2"/>
-      <rect x="1390" y="155" width="4" height="45" fill="#A8C8E2"/>
-
-      <!-- More buildings far right -->
-      <rect x="1500" y="85" width="30" height="115"/>
-      <rect x="1506" y="98" width="18" height="8" fill="#9BBDD9" opacity="0.5"/>
-      <rect x="1535" y="100" width="25" height="100"/>
-      <rect x="1660" y="65" width="22" height="135"/>
-      <rect x="1665" y="78" width="12" height="10" fill="#9BBDD9" opacity="0.5"/>
-      <rect x="1665" y="98" width="12" height="10" fill="#9BBDD9" opacity="0.5"/>
-      <rect x="1690" y="90" width="28" height="110"/>
-      <rect x="1780" y="75" width="34" height="125"/>
-      <rect x="1787" y="88" width="20" height="8" fill="#9BBDD9" opacity="0.5"/>
-      <rect x="1787" y="106" width="20" height="8" fill="#9BBDD9" opacity="0.5"/>
-      <rect x="1825" y="100" width="30" height="100"/>
-      <polygon points="1835,70 1865,100 1865,100 1835,100" fill="#A8C8E2"/>
-      <rect x="1880" y="80" width="25" height="120"/>
-      <rect x="1885" y="93" width="15" height="8" fill="#9BBDD9" opacity="0.5"/>
+      <!-- 右区：双子塔 + 穹顶 + 尖顶塔 -->
+      <rect x="1520" y="124" width="30" height="116"/>
+      <rect x="1556" y="140" width="30" height="100"/>
+      <rect x="1600" y="132" width="68" height="108"/>
+      <path d="M1600,132 Q1634,96 1668,132 Z"/>
+      <rect x="1680" y="112" width="46" height="128"/>
+      <rect x="1702" y="80" width="2" height="32"/>
+      <rect x="1736" y="142" width="72" height="98"/>
+      <rect x="1744" y="132" width="34" height="10"/>
+      <rect x="1820" y="80" width="36" height="160"/>
+      <path d="M1824,80 L1838,52 L1852,80 Z"/>
+      <rect x="1837" y="40" width="2" height="12"/>
+      <rect x="1866" y="152" width="54" height="88"/>
     </g>
+
+    <!-- 顶部晨光描边 -->
+    <g fill="#FFFFFF" fill-opacity="0.28">
+      <rect x="112" y="84" width="34" height="1.5"/>
+      <rect x="330" y="74" width="46" height="1.5"/>
+      <rect x="978" y="64" width="42" height="1.5"/>
+      <rect x="1338" y="88" width="28" height="1.5"/>
+      <rect x="1820" y="80" width="36" height="1.5"/>
+    </g>
+
+    <!-- 暖色窗灯 -->
+    <g fill="#F2CD93" fill-opacity="0.9">
+      <ellipse cx="123" cy="112" rx="9" ry="12" fill="url(#silGlow)"/>
+      <ellipse cx="995" cy="100" rx="10" ry="12" fill="url(#silGlow)"/>
+      <ellipse cx="1693" cy="136" rx="7" ry="10" fill="url(#silGlow)"/>
+      <rect x="120" y="100" width="3" height="4" rx="1"/>
+      <rect x="126" y="112" width="3" height="4" rx="1"/>
+      <rect x="120" y="124" width="3" height="4" rx="1"/>
+      <rect x="338" y="90" width="3" height="4" rx="1"/>
+      <rect x="346" y="102" width="3" height="4" rx="1"/>
+      <rect x="990" y="82" width="3" height="4" rx="1"/>
+      <rect x="1000" y="94" width="3" height="4" rx="1"/>
+      <rect x="990" y="106" width="3" height="4" rx="1"/>
+      <rect x="1000" y="118" width="3" height="4" rx="1"/>
+      <rect x="1346" y="102" width="3" height="4" rx="1"/>
+      <rect x="1346" y="116" width="3" height="4" rx="1"/>
+      <rect x="1690" y="128" width="3" height="4" rx="1"/>
+      <rect x="1690" y="142" width="3" height="4" rx="1"/>
+      <rect x="1828" y="100" width="3" height="4" rx="1"/>
+      <rect x="1836" y="112" width="3" height="4" rx="1"/>
+    </g>
+
+    <!-- 地面淡影 -->
+    <rect x="0" y="232" width="1920" height="8" fill="url(#silGround)"/>
   </svg>
 </div>
 
