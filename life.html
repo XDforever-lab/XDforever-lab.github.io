@@ -3,247 +3,858 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>生活 — Ding Yi</title>
+<title>XDforever · Life</title>
+<meta name="description" content="丁一的生活主页 — 旅行足迹、恋爱故事与生活碎片">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Noto+Serif+SC:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #FDFBF7;
-  --bg-alt: #F5F0E8;
-  --text: #1B2838;
-  --text-light: #5A6B7F;
-  --text-muted: #8B9DB5;
-  --accent: #C9A96E;
-  --accent-dark: #A8884A;
-  --border: #E5DDD0;
-  --border-light: #F0EBE0;
-  --shadow: 0 1px 3px rgba(27,40,56,0.06);
-  --shadow-lg: 0 4px 24px rgba(27,40,56,0.08);
-  --radius: 8px;
-  --max-w: 760px;
+  --bg: #FAFAFA;
+  --bg-alt: #F5F8FB;
+  --bg-love: #FFF8F5;
+  --text: #1D1D1F;
+  --text-light: #86868B;
+  --text-muted: #B0B0B5;
+  --accent: #5B9BD5;
+  --accent-dark: #4A8AC4;
+  --border: rgba(0,0,0,0.06);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 24px rgba(0,0,0,0.06);
+  --radius: 4px;
+  --max-w: 1000px;
+  --nav-h: 52px;
+  --silhouette-h: 200px;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
+html { scroll-behavior: smooth; }
+
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', 'Helvetica Neue', 'Noto Sans SC', sans-serif;
   background: var(--bg);
   color: var(--text);
   line-height: 1.7;
   font-size: 15px;
   -webkit-font-smoothing: antialiased;
+  padding-bottom: calc(var(--silhouette-h) + 60px);
 }
 
-.container { max-width: var(--max-w); margin: 0 auto; padding: 0 28px; }
+/* ==================== NAVIGATION ==================== */
+#navbar {
+  position: sticky; top: 0; z-index: 100;
+  height: var(--nav-h);
+  background: rgba(250,250,250,0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-inner {
+  max-width: var(--max-w); margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 28px; height: 100%;
+}
+.nav-brand {
+  font-size: 13px; font-weight: 500; color: var(--text);
+  text-decoration: none; letter-spacing: 0.02em;
+}
+.nav-brand:hover { color: var(--accent); }
+.nav-links {
+  display: flex; gap: 32px; list-style: none; align-items: center;
+}
+.nav-links a {
+  text-decoration: none; font-size: 12px; font-weight: 400;
+  color: var(--text-light); transition: color 0.2s;
+  position: relative; padding-bottom: 3px;
+}
+.nav-links a:hover { color: var(--text); }
+.nav-links a.active { color: var(--accent); }
+.nav-links a.active::after {
+  content: ''; position: absolute; bottom: -1px; left: 0; right: 0;
+  height: 1.5px; background: var(--accent); border-radius: 1px;
+}
+.nav-toggle {
+  display: none; font-size: 12px; font-weight: 500;
+  color: var(--text-light); background: none;
+  border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 6px 14px; cursor: pointer; font-family: inherit;
+}
 
-/* ---- BACK BUTTON ---- */
-.back-link {
-  display: inline-flex; align-items: center; gap: 6px;
-  color: var(--text-light); text-decoration: none;
-  font-size: 13px; font-weight: 500;
-  padding: 8px 16px; border-radius: 20px;
+/* ==================== SECTIONS ==================== */
+.section { scroll-margin-top: var(--nav-h); }
+.section-inner { max-width: var(--max-w); margin: 0 auto; padding: 0 28px; }
+
+.section-title {
+  text-align: center; font-size: 28px; font-weight: 600;
+  color: var(--text); letter-spacing: 0.08em;
+  padding: 80px 0 48px;
+}
+.section-title .en {
+  display: block; font-size: 14px; font-weight: 400;
+  color: var(--text-muted); letter-spacing: 0.06em; margin-top: 6px;
+}
+
+/* ==================== TRAVEL ==================== */
+#travel { background: linear-gradient(180deg, var(--bg) 0%, var(--bg-alt) 40%, var(--bg) 100%); }
+
+.map-wrapper {
+  max-width: 900px; margin: 0 auto 32px;
+  position: relative;
+  background: #fff;
   border: 1px solid var(--border);
-  transition: all 0.2s;
-  margin-top: 28px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
 }
-.back-link:hover { background: var(--bg-alt); color: var(--text); border-color: var(--accent); }
+.map-wrapper svg { display: block; width: 100%; height: auto; }
 
-/* ---- HERO ---- */
-.life-hero {
-  padding: 80px 0 52px;
-  text-align: center;
-}
-.life-hero-icon {
-  font-size: 48px; margin-bottom: 16px; display: block;
-}
-.life-hero h1 {
-  font-family: 'Noto Serif SC', serif;
-  font-size: 34px; font-weight: 700; letter-spacing: 0.04em;
-  color: var(--text); margin-bottom: 6px;
-}
-.life-hero .sub {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 20px; font-style: italic; color: var(--text-muted);
-  margin-bottom: 12px;
-}
-.life-hero p {
-  color: var(--text-light); max-width: 420px; margin: 0 auto;
-  font-size: 14px;
-}
+/* Map elements */
+.map-ocean { fill: #F5F8FB; }
+.map-graticule { stroke: rgba(91,155,213,0.05); stroke-width: 0.5; fill: none; }
+.map-land { fill: #fff; stroke: rgba(91,155,213,0.18); stroke-width: 1; }
+.map-land-alt { fill: #FAFCFE; stroke: rgba(91,155,213,0.12); stroke-width: 0.8; }
 
-/* ---- CARDS ---- */
-.life-card {
+.city-dot {
+  fill: var(--accent); cursor: pointer;
+  transition: r 0.15s ease-out, fill 0.15s ease-out;
+}
+.city-dot:hover { r: 7; fill: var(--accent-dark); }
+
+.map-tooltip {
+  position: absolute; pointer-events: none;
+  background: #fff; color: var(--text);
+  font-size: 11px; font-weight: 500;
+  padding: 5px 10px; border-radius: var(--radius);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+  opacity: 0; transform: translate(-50%, -100%);
+  transition: opacity 0.12s; white-space: nowrap;
+  z-index: 10;
+  margin-top: -8px;
+}
+.map-tooltip.show { opacity: 1; }
+
+.travel-stats {
+  text-align: center; font-size: 14px; color: var(--text-light);
+  margin-bottom: 48px; letter-spacing: 0.03em;
+}
+.travel-stats strong { color: var(--accent); font-weight: 600; }
+
+/* Travel photo grid */
+.travel-photos {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 12px; padding-bottom: 80px;
+}
+.travel-photo-card {
   background: #fff; border: 1px solid var(--border);
-  border-radius: var(--radius); padding: 24px 28px;
-  margin-bottom: 16px;
-  display: flex; gap: 18px; align-items: flex-start;
-  transition: all 0.3s;
+  border-radius: var(--radius); overflow: hidden;
+  transition: box-shadow 0.3s;
 }
-.life-card:hover {
-  box-shadow: var(--shadow-lg);
-  border-color: #D5C9B5;
-  transform: translateY(-1px);
-}
-.life-card:last-child { margin-bottom: 0; }
-
-.life-card-icon {
-  width: 44px; height: 44px; border-radius: 12px;
+.travel-photo-card:hover { box-shadow: var(--shadow-md); }
+.travel-photo-card img {
+  width: 100%; height: 180px; object-fit: cover; display: block;
   background: var(--bg-alt);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 22px; flex-shrink: 0;
-  transition: background 0.3s;
 }
-.life-card:hover .life-card-icon { background: #EDE5D6; }
+.travel-photo-info { padding: 14px 16px; }
+.travel-photo-title { font-size: 14px; font-weight: 600; color: var(--text); }
+.travel-photo-sub { font-size: 12px; color: var(--text-light); margin-top: 2px; }
 
-.life-card-body { flex: 1; min-width: 0; }
-.life-card-title {
-  font-size: 15px; font-weight: 600; color: var(--text);
-  margin-bottom: 2px;
-}
-.life-card-date {
-  font-size: 12px; color: var(--text-muted); margin-bottom: 6px;
-}
-.life-card-desc {
-  font-size: 14px; color: var(--text-light); line-height: 1.7;
-}
-.life-card a {
-  color: var(--accent-dark); text-decoration: none;
-  font-weight: 500; font-size: 13px;
-  display: inline-flex; align-items: center; gap: 4px;
-  margin-top: 6px;
-  transition: color 0.2s;
-}
-.life-card a:hover { color: var(--text); }
-
-/* ---- QUOTE ---- */
-.life-quote {
-  text-align: center; padding: 40px 0 8px;
-  font-family: 'Noto Serif SC', serif;
-  font-size: 16px; color: var(--text-muted); font-style: italic;
-  letter-spacing: 0.03em;
+/* ==================== LOVE ==================== */
+#love {
+  background: linear-gradient(180deg, var(--bg) 0%, var(--bg-love) 25%, var(--bg-love) 75%, var(--bg) 100%);
 }
 
-/* ---- FOOTER ---- */
-.life-footer {
-  text-align: center; padding: 40px 0 36px;
+.love-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 16px; padding-bottom: 80px;
+}
+.love-card {
+  background: #fff; border: 1px solid var(--border);
+  border-radius: var(--radius); overflow: hidden;
+  transition: box-shadow 0.3s;
+}
+.love-card:hover { box-shadow: var(--shadow-md); }
+.love-card-img {
+  width: 100%; height: 220px; object-fit: cover;
+  display: block; background: #F5F0EB;
+}
+.love-card-body { padding: 20px 24px; }
+.love-card-year {
+  font-size: 11px; font-weight: 600; color: var(--accent);
+  letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 4px;
+}
+.love-card-title { font-size: 16px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
+.love-card-desc { font-size: 13px; color: var(--text-light); line-height: 1.7; }
+
+/* ==================== OTHERS ==================== */
+#others { background: var(--bg); }
+
+.others-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 14px; padding-bottom: 24px;
+}
+.others-card {
+  background: #fff; border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 28px 22px; text-align: center;
+  transition: box-shadow 0.3s;
+}
+.others-card:hover { box-shadow: var(--shadow-md); }
+.others-card svg { color: var(--accent); margin-bottom: 14px; }
+.others-card-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+.others-card-desc { font-size: 12px; color: var(--text-light); line-height: 1.6; }
+
+.others-soon {
+  text-align: center; padding: 20px 0 80px;
   font-size: 13px; color: var(--text-muted);
-  border-top: 1px solid var(--border-light); margin-top: 24px;
 }
-.life-footer span { color: var(--accent-dark); }
 
-/* ---- FADE ---- */
-.fade-in {
-  opacity: 0; transform: translateY(16px);
-  transition: opacity 0.5s ease, transform 0.5s ease;
+/* ==================== SILHOUETTE ==================== */
+.city-silhouette {
+  position: fixed; bottom: 0; left: 0; width: 100%;
+  z-index: 50; pointer-events: none; line-height: 0;
 }
-.fade-in.visible { opacity: 1; transform: translateY(0); }
+.city-silhouette svg { width: 100%; height: auto; display: block; }
 
-/* ---- RESPONSIVE ---- */
+/* ==================== BACK TO TOP ==================== */
+.back-to-top {
+  position: fixed; bottom: 28px; right: 28px; z-index: 60;
+  width: 38px; height: 38px; border-radius: 50%;
+  background: var(--text); color: #fff;
+  border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; opacity: 0; transform: translateY(10px);
+  transition: opacity 0.3s, transform 0.3s, background 0.2s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+.back-to-top.show { opacity: 1; transform: translateY(0); }
+.back-to-top:hover { background: var(--accent); }
+
+/* ==================== FADE ==================== */
+.fade-in { opacity: 0; transition: opacity 0.4s ease; }
+.fade-in.visible { opacity: 1; }
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 1024px) {
+  .travel-photos { grid-template-columns: repeat(2, 1fr); }
+}
+
 @media (max-width: 768px) {
-  .life-hero { padding: 64px 0 40px; }
-  .life-hero h1 { font-size: 28px; }
-  .life-card { padding: 20px; }
-  .life-card-icon { width: 38px; height: 38px; font-size: 18px; border-radius: 10px; }
-  .container { padding: 0 20px; }
+  :root { --silhouette-h: 140px; }
+  .nav-toggle { display: block; }
+  .nav-links {
+    display: none; position: absolute; top: var(--nav-h); left: 0; right: 0;
+    flex-direction: column; background: rgba(250,250,250,0.96);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    padding: 10px 28px; gap: 0;
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  }
+  .nav-links.open { display: flex; }
+  .nav-links a { font-size: 14px; padding: 11px 0; text-align: center; width: 100%; }
+  .nav-links a.active::after { left: 50%; transform: translateX(-50%); width: 36px; }
+
+  .section-title { font-size: 22px; padding: 56px 0 32px; }
+  .section-inner { padding: 0 20px; }
+
+  .travel-photos { grid-template-columns: 1fr; }
+  .travel-photo-card img { height: 200px; }
+
+  .love-grid { grid-template-columns: 1fr; }
+  .love-card-img { height: 200px; }
+
+  .others-grid { grid-template-columns: repeat(2, 1fr); }
+
+  .back-to-top { bottom: 18px; right: 18px; width: 34px; height: 34px; }
+}
+
+@media (max-width: 480px) {
+  :root { --silhouette-h: 110px; }
+  .others-grid { grid-template-columns: 1fr; }
 }
 </style>
 </head>
 <body>
 
-<div class="container">
-  <a href="index.html" class="back-link">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-    返回主页
-  </a>
-</div>
+<!-- NAVIGATION -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand" target="_blank">XDforever · Life</a>
+    <button class="nav-toggle" id="navToggle">导航</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#travel">旅行</a></li>
+      <li><a href="#love">恋爱</a></li>
+      <li><a href="#others">其他</a></li>
+    </ul>
+  </div>
+</nav>
 
-<header class="life-hero container">
-  <span class="life-hero-icon">🌟</span>
-  <h1>生活</h1>
-  <div class="sub">Life Beyond Academia</div>
-  <p>学术之外，亦有山海与热爱。运动、辩论、志愿、摄影——每一面都是我。</p>
-</header>
-
-<section class="container" style="padding-bottom: 24px;">
-
-  <div class="life-card fade-in">
-    <div class="life-card-icon">🏃</div>
-    <div class="life-card-body">
-      <div class="life-card-title">三院联合运动会 · 男子4×100米第五名</div>
-      <div class="life-card-date">2025.10</div>
-      <div class="life-card-desc">赛道上的冲刺与交接，团队协作的力量在每一次接力棒的传递中绽放。</div>
-    </div>
+<!-- TRAVEL -->
+<section class="section" id="travel">
+  <div class="section-inner">
+    <h2 class="section-title fade-in">
+      旅行
+      <span class="en">Travel</span>
+    </h2>
   </div>
 
-  <div class="life-card fade-in">
-    <div class="life-card-icon">🗣️</div>
-    <div class="life-card-body">
-      <div class="life-card-title">信息管理学院新生辩论赛 · 团体亚军</div>
-      <div class="life-card-date">2023.11</div>
-      <div class="life-card-desc">逻辑的碰撞、语言的交锋，辩论让我学会在多元视角中寻找思辨之美。</div>
-    </div>
+  <!-- Interactive Map -->
+  <div class="map-wrapper fade-in" id="mapWrapper">
+    <svg viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg" id="mapSvg">
+      <defs>
+        <filter id="landShadow">
+          <feDropShadow dx="0" dy="0" stdDeviation="2" flood-color="rgba(91,155,213,0.08)"/>
+        </filter>
+      </defs>
+
+      <!-- Ocean -->
+      <rect width="900" height="600" class="map-ocean"/>
+
+      <!-- Lat/lng graticules every 5 degrees -->
+      <g class="map-graticule">
+        <!-- lng 80=60, 85=120, 90=180, 95=240, 100=300, 105=360, 110=420, 115=480, 120=540, 125=600, 130=660, 135=720, 140=780, 145=840 -->
+        <!-- lat 5=540, 10=480, 15=420, 20=360, 25=300, 30=240, 35=180, 40=120, 45=60, 50=0 -->
+        <line x1="60" y1="0" x2="60" y2="600"/>
+        <line x1="180" y1="0" x2="180" y2="600"/>
+        <line x1="300" y1="0" x2="300" y2="600"/>
+        <line x1="420" y1="0" x2="420" y2="600"/>
+        <line x1="540" y1="0" x2="540" y2="600"/>
+        <line x1="660" y1="0" x2="660" y2="600"/>
+        <line x1="780" y1="0" x2="780" y2="600"/>
+        <line x1="0" y1="60" x2="900" y2="60"/>
+        <line x1="0" y1="180" x2="900" y2="180"/>
+        <line x1="0" y1="300" x2="900" y2="300"/>
+        <line x1="0" y1="420" x2="900" y2="420"/>
+        <line x1="0" y1="540" x2="900" y2="540"/>
+      </g>
+
+      <!-- China Mainland - simplified recognizable polygon -->
+      <!-- x=(lng-75)*12, y=600-lat*12 -->
+      <path class="map-land" filter="url(#landShadow)" d="
+        M 720,18 C 716,20 712,32 696,30 C 680,28 646,6.6 624,6 C 602,5.4 582,18.4 564,26.4 C 546,34.4 534,44.4 516,54 C 498,63.6 476,78 456,84 C 436,90 418,89 396,90 C 374,91 348,93 324,90 C 300,87 274,79 252,72 C 230,65 210,55 192,48 C 174,41 156,34 144,30 C 132,26 130,20 120,24 C 110,28 94,42 84,54 C 74,66 73.6,84 60,96 C 46.4,108 9.4,116 2.4,126 C -4.6,136 12.4,147 18,156 C 23.6,165 31,170 36,180 C 41,190 41,205 48,216 C 55,227 66,238 78,246 C 90,254 105,261.4 120,264 C 135,266.6 154,262.6 168,261.6 C 182,260.6 192,257.6 204,258 C 216,258.4 228,261 240,264 C 252,267 268,271 276,276 C 284,281 284,288 288,294 C 292,300 297,306 300,312 C 303,318 303,325 306,330 C 309,335 313,341 318,342 C 323,343 329,338 336,336 C 343,334 352,331 360,330 C 368,329 377.4,328 384,330 C 390.6,332 393.6,341.4 399.6,342 C 405.6,342.6 412.6,335.6 420,333.6 C 427.4,331.6 436,330.6 444,330 C 452,329.4 461,329.6 468,330 C 475,330.4 480,333.8 486,332.4 C 492,331 498.6,325.6 504,321.6 C 509.4,317.6 514.4,313 518.4,308.4 C 522.4,303.8 524.4,299.4 528,294 C 531.6,288.6 536,282 540,276 C 544,270 548,264 552,258 C 556,252 562.4,245.6 564,240 C 565.6,234.4 563.6,228.4 561.6,224.4 C 559.6,220.4 553.6,220.4 552,216 C 550.4,211.6 553.4,204 552,198 C 550.6,192 544,186 543.6,180 C 543.2,174 549.8,167 549.6,162 C 549.4,157 547,153 542.4,150 C 537.8,147 524.8,146.6 522,144 C 519.2,141.4 519.6,138.4 525.6,134.4 C 531.6,130.4 549.6,124.4 558,120 C 566.4,115.6 570,109 576,108 C 582,107 584,116 594,114 C 604,112 623,103 636,96 C 649,89 662,82 672,72 C 682,62 688,45 696,36 C 704,27 716,21 720,18 C 724,15 724,16 720,18 Z
+      "/>
+
+      <!-- Korean Peninsula -->
+      <path class="map-land" d="
+        M 636,138 C 640,130 644,124 648,120
+        C 652,128 656,140 660,152 C 664,164 660,180 656,192
+        C 652,204 640,210 636,204 C 632,198 628,186 624,174
+        C 620,162 624,148 628,140 C 632,136 634,136 636,138 Z
+      "/>
+
+      <!-- Japan - Honshu (arc shape) -->
+      <path class="map-land" d="
+        M 792,102 C 796,110 800,118 796,126
+        C 792,134 790,146 788,154 C 786,162 784,170 780,178
+        C 776,186 772,190 768,194 C 764,198 758,200 752,196
+        C 746,192 740,190 734,188 C 728,186 722,184 716,186
+        C 710,188 704,192 698,194 C 692,196 686,194 680,192
+        C 674,190 668,192 664,196 C 660,200 656,206 652,208
+        C 648,210 644,208 648,200 C 652,192 656,188 660,180
+        C 664,172 668,164 672,158 C 676,150 680,144 684,138
+        C 688,130 694,126 700,124 C 706,122 712,120 718,118
+        C 724,116 730,114 736,114 C 742,114 748,112 754,110
+        C 760,108 766,106 772,104 C 778,102 784,102 792,102 Z
+      "/>
+
+      <!-- Japan - Kyushu -->
+      <path class="map-land" d="
+        M 664,210 C 672,208 680,212 684,218
+        C 688,224 684,232 678,234 C 672,236 666,234 662,228
+        C 658,222 660,214 664,210 Z
+      "/>
+
+      <!-- Japan - Hokkaido -->
+      <path class="map-land-alt" d="
+        M 792,78 C 796,82 800,88 800,94
+        C 800,100 796,104 792,102 C 788,100 784,96 784,90
+        C 784,84 788,78 792,78 Z
+      "/>
+
+      <!-- Taiwan -->
+      <path class="map-land" d="
+        M 546,294 C 552,292 560,296 562,304
+        C 564,312 562,320 558,328 C 554,336 546,338 542,330
+        C 538,322 538,312 540,304 C 542,296 544,294 546,294 Z
+      "/>
+
+      <!-- Hainan -->
+      <path class="map-land" d="
+        M 414,378 C 422,376 430,380 432,388
+        C 434,396 430,404 422,406 C 414,408 408,404 406,396
+        C 404,388 408,380 414,378 Z
+      "/>
+
+      <!-- Jeju / Ryukyu islets -->
+      <ellipse class="map-land" cx="618" cy="198" rx="3.5" ry="2"/>
+      <ellipse class="map-land" cx="632" cy="285" rx="5" ry="1.8" transform="rotate(-15 632 285)"/>
+
+      <!-- Southeast Asia (Vietnam area) -->
+      <path class="map-land-alt" d="
+        M 408,348 C 420,360 432,372 420,384
+        C 408,396 396,408 384,420 C 372,432 360,444 348,444
+        C 340,444 336,432 340,420 C 344,408 352,396 360,384
+        C 368,372 380,360 392,348 C 400,340 404,344 408,348 Z
+      "/>
+
+      <!-- Malay Peninsula -->
+      <path class="map-land-alt" d="
+        M 340,444 C 348,456 356,468 352,480
+        C 348,492 344,504 352,516 C 360,528 368,540 360,552
+        C 352,564 344,576 348,588 C 348,594 342,596 336,592
+        C 320,576 316,560 324,548 C 332,536 336,520 328,508
+        C 320,496 324,484 328,472 C 332,460 336,450 340,444 Z
+      "/>
+
+      <!-- City Dots — x=(lng-75)*12, y=600-lat*12 -->
+      <!-- All 54 cities projected from lat/lng coordinates -->
+      <g class="map-city-dots">
+        <circle class="city-dot" cx="551.8" cy="223.3" r="3" data-name="昆山"/>
+        <circle class="city-dot" cx="557.6" cy="225.2" r="3" data-name="上海"/>
+        <circle class="city-dot" cx="547" cy="224.4" r="3" data-name="苏州"/>
+        <circle class="city-dot" cx="543.7" cy="222.1" r="3" data-name="无锡"/>
+        <circle class="city-dot" cx="539.6" cy="218.3" r="3" data-name="常州"/>
+        <circle class="city-dot" cx="533.4" cy="213.7" r="3" data-name="镇江"/>
+        <circle class="city-dot" cx="525.6" cy="215.3" r="3" data-name="南京"/>
+        <circle class="city-dot" cx="532.9" cy="211.3" r="3" data-name="扬州"/>
+        <circle class="city-dot" cx="528.2" cy="196.7" r="3" data-name="淮安"/>
+        <circle class="city-dot" cx="507.4" cy="189.6" r="3" data-name="徐州"/>
+        <circle class="city-dot" cx="530.6" cy="184.8" r="3" data-name="连云港"/>
+        <circle class="city-dot" cx="541.8" cy="236.8" r="3" data-name="杭州"/>
+        <circle class="city-dot" cx="549.1" cy="231" r="3" data-name="嘉兴"/>
+        <circle class="city-dot" cx="547" cy="239.6" r="3" data-name="绍兴"/>
+        <circle class="city-dot" cx="569.4" cy="231.4" r="3" data-name="嵊泗"/>
+        <circle class="city-dot" cx="566.5" cy="239.8" r="3" data-name="舟山"/>
+        <circle class="city-dot" cx="531.6" cy="287.2" r="3" data-name="福州"/>
+        <circle class="city-dot" cx="517.1" cy="306.2" r="3" data-name="厦门"/>
+        <circle class="city-dot" cx="459.1" cy="322.4" r="3" data-name="广州"/>
+        <circle class="city-dot" cx="468.7" cy="329.5" r="3" data-name="深圳"/>
+        <circle class="city-dot" cx="519.8" cy="212.4" r="3" data-name="滁州"/>
+        <circle class="city-dot" cx="522.1" cy="220" r="3" data-name="马鞍山"/>
+        <circle class="city-dot" cx="521.2" cy="223.8" r="3" data-name="芜湖"/>
+        <circle class="city-dot" cx="503.8" cy="196.4" r="3" data-name="宿州"/>
+        <circle class="city-dot" cx="501.6" cy="192.6" r="3" data-name="淮北"/>
+        <circle class="city-dot" cx="544.6" cy="167.2" r="3" data-name="青岛"/>
+        <circle class="city-dot" cx="505.4" cy="160.2" r="3" data-name="济南"/>
+        <circle class="city-dot" cx="506.4" cy="130.4" r="3" data-name="天津"/>
+        <circle class="city-dot" cx="496.9" cy="121.2" r="3" data-name="北京"/>
+        <circle class="city-dot" cx="449.4" cy="184.6" r="3" data-name="洛阳"/>
+        <circle class="city-dot" cx="407.3" cy="187.9" r="3" data-name="西安"/>
+        <circle class="city-dot" cx="455.3" cy="261.2" r="3" data-name="长沙"/>
+        <circle class="city-dot" cx="435.5" cy="231.7" r="3" data-name="宜昌"/>
+        <circle class="city-dot" cx="378.6" cy="245.3" r="3" data-name="重庆"/>
+        <circle class="city-dot" cx="348.8" cy="233.2" r="3" data-name="成都"/>
+        <circle class="city-dot" cx="309.6" cy="335.9" r="3" data-name="西双版纳"/>
+        <circle class="city-dot" cx="151.4" cy="74" r="3" data-name="乌鲁木齐"/>
+        <circle class="city-dot" cx="75.4" cy="73" r="3" data-name="伊宁"/>
+        <circle class="city-dot" cx="118.8" cy="66.8" r="3" data-name="奎屯"/>
+        <circle class="city-dot" cx="508.7" cy="205" r="3" data-name="蚌埠"/>
+        <circle class="city-dot" cx="379.6" cy="280.2" r="3" data-name="贵阳"/>
+        <circle class="city-dot" cx="394.7" cy="295.1" r="3" data-name="荔波"/>
+        <circle class="city-dot" cx="776.3" cy="171.8" r="3" data-name="东京"/>
+        <circle class="city-dot" cx="726" cy="183.7" r="3" data-name="大阪"/>
+        <circle class="city-dot" cx="775.8" cy="169.7" r="3" data-name="埼玉"/>
+        <circle class="city-dot" cx="729.2" cy="179.9" r="3" data-name="京都"/>
+        <circle class="city-dot" cx="677.6" cy="189.7" r="3" data-name="山口"/>
+        <circle class="city-dot" cx="752.8" cy="183.5" r="3" data-name="浜松"/>
+        <circle class="city-dot" cx="764.2" cy="178.1" r="3" data-name="富士"/>
+        <circle class="city-dot" cx="632.2" cy="285.5" r="3" data-name="那霸"/>
+        <circle class="city-dot" cx="470" cy="332.2" r="3" data-name="香港"/>
+        <circle class="city-dot" cx="462.6" cy="333.6" r="3" data-name="澳门"/>
+        <circle class="city-dot" cx="618.4" cy="198" r="3" data-name="济州"/>
+        <circle class="city-dot" cx="345.8" cy="583.8" r="3" data-name="新加坡"/>
+      </g>
+
+    </svg>
+    <div class="map-tooltip" id="mapTooltip"></div>
   </div>
 
-  <div class="life-card fade-in">
-    <div class="life-card-icon">🤝</div>
-    <div class="life-card-body">
-      <div class="life-card-title">浦口马拉松志愿者 &amp; 校优秀志愿者</div>
-      <div class="life-card-date">2024.12</div>
-      <div class="life-card-desc">为完成全马的选手递上奖牌与补给，听到他们一声声称赞的那一刻，深刻体会到奉献的快乐与责任的意义。</div>
+  <div class="section-inner">
+    <p class="travel-stats fade-in">
+      去过 <strong>6</strong> 个国家/地区 · <strong>54</strong> 座城市
+    </p>
+
+    <!-- Travel photo grid -->
+    <div class="travel-photos fade-in">
+      <div class="travel-photo-card">
+        <img src="images/thumb/东京全景.jpg" alt="东京全景" loading="lazy">
+        <div class="travel-photo-info">
+          <div class="travel-photo-title">东京全景</div>
+          <div class="travel-photo-sub">东京 · 日本 · 2024</div>
+        </div>
+      </div>
+      <div class="travel-photo-card">
+        <img src="images/thumb/富士山2.jpg" alt="富士山" loading="lazy">
+        <div class="travel-photo-info">
+          <div class="travel-photo-title">富士山</div>
+          <div class="travel-photo-sub">静冈 · 日本 · 2024</div>
+        </div>
+      </div>
+      <div class="travel-photo-card">
+        <img src="images/thumb/晴空塔日落1.jpg" alt="晴空塔日落" loading="lazy">
+        <div class="travel-photo-info">
+          <div class="travel-photo-title">晴空塔日落</div>
+          <div class="travel-photo-sub">东京 · 日本 · 2024</div>
+        </div>
+      </div>
+      <div class="travel-photo-card">
+        <img src="images/thumb/长江大桥.jpg" alt="长江大桥" loading="lazy">
+        <div class="travel-photo-info">
+          <div class="travel-photo-title">长江大桥</div>
+          <div class="travel-photo-sub">南京 · 江苏 · 2024</div>
+        </div>
+      </div>
+      <div class="travel-photo-card">
+        <img src="images/thumb/嵊泗日出.jpg" alt="嵊泗日出" loading="lazy">
+        <div class="travel-photo-info">
+          <div class="travel-photo-title">嵊泗日出</div>
+          <div class="travel-photo-sub">舟山 · 浙江 · 2024</div>
+        </div>
+      </div>
+      <div class="travel-photo-card">
+        <img src="images/thumb/春日樱.jpg" alt="春日樱" loading="lazy">
+        <div class="travel-photo-info">
+          <div class="travel-photo-title">春日樱</div>
+          <div class="travel-photo-sub">2025 · 春</div>
+        </div>
+      </div>
     </div>
   </div>
-
-  <div class="life-card fade-in">
-    <div class="life-card-icon">📷</div>
-    <div class="life-card-body">
-      <div class="life-card-title">信息管理学院摄影比赛 · 一等奖</div>
-      <div class="life-card-date">2025.05</div>
-      <div class="life-card-desc">摄影是一场不断发现美好、捕捉瞬间的旅程。每一次按下快门，都是与世界的对话。</div>
-      <a href="photography.html">
-        浏览摄影作品 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </a>
-    </div>
-  </div>
-
-  <div class="life-card fade-in">
-    <div class="life-card-icon">🗾</div>
-    <div class="life-card-body">
-      <div class="life-card-title">东京大学 · 新质生产力短期研修</div>
-      <div class="life-card-date">2024.08</div>
-      <div class="life-card-desc">江苏省政府奖学金项目，开展人工智能赋能弱势群体课题研究，获小组第一（92.5/100）及优秀个人。在异国他乡的学术探索与文化交流，拓宽了视野也收获了友谊。</div>
-    </div>
-  </div>
-
-  <div class="life-card fade-in">
-    <div class="life-card-icon">🏛️</div>
-    <div class="life-card-body">
-      <div class="life-card-title">校学生会主任 · 班级组织委员</div>
-      <div class="life-card-date">2023 – 2025</div>
-      <div class="life-card-desc">组织跨校区活动、21天行动派打卡计划、班级团建……学生工作让我学会了担当与协作，也收获了优秀学生干部、优秀共青团干部的认可。</div>
-    </div>
-  </div>
-
-  <div class="life-quote fade-in">"生活不止一种颜色，每一面都是真实的自己"</div>
-
 </section>
 
-<footer class="life-footer container">
-  <p>© 2026 <span>Ding Yi</span> · Life</p>
-</footer>
+<!-- LOVE -->
+<section class="section" id="love">
+  <div class="section-inner">
+    <h2 class="section-title fade-in">
+      恋爱
+      <span class="en">Love</span>
+    </h2>
+
+    <div class="love-grid fade-in">
+      <div class="love-card">
+        <img class="love-card-img" src="https://picsum.photos/seed/couple-autumn/600/400" alt="初识" loading="lazy">
+        <div class="love-card-body">
+          <div class="love-card-year">2023</div>
+          <div class="love-card-title">初识</div>
+          <div class="love-card-desc">在南京农业大学的秋天，图书馆三楼靠窗的位置，阳光刚好落在翻开的书页上。从此生活的底色多了一抹暖色。</div>
+        </div>
+      </div>
+      <div class="love-card">
+        <img class="love-card-img" src="https://picsum.photos/seed/coast-trip/600/400" alt="旅行" loading="lazy">
+        <div class="love-card-body">
+          <div class="love-card-year">2024</div>
+          <div class="love-card-title">第一次旅行</div>
+          <div class="love-card-desc">从南京到厦门，十四个小时的绿皮火车，沿途风景从平原渐变为海岸线，像极了我们的故事。</div>
+        </div>
+      </div>
+      <div class="love-card">
+        <img class="love-card-img" src="https://picsum.photos/seed/mountain-sunrise/600/400" alt="日常" loading="lazy">
+        <div class="love-card-body">
+          <div class="love-card-year">2025</div>
+          <div class="love-card-title">一起看过的日出</div>
+          <div class="love-card-desc">凌晨四点的闹钟，紫金山顶的薄雾，和你分享同一杯热豆浆的温度——这就是最好的早晨。</div>
+        </div>
+      </div>
+      <div class="love-card">
+        <img class="love-card-img" src="https://picsum.photos/seed/road-ahead/600/400" alt="未来" loading="lazy">
+        <div class="love-card-body">
+          <div class="love-card-year">2026</div>
+          <div class="love-card-title">未完待续</div>
+          <div class="love-card-desc">故事还在继续。下一站，一起去看看更大的世界吧。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OTHERS -->
+<section class="section" id="others">
+  <div class="section-inner">
+    <h2 class="section-title fade-in">
+      其他
+      <span class="en">Others</span>
+    </h2>
+
+    <div class="others-grid fade-in">
+      <div class="others-card">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="4" y="3" width="16" height="16" rx="2"/>
+          <path d="M4 11h16"/><path d="M12 3v8"/>
+          <path d="m8 19-2 2"/><path d="m16 19 2 2"/>
+        </svg>
+        <div class="others-card-title">铁道旅行</div>
+        <div class="others-card-desc">绿皮火车窗边的风景，高铁站台的离别与重逢。铁轨延伸的方向，总是藏着未知的故事。</div>
+      </div>
+      <div class="others-card">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+          <circle cx="12" cy="13" r="4"/>
+        </svg>
+        <div class="others-card-title">摄影心得</div>
+        <div class="others-card-desc">每一次按下快门，都是与世界的对话。光影、构图、色彩——摄影教会我如何真正观看。</div>
+      </div>
+      <div class="others-card">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+        </svg>
+        <div class="others-card-title">日常碎片</div>
+        <div class="others-card-desc">咖啡馆的午后、雨夜的电台、操场上的晚风——生活由这些微小而闪光的瞬间拼凑而成。</div>
+      </div>
+      <div class="others-card">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 12V8H6a2 2 0 0 1-2-2c0-1.1.9-2 2-2h12v4"/>
+          <path d="M4 6v12c0 1.1.9 2 2 2h14v-4"/>
+          <path d="M18 12a2 2 0 0 0-2 2c0 1.1.9 2 2 2h4v-4h-4z"/>
+        </svg>
+        <div class="others-card-title">个人收藏</div>
+        <div class="others-card-desc">车票、明信片、贝壳、树叶——每一件小物都承载着一段关于时间与空间的独家记忆。</div>
+      </div>
+    </div>
+
+    <p class="others-soon fade-in">更多生活碎片，敬请期待</p>
+  </div>
+</section>
+
+<!-- CITY SILHOUETTE -->
+<div class="city-silhouette" aria-hidden="true">
+  <svg viewBox="0 0 1920 200" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+    <!-- Far background - low buildings -->
+    <g fill="#D8E6F3" opacity="0.6">
+      <rect x="30" y="140" width="28" height="60"/>
+      <rect x="68" y="152" width="22" height="48"/>
+      <rect x="100" y="160" width="18" height="40"/>
+      <rect x="380" y="148" width="24" height="52"/>
+      <rect x="414" y="158" width="16" height="42"/>
+      <rect x="780" y="145" width="20" height="55"/>
+      <rect x="810" y="155" width="18" height="45"/>
+      <rect x="1150" y="150" width="22" height="50"/>
+      <rect x="1182" y="160" width="16" height="40"/>
+      <rect x="1550" y="148" width="24" height="52"/>
+      <rect x="1584" y="158" width="18" height="42"/>
+    </g>
+
+    <!-- Mid ground - medium buildings -->
+    <g fill="#BCD4EA" opacity="0.75">
+      <rect x="0" y="130" width="35" height="70"/>
+      <rect x="140" y="120" width="40" height="80"/>
+      <polygon points="155,80 180,110 180,120 140,120 140,110"/>
+      <rect x="230" y="135" width="30" height="65"/>
+      <rect x="440" y="125" width="35" height="75"/>
+      <polygon points="455,90 480,115 480,125 440,125 440,115"/>
+      <rect x="530" y="140" width="28" height="60"/>
+      <rect x="640" y="115" width="42" height="85"/>
+      <polygon points="656,70 685,110 685,115 640,115 640,110"/>
+      <rect x="840" y="130" width="34" height="70"/>
+      <rect x="930" y="120" width="38" height="80"/>
+      <polygon points="945,85 970,115 970,120 930,120 930,115"/>
+      <rect x="1060" y="135" width="28" height="65"/>
+      <rect x="1210" y="125" width="36" height="75"/>
+      <rect x="1340" y="130" width="30" height="70"/>
+      <polygon points="1350,90 1380,120 1380,130 1340,130 1340,120"/>
+      <rect x="1460" y="120" width="40" height="80"/>
+      <polygon points="1475,75 1505,110 1505,120 1460,120 1460,110"/>
+      <rect x="1620" y="135" width="32" height="65"/>
+      <rect x="1720" y="125" width="35" height="75"/>
+      <rect x="1820" y="130" width="30" height="70"/>
+      <polygon points="1830,95 1860,125 1860,130 1820,130 1820,125"/>
+    </g>
+
+    <!-- Foreground - tall buildings with detail -->
+    <g fill="#A8C8E2">
+      <!-- Building cluster 1 -->
+      <rect x="190" y="100" width="36" height="100"/>
+      <rect x="196" y="115" width="8" height="8" fill="#9BBDD9" opacity="0.6"/>
+      <rect x="210" y="115" width="8" height="8" fill="#9BBDD9" opacity="0.6"/>
+      <rect x="196" y="130" width="8" height="8" fill="#9BBDD9" opacity="0.6"/>
+      <rect x="210" y="130" width="8" height="8" fill="#9BBDD9" opacity="0.6"/>
+      <rect x="196" y="145" width="8" height="8" fill="#9BBDD9" opacity="0.6"/>
+      <rect x="210" y="145" width="8" height="8" fill="#9BBDD9" opacity="0.6"/>
+
+      <!-- Tall tower with spire -->
+      <rect x="280" y="55" width="20" height="145"/>
+      <rect x="285" y="30" width="10" height="25"/>
+      <rect x="288" y="20" width="4" height="10"/>
+      <rect x="286" y="70" width="8" height="8" fill="#9BBDD9" opacity="0.5"/>
+      <rect x="286" y="90" width="8" height="8" fill="#9BBDD9" opacity="0.5"/>
+      <rect x="286" y="110" width="8" height="8" fill="#9BBDD9" opacity="0.5"/>
+
+      <!-- wide building -->
+      <rect x="320" y="115" width="55" height="85"/>
+      <rect x="330" y="128" width="35" height="6" fill="#9BBDD9" opacity="0.5"/>
+      <rect x="330" y="142" width="35" height="6" fill="#9BBDD9" opacity="0.5"/>
+      <rect x="330" y="156" width="35" height="6" fill="#9BBDD9" opacity="0.5"/>
+
+      <!-- Building cluster 2 -->
+      <rect x="490" y="90" width="30" height="110"/>
+      <rect x="497" y="105" width="16" height="8" fill="#9BBDD9" opacity="0.5"/>
+      <rect x="497" y="125" width="16" height="8" fill="#9BBDD9" opacity="0.5"/>
+
+      <!-- Twin towers -->
+      <rect x="570" y="60" width="22" height="140"/>
+      <rect x="575" y="72" width="12" height="10" fill="#9BBDD9" opacity="0.5"/>
+      <rect x="575" y="92" width="12" height="10" fill="#9BBDD9" opacity="0.5"/>
+      <rect x="575" y="112" width="12" height="10" fill="#9BBDD9" opacity="0.5"/>
+      <rect x="598" y="75" width="22" height="125"/>
+      <rect x="603" y="88" width="12" height="10" fill="#9BBDD9" opacity="0.5"/>
+      <rect x="603" y="108" width="12" height="10" fill="#9BBDD9" opacity="0.5"/>
+
+      <!-- Dome building -->
+      <path d="M 680,200 L 680,120 Q 710,80 740,120 L 740,200 Z"/>
+      <rect x="694" y="135" width="32" height="8" fill="#9BBDD9" opacity="0.5"/>
+      <rect x="694" y="150" width="32" height="8" fill="#9BBDD9" opacity="0.5"/>
+      <circle cx="710" cy="105" r="6" fill="#9BBDD9" opacity="0.4"/>
+
+      <!-- Skyscraper group -->
+      <rect x="880" y="70" width="26" height="130"/>
+      <rect x="885" y="82" width="16" height="10" fill="#9BBDD9" opacity="0.5"/>
+      <rect x="885" y="100" width="16" height="10" fill="#9BBDD9" opacity="0.5"/>
+      <rect x="910" y="95" width="20" height="105"/>
+      <rect x="935" y="80" width="24" height="120"/>
+      <rect x="940" y="92" width="14" height="10" fill="#9BBDD9" opacity="0.5"/>
+
+      <!-- Communications tower -->
+      <rect x="990" y="40" width="12" height="160"/>
+      <rect x="994" y="20" width="4" height="20"/>
+      <circle cx="996" cy="18" r="3"/>
+      <rect x="990" y="60" width="20" height="6" fill="#9BBDD9" opacity="0.4"/>
+      <rect x="990" y="85" width="24" height="6" fill="#9BBDD9" opacity="0.4"/>
+
+      <!-- Modern complex -->
+      <rect x="1090" y="100" width="45" height="100"/>
+      <rect x="1100" y="115" width="25" height="6" fill="#9BBDD9" opacity="0.5"/>
+      <rect x="1100" y="132" width="25" height="6" fill="#9BBDD9" opacity="0.5"/>
+
+      <!-- Landmark tower -->
+      <rect x="1250" y="50" width="28" height="150"/>
+      <rect x="1256" y="30" width="16" height="20"/>
+      <rect x="1260" y="18" width="8" height="12"/>
+      <circle cx="1264" cy="14" r="4"/>
+      <rect x="1256" y="68" width="16" height="10" fill="#9BBDD9" opacity="0.5"/>
+      <rect x="1256" y="88" width="16" height="10" fill="#9BBDD9" opacity="0.5"/>
+
+      <!-- Bridge -->
+      <path d="M 1278,160 Q 1340,130 1410,160" stroke="#A8C8E2" stroke-width="6" fill="none"/>
+      <path d="M 1280,160 Q 1342,136 1408,160" stroke="#C0D8EC" stroke-width="2" fill="none"/>
+      <rect x="1290" y="155" width="4" height="45" fill="#A8C8E2"/>
+      <rect x="1390" y="155" width="4" height="45" fill="#A8C8E2"/>
+
+      <!-- More buildings far right -->
+      <rect x="1500" y="85" width="30" height="115"/>
+      <rect x="1506" y="98" width="18" height="8" fill="#9BBDD9" opacity="0.5"/>
+      <rect x="1535" y="100" width="25" height="100"/>
+      <rect x="1660" y="65" width="22" height="135"/>
+      <rect x="1665" y="78" width="12" height="10" fill="#9BBDD9" opacity="0.5"/>
+      <rect x="1665" y="98" width="12" height="10" fill="#9BBDD9" opacity="0.5"/>
+      <rect x="1690" y="90" width="28" height="110"/>
+      <rect x="1780" y="75" width="34" height="125"/>
+      <rect x="1787" y="88" width="20" height="8" fill="#9BBDD9" opacity="0.5"/>
+      <rect x="1787" y="106" width="20" height="8" fill="#9BBDD9" opacity="0.5"/>
+      <rect x="1825" y="100" width="30" height="100"/>
+      <polygon points="1835,70 1865,100 1865,100 1835,100" fill="#A8C8E2"/>
+      <rect x="1880" y="80" width="25" height="120"/>
+      <rect x="1885" y="93" width="15" height="8" fill="#9BBDD9" opacity="0.5"/>
+    </g>
+  </svg>
+</div>
+
+<!-- BACK TO TOP -->
+<button class="back-to-top" id="backToTop" title="回到顶部" aria-label="回到顶部">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="18 15 12 9 6 15"/>
+  </svg>
+</button>
 
 <script>
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) entry.target.classList.add('visible');
-  });
-}, { threshold: 0.08 });
+(function () {
+  'use strict';
 
-document.querySelectorAll('.fade-in').forEach((el, i) => {
-  el.style.transitionDelay = (i * 0.06) + 's';
-  observer.observe(el);
-});
+  /* ---- 导航（移动端折叠） ---- */
+  var navToggle = document.getElementById('navToggle');
+  var navLinks = document.getElementById('navLinks');
+  if (navToggle && navLinks) {
+    navToggle.addEventListener('click', function () {
+      var open = navLinks.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  }
+
+  /* ---- 滚动淡入 ---- */
+  var faders = document.querySelectorAll('.fade-in');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    faders.forEach(function (el) { io.observe(el); });
+  } else {
+    faders.forEach(function (el) { el.classList.add('visible'); });
+  }
+
+  /* ---- 回到顶部 ---- */
+  var backToTop = document.getElementById('backToTop');
+  if (backToTop) {
+    var onScroll = function () {
+      backToTop.classList.toggle('show', window.scrollY > 480);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    backToTop.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  /* ---- 滚动高亮当前导航项 ---- */
+  var sectionIds = ['travel', 'love', 'others'];
+  var sections = sectionIds.map(function (id) { return document.getElementById(id); });
+  var anchors = navLinks ? Array.prototype.slice.call(navLinks.querySelectorAll('a[href^="#"]')) : [];
+  if (sections.every(Boolean) && anchors.length) {
+    var spy = function () {
+      var pos = window.scrollY + 100;
+      var currentId = '';
+      sections.forEach(function (sec) {
+        if (sec.offsetTop <= pos) currentId = sec.id;
+      });
+      anchors.forEach(function (a) {
+        a.classList.toggle('active', a.getAttribute('href') === '#' + currentId);
+      });
+    };
+    window.addEventListener('scroll', spy, { passive: true });
+    spy();
+  }
+
+  /* ---- 地图城市标记 tooltip ---- */
+  var mapWrapper = document.getElementById('mapWrapper');
+  var tooltip = document.getElementById('mapTooltip');
+  var dots = Array.prototype.slice.call(document.querySelectorAll('.city-dot'));
+  if (mapWrapper && tooltip && dots.length) {
+    function positionTooltip(dot) {
+      var dRect = dot.getBoundingClientRect();
+      var wRect = mapWrapper.getBoundingClientRect();
+      tooltip.style.left = (dRect.left - wRect.left + dRect.width / 2) + 'px';
+      tooltip.style.top = (dRect.top - wRect.top + dRect.height / 2) + 'px';
+    }
+    function showTooltip(dot) {
+      tooltip.textContent = dot.getAttribute('data-name') || '';
+      tooltip.classList.add('show');
+      positionTooltip(dot);
+    }
+    dots.forEach(function (dot) {
+      dot.addEventListener('mouseenter', function () { showTooltip(dot); });
+      dot.addEventListener('mousemove', function () { positionTooltip(dot); });
+      dot.addEventListener('mouseleave', function () { tooltip.classList.remove('show'); });
+      dot.addEventListener('click', function (e) {
+        e.stopPropagation();
+        showTooltip(dot);
+      });
+    });
+    document.addEventListener('click', function (e) {
+      if (!e.target.closest('.city-dot')) tooltip.classList.remove('show');
+    });
+  }
+})();
 </script>
-
 </body>
 </html>
