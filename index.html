@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>丁一 · Ding Yi — Personal Academic Homepage</title>
-<meta name="description" content="丁一，南京农业大学信息管理学院本科生。研究方向：自然语言处理、计算人文、大语言模型。">
+<meta name="description" content="丁一，南京农业大学信息管理与信息系统专业本科生，北京师范大学政府管理学院信息资源管理学术型硕士。研究方向：自然语言处理、计算人文与大语言模型。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Noto+Sans+SC:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -213,6 +213,8 @@ body {
   background: var(--bg-alt); color: var(--text-light);
   font-weight: 500;
 }
+.card-tag a { color: inherit; text-decoration: none; }
+.card-tag a:hover { color: var(--accent-dark); }
 
 /* ---- AWARDS ---- */
 .award-cat {
@@ -243,6 +245,8 @@ body {
 }
 .lead-role { font-weight: 600; color: var(--text); font-size: 14px; }
 .lead-org { color: var(--text-light); font-size: 14px; }
+.lead-content { flex: 1; }
+.lead-desc { margin-top: 4px; color: var(--text-muted); font-size: 13px; line-height: 1.65; }
 
 /* ---- CONTACT ---- */
 .contact-grid { display: flex; flex-wrap: wrap; gap: 20px; }
@@ -284,6 +288,10 @@ footer span { color: var(--accent-dark); }
   transition: opacity 0.6s ease, transform 0.6s ease;
 }
 .fade-section.visible { opacity: 1; transform: translateY(0); }
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-section { opacity: 1; transform: none; transition: none; }
+}
 
 /* ---- BACK TO TOP ---- */
 .back-to-top {
@@ -360,10 +368,6 @@ footer span { color: var(--accent-dark); }
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
         摄影主页
       </a></li>
-      <li><a href="life.html" class="nav-photo" title="生活主页">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-        生活主页
-      </a></li>
     </ul>
   </div>
 </nav>
@@ -375,7 +379,7 @@ footer span { color: var(--accent-dark); }
     <h1 class="sidebar-name">丁一</h1>
     <div class="sidebar-name-en">Ding Yi</div>
     <p class="sidebar-bio">
-      <strong>中共预备党员</strong>，南京农业大学<strong>信息管理学院</strong>本科生。研究兴趣涵盖<strong>自然语言处理</strong>、<strong>计算人文</strong>与<strong>大语言模型</strong>。致力于将人工智能技术应用于古典文学生成与数字人文研究，未来希望深耕情报学与数字人文交叉领域，以情报驱动的计算范式破解数据语义鸿沟。
+      南京农业大学<strong>信息管理与信息系统</strong>专业本科生，北京师范大学<strong>政府管理学院信息资源管理</strong>学术型硕士。研究兴趣涵盖<strong>自然语言处理</strong>、<strong>计算人文</strong>与<strong>大语言模型</strong>，专注于大模型微调、信息检索与数字人文应用。
     </p>
 
   </aside>
@@ -391,16 +395,15 @@ footer span { color: var(--accent-dark); }
         <span class="edu-date">2023.09 – 2027.06（预期）</span>
       </div>
       <div class="edu-degree">信息管理与信息系统 本科</div>
-      <div class="edu-detail">GPA 3.98 / 4.50 · 专业排名 4/52 · 三好学生一等奖学金</div>
+      <div class="edu-detail">GPA 3.99 / 4.50 · 专业排名 4/52（前 8%）· 三好学生一等奖学金</div>
     </div>
 
     <div class="edu-item">
       <div class="edu-header">
-        <span class="edu-school">中国科学院大学 · 科技战略咨询研究院</span>
+        <span class="edu-school">北京师范大学 · 政府管理学院</span>
         <span class="edu-date">2027.09 – 2030.06（预期）</span>
       </div>
-      <div class="edu-degree">情报学 学术硕士</div>
-      <div class="edu-detail">研究方向：情报理论方法与应用</div>
+      <div class="edu-degree">信息资源管理 学术型硕士</div>
     </div>
 
     <div class="edu-item">
@@ -409,7 +412,7 @@ footer span { color: var(--accent-dark); }
         <span class="edu-date">2024.07 – 2024.08</span>
       </div>
       <div class="edu-degree">江苏省高校学生境外学习政府奖学金项目</div>
-      <div class="edu-detail">人工智能赋能弱势群体课题研究 · 小组第一（92.5/100）· 优秀个人</div>
+      <div class="edu-detail">人工智能赋能弱势群体课题研究 · 优秀小组 · 优秀个人</div>
     </div>
 
     <h2 class="section-title" style="margin-top: 44px;">核心课程成绩</h2>
@@ -424,25 +427,20 @@ footer span { color: var(--accent-dark); }
     <h2 class="section-title" style="margin-top: 44px;">专业技能</h2>
     <div class="skills-grid">
       <span class="skill-tag">Python</span>
-      <span class="skill-tag">PyTorch</span>
-      <span class="skill-tag">NLP</span>
-      <span class="skill-tag">大语言模型微调</span>
-      <span class="skill-tag">LLaMA-Factory</span>
-      <span class="skill-tag">Gephi 网络分析</span>
-      <span class="skill-tag">Navicat</span>
-      <span class="skill-tag">AI 原生编程</span>
-      <span class="skill-tag">Matlab</span>
+      <span class="skill-tag">SQL / SQLite</span>
+      <span class="skill-tag">AI / NLP</span>
+      <span class="skill-tag">SFT</span>
+      <span class="skill-tag">CoT</span>
+      <span class="skill-tag">TF-IDF</span>
+      <span class="skill-tag">Git / GitHub</span>
       <span class="skill-tag">SPSS</span>
-      <span class="skill-tag">Photoshop</span>
-      <span class="skill-tag">Premiere</span>
-      <span class="skill-tag">Lightroom</span>
-      <span class="skill-tag">剪映</span>
+      <span class="skill-tag">Gephi</span>
+      <span class="skill-tag">MATLAB</span>
     </div>
 
     <h2 class="section-title" style="margin-top: 44px;">语言能力</h2>
     <div class="skills-grid">
       <span class="skill-tag">英语 CET-6 560</span>
-      <span class="skill-tag">英语 CET-4 592</span>
       <span class="skill-tag">TOEFL 83</span>
       <span class="skill-tag">日语 JLPT N2 96</span>
       <span class="skill-tag">普通话二级甲等</span>
@@ -454,124 +452,83 @@ footer span { color: var(--accent-dark); }
     <h2 class="section-title">研究工作</h2>
 
     <div class="card">
-      <div class="card-title">Multi-Stage Progressive Alignment of Lightweight LLMs for Strictly Formatted Ancient Literary Genre Generation: A Song Ci Case Study</div>
-      <div class="card-meta">ASIS&T 2026 · Long Paper · Accepted · 第三作者</div>
+      <div class="card-title">省级 SRT 项目：基于大模型的宋词生成研究</div>
+      <div class="card-meta">南京农业大学大学生创新创业训练 · 核心组员 · 2025.01–2026.06</div>
       <div class="card-desc">
-        提出<strong>三阶段渐进式对齐策略</strong>（冷启动SFT → 思维链强化 → GRPO强化学习），创新性地构建了<strong>SongCiReward奖励函数</strong>来约束宋词格律生成。实验证明，轻量级模型经此训练后在宋词生成任务上接近人类水平（综合得分80.86 vs. 人类83.46），在声调控制上甚至略优于人类基线。
-      </div>
-      <div class="card-authors">Hu, Xiyuan; Zhang, Qichen; <strong>Ding, Yi</strong>; Lyu, Sijing; Liu, Liu</div>
-      <div class="card-tags">
-        <span class="card-tag">NLP</span>
-        <span class="card-tag">计算人文</span>
-        <span class="card-tag">RLHF</span>
-        <span class="card-tag">宋词生成</span>
-        <span class="card-tag">GRPO</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-title">DHEAC 2026 · Abstract Accepted</div>
-      <div class="card-meta">Digital Humanities East Asia Conference 2026</div>
-      <div class="card-desc">数字人文领域的国际学术交流，展示大语言模型在中国古典文学计算研究中的应用探索。</div>
-    </div>
-
-    <div class="card">
-      <div class="card-title">省级SRT项目：基于大语言模型的宋词生成与格律控制研究</div>
-      <div class="card-meta">导师：刘浏 · 省级大学生创新训练项目 · 核心组员 · 2025.01–2026.06</div>
-      <div class="card-desc">
-        在导师指导下开展宋词领域的大模型微调研究，创新性提出<strong>三阶段微调方法</strong>，共同创建<strong>SongCiReward奖励函数</strong>以约束和控制模型对宋词格律的生成，兼顾严谨性与文学性。相关成果已被ASIS&T 2026年会长论文录用。
+        参与宋词语料清洗、格律知识库构建，负责知识蒸馏、模型多阶段微调及实验评测与可视化。基于 Qwen2.5-7B-Instruct 构建宋词垂域模型，整理<strong>30 个词牌、192 套格律变体及约 3 万汉字韵律规则</strong>，构建 500 条 SFT 与 810 条 CoT 训练数据；设计 SongCiReward 评价算法，完成 SFT → CoT → GRPO 三阶段对齐。模型综合格律评分由 37.43 提升至 80.86，双盲图灵测试中 76.82% 的生成结果获 4–5 分。
       </div>
       <div class="card-tags">
-        <span class="card-tag">LLM Fine-tuning</span>
+        <span class="card-tag">Qwen2.5-7B-Instruct</span>
+        <span class="card-tag">SFT / CoT / GRPO</span>
         <span class="card-tag">Reward Modeling</span>
         <span class="card-tag">Digital Humanities</span>
       </div>
     </div>
 
     <div class="card">
-      <div class="card-title">王安石诗歌中的主题迁移与情感脉络研究</div>
-      <div class="card-meta">课程设计 · 学术海报 · 核心组员 · 2025.05–2025.06</div>
-      <div class="card-desc">
-        以王安石诗词为研究对象，运用<strong>LDA主题建模</strong>方法，研究证实其诗作主题与情感的变化趋势，印证仕途际遇对诗文创作的影响。负责数据采集、主题建模、海报制作及现场汇报。
-      </div>
-      <div class="card-tags">
-        <span class="card-tag">LDA</span>
-        <span class="card-tag">主题建模</span>
-        <span class="card-tag">数字人文</span>
-        <span class="card-tag">学术海报</span>
-      </div>
+      <div class="card-title">ASIS&amp;T 2026 年会长论文录用</div>
+      <div class="card-meta">国际顶级会议 · 第三作者 · 2026.05</div>
+      <div class="card-desc">宋词生成研究成果获 2026 年 ASIS&amp;T 年会长论文录用。</div>
     </div>
 
     <div class="card">
-      <div class="card-title">作物育种垂直领域大模型构建与应用</div>
-      <div class="card-meta">课程设计 · 组长 · 2025.09–2025.12</div>
-      <div class="card-desc">
-        聚焦作物育种领域痛点，构建面向作物育种的<strong>垂直大语言模型</strong>，提高专业文献检索效率，增强大模型在智慧农业领域的表现。负责统筹规划、数据采集、文献筛选、提示词构建、模型微调与测评。
-      </div>
-      <div class="card-tags">
-        <span class="card-tag">垂直领域大模型</span>
-        <span class="card-tag">智慧农业</span>
-        <span class="card-tag">Prompt Engineering</span>
-      </div>
+      <div class="card-title">DHEAC 2026 参会及报告邀请</div>
+      <div class="card-meta">东亚古籍数字人文国际论坛 · 第三作者 · 2026.05</div>
+      <div class="card-desc">受邀参加 2026 年东亚古籍数字人文国际论坛并作研究报告。</div>
     </div>
 </section>
 
 <!-- PROJECTS -->
 <section class="section fade-section" id="projects">
-    <h2 class="section-title">竞赛与项目</h2>
+    <h2 class="section-title">项目与竞赛</h2>
+
+    <div class="card">
+      <div class="card-title">招聘信息检索系统设计与开发</div>
+      <div class="card-meta">课程设计 · 项目负责人 · 2026.05–2026.06</div>
+      <div class="card-desc">
+        统筹数据采集与清洗、检索算法与 Web 系统实现、效果测评及报告撰写。基于 93,602 条 A 股上市公司招聘数据构建 5,000 条数据集，从零实现倒排索引与 TF-IDF 向量空间模型，支持多字段检索、自然语言查询解析、文本分类及相似岗位推荐等 12 项功能，并完成 7 种分词方案对比。人工标注 20 条查询评测，检索 MAP 达 0.93，倒排检索较顺排提速 33–72 倍。
+      </div>
+      <div class="card-tags">
+        <span class="card-tag">Python</span>
+        <span class="card-tag">TF-IDF</span>
+        <span class="card-tag">Flask</span>
+        <span class="card-tag">ECharts</span>
+        <span class="card-tag"><a href="https://github.com/XDforever-lab/job-info-retrieval-system" target="_blank" rel="noopener">GitHub ↗</a></span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">EShop Intelligence Dashboard · 线上商城智能仪表盘</div>
+      <div class="card-meta">课程设计 · 项目负责人 · 2026.04–2026.06</div>
+      <div class="card-desc">面向约 2 年、20,000 名模拟用户数据，梳理 20 张业务表和 14 个分析视图，统一 GMV、客单价、退款率及会话级漏斗口径。以 Python + SQL/SQLite 构建 RFM、复购倾向、关联规则、7/30 日预测与滚动回测、ROAS、履约售后等 9 个模块，并以 FastAPI + ECharts 交付交互式仪表盘，输出 MAE/MAPE/RMSE、支持度、置信度和提升度。</div>
+      <div class="card-tags">
+        <span class="card-tag">Python</span>
+        <span class="card-tag">SQL / SQLite</span>
+        <span class="card-tag">FastAPI</span>
+        <span class="card-tag">ECharts</span>
+        <span class="card-tag"><a href="https://github.com/XDforever-lab/dashboard" target="_blank" rel="noopener">GitHub ↗</a></span>
+      </div>
+    </div>
 
     <div class="card">
       <div class="card-title">云杼诗章：基于大语言模型的宋词生成系统</div>
-      <div class="card-meta">2026年江苏省大学生计算机设计大赛 · 一等奖 · 省级 · 负责人 · 2026.06</div>
-      <div class="card-desc">
-        大创项目的成果转化，带队进行前后端搭建，<strong>成功将微调模型部署至服务器</strong>，可公网访问，使用户可以与模型进行直接对话，以宋词牌名为基础进行交互式古典诗词创作。
-      </div>
+      <div class="card-meta">中国大学生计算机设计大赛 · 负责人 · 国家级三等奖 · 2026.08</div>
+      <div class="card-desc">将大创项目转化为可用系统，带队完成前后端搭建及微调模型服务器部署，支持公网访问与基于宋词牌名的交互式古典诗词创作。</div>
       <div class="card-tags">
+        <span class="card-tag">LLM Application</span>
         <span class="card-tag">Web Deployment</span>
-        <span class="card-tag">Interactive AI</span>
         <span class="card-tag">Full-stack</span>
       </div>
     </div>
 
     <div class="card">
-      <div class="card-title">外研杯"理解当代中国"全国大学生外语能力大赛英语组</div>
-      <div class="card-meta">二等奖 · 校级 · 2024.05</div>
-      <div class="card-desc">全国大学生外语能力大赛英语组赛事，展现英语综合运用能力与跨文化理解素养。</div>
-      <div class="card-tags">
-        <span class="card-tag">English</span>
-        <span class="card-tag">外语能力</span>
-      </div>
+      <div class="card-title">第九届江苏省高校企业竞争模拟大赛 · 决策赛道</div>
+      <div class="card-meta">核心成员 · 省级三等奖 · 2025.03</div>
     </div>
 
     <div class="card">
-      <div class="card-title">大学生新文科实践创新大赛 · 全国总决赛银奖</div>
-      <div class="card-meta">共同负责人 · 国家级 · 2024.12</div>
-      <div class="card-desc">非物质文化遗产与大语言模型应用结合，获国赛银奖（GS20240170）。</div>
-      <div class="card-tags">
-        <span class="card-tag">Cultural Heritage</span>
-        <span class="card-tag">AI Application</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-title">第二届教育信息技术应用创新大赛 · 区域赛一等奖 / 国赛三等奖</div>
-      <div class="card-meta">2025.09 – 2025.11</div>
-      <div class="card-desc">基于大模型的教育教学应用创新赛，探索大语言模型在教育场景中的创新应用。</div>
-      <div class="card-tags">
-        <span class="card-tag">EdTech</span>
-        <span class="card-tag">LLM Application</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-title">江苏省数字人应用创新大赛 · 二等奖</div>
-      <div class="card-meta">2024.12</div>
-      <div class="card-desc">数字人技术在应用创新领域的实践探索。</div>
-    </div>
-
-    <div class="card">
-      <div class="card-title">第九届江苏省高校企业竞争模拟大赛 · 三等奖</div>
-      <div class="card-meta">核心成员 · 省级 · 2025.03</div>
+      <div class="card-title">大学生新文科实践创新大赛：非物质文化遗产大语言模型应用</div>
+      <div class="card-meta">共同负责人 · 国家级银奖 · 2024.12</div>
     </div>
 </section>
 
@@ -583,31 +540,21 @@ footer span { color: var(--accent-dark); }
     <div class="award-item"><span class="award-name">三好学生一等奖学金</span><span class="award-date">2024–2025 学年</span></div>
     <div class="award-item"><span class="award-name">三好学生二等奖学金</span><span class="award-date">2023–2024 学年</span></div>
     <div class="award-item"><span class="award-name">单科优秀奖学金</span><span class="award-date">2023–2024 学年</span></div>
-    <div class="award-item"><span class="award-name">信息管理学院"优秀学子"英语卓越奖</span><span class="award-date">2024.12</span></div>
 
     <div class="award-cat">🏆 学科竞赛</div>
-    <div class="award-item"><span class="award-name">江苏省计算机设计大赛 · 一等奖</span><span class="award-date">2026.06</span></div>
-    <div class="award-item"><span class="award-name">教育信息技术应用创新大赛 · 区域赛一等奖 / 国赛三等奖</span><span class="award-date">2025.09–11</span></div>
-    <div class="award-item"><span class="award-name">大学生新文科实践创新大赛 · 全国银奖</span><span class="award-date">2024.12</span></div>
-    <div class="award-item"><span class="award-name">江苏省数字人应用创新大赛 · 二等奖</span><span class="award-date">2024.12</span></div>
+    <div class="award-item"><span class="award-name">中国大学生计算机设计大赛 · 国家级三等奖</span><span class="award-date">2026.08</span></div>
     <div class="award-item"><span class="award-name">江苏省高校企业竞争模拟大赛 · 三等奖</span><span class="award-date">2025.03</span></div>
-    <div class="award-item"><span class="award-name">外研杯"理解当代中国"外语能力大赛英语组 · 校二等奖</span><span class="award-date">2024.05</span></div>
-    <div class="award-item"><span class="award-name">江苏省大学生知识竞赛 · 优秀奖</span><span class="award-date">2024.05</span></div>
+    <div class="award-item"><span class="award-name">大学生新文科实践创新大赛 · 国家级银奖</span><span class="award-date">2024.12</span></div>
 
     <div class="award-cat">📜 专业证书</div>
     <div class="award-item"><span class="award-name">全国计算机等级考试三级 · 良好</span><span class="award-date">—</span></div>
 
     <div class="award-cat">🌟 学生工作与实践</div>
-    <div class="award-item"><span class="award-name">南京农业大学优秀共青团干部</span><span class="award-date">2025.05</span></div>
-    <div class="award-item"><span class="award-name">南京农业大学校级优秀志愿者</span><span class="award-date">2024.12</span></div>
-    <div class="award-item"><span class="award-name">东京大学短期研修 · 优秀个人 &amp; 优秀小组</span><span class="award-date">2024.08</span></div>
-    <div class="award-item"><span class="award-name">校级优秀学生干部</span><span class="award-date">2023–2024 学年</span></div>
-    <div class="award-item"><span class="award-name">校学生会优秀成员</span><span class="award-date">2024.06</span></div>
-
-    <div class="award-cat">📷 其他</div>
-    <div class="award-item"><span class="award-name">信管院摄影比赛 · 一等奖</span><span class="award-date">2025.05</span></div>
-    <div class="award-item"><span class="award-name">三院联合运动会男子4×100米 · 第五名</span><span class="award-date">2025.10</span></div>
-    <div class="award-item"><span class="award-name">信息管理学院新生辩论赛 · 团体亚军</span><span class="award-date">2023.11</span></div>
+    <div class="award-item"><span class="award-name">南京农业大学优秀共青团干部</span><span class="award-date">2025</span></div>
+    <div class="award-item"><span class="award-name">南京农业大学优秀学生干部</span><span class="award-date">2024</span></div>
+    <div class="award-item"><span class="award-name">南京农业大学优秀志愿者</span><span class="award-date">2024</span></div>
+    <div class="award-item"><span class="award-name">信息管理学院英语卓越奖</span><span class="award-date">2024</span></div>
+    <div class="award-item"><span class="award-name">东京大学短期研修 · 优秀小组与优秀个人</span><span class="award-date">2024.08</span></div>
 </section>
 
 <!-- LEADERSHIP -->
@@ -616,23 +563,31 @@ footer span { color: var(--accent-dark); }
     <ul class="lead-list">
       <li class="lead-item">
         <span class="lead-period">2024.09 – 2025.09</span>
-        <span><span class="lead-role">主任</span> · <span class="lead-org">南京农业大学学生会浦口执行委员会</span></span>
+        <div class="lead-content">
+          <div><span class="lead-role">主任</span> · <span class="lead-org">南京农业大学校学生会浦口执行委员会</span></div>
+          <div class="lead-desc">统筹学术讲座及校园活动，累计覆盖 8,000+ 人次；协调两个部门完成活动策划、人员分工、现场执行与复盘。</div>
+        </div>
       </li>
       <li class="lead-item">
         <span class="lead-period">2024.09 – 2025.09</span>
-        <span><span class="lead-role">组织委员</span> · <span class="lead-org">信息管理学院信息231班</span></span>
+        <div class="lead-content">
+          <div><span class="lead-role">组织委员</span> · <span class="lead-org">南京农业大学信息 231 班</span></div>
+          <div class="lead-desc">组织并参与 10 余次班会，涵盖主题活动、团建党建与荣誉推选等工作。</div>
+        </div>
       </li>
       <li class="lead-item">
         <span class="lead-period">2024.05 – 至今</span>
-        <span><span class="lead-role">核心成员</span> · <span class="lead-org">自然语言处理学社（748学社）</span></span>
+        <div class="lead-content">
+          <div><span class="lead-role">核心成员</span> · <span class="lead-org">南京农业大学自然语言处理学社（748 学社）</span></div>
+          <div class="lead-desc">参与古籍文本等大型语料库的数据构建与标注，积累数据清洗、实体识别及文本分类经验。</div>
+        </div>
       </li>
       <li class="lead-item">
-        <span class="lead-period">2024.06 – 2024.08</span>
-        <span><span class="lead-role">干事</span> · <span class="lead-org">南京农业大学学生会浦口执委会 学习服务中心</span></span>
-      </li>
-      <li class="lead-item">
-        <span class="lead-period">2023.09 – 2024.06</span>
-        <span><span class="lead-role">成员 / 志愿者</span> · <span class="lead-org">南京农业大学学生会 &amp; 大学生艺术团数字中心</span></span>
+        <span class="lead-period">2024.07 – 2024.08</span>
+        <div class="lead-content">
+          <div><span class="lead-role">优秀小组与优秀个人</span> · <span class="lead-org">江苏优秀大学生暑期境外学习奖学金项目</span></div>
+          <div class="lead-desc">赴东京大学开展“人工智能赋能弱势群体”课题研究，学习科研与新质生产力相关内容。</div>
+        </div>
       </li>
     </ul>
 </section>
@@ -642,7 +597,7 @@ footer span { color: var(--accent-dark); }
     <h2 class="section-title">关于我</h2>
     <div class="card" style="border-left: 3px solid var(--accent); padding-left: 28px;">
       <div class="card-desc" style="font-size: 15px; line-height: 1.9; color: var(--text-light);">
-        沉着冷静、永不言弃。未来希望深耕<strong>情报学与数字人文交叉领域</strong>，致力于以情报驱动的计算范式，破解数字人文中的数据语义鸿沟，同时运用大模型技术，让AI更好地赋能人文学术与实践。
+        具备大模型微调、信息检索、数据分析与 Web 系统开发经验，曾负责或参与宋词生成、招聘信息检索和线上商城智能分析等项目。希望在<strong>信息资源管理与数字人文交叉领域</strong>继续深耕，让 AI 更好地服务人文学术研究与真实业务场景。
       </div>
     </div>
 </section>
@@ -658,15 +613,6 @@ footer span { color: var(--accent-dark); }
         <div>
           <div class="contact-label">学术邮箱</div>
           <div>dingyi@stu.njau.edu.cn</div>
-        </div>
-      </a>
-      <a href="mailto:3125189495@qq.com" class="contact-item">
-        <span class="contact-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-        </span>
-        <div>
-          <div class="contact-label">个人邮箱</div>
-          <div>3125189495@qq.com</div>
         </div>
       </a>
       <a href="https://github.com/XDforever-lab" target="_blank" rel="noopener" class="contact-item">
@@ -688,7 +634,7 @@ footer span { color: var(--accent-dark); }
 <div class="ornament">◇</div>
 
 <footer>
-  <p>© 2026 <span>Ding Yi</span> · Built with care · Nanjing Agricultural University</p>
+  <p>© 2026 <span>Ding Yi</span> · Information Resource Management · Digital Humanities</p>
 </footer>
 
 <button class="back-to-top" id="backToTop" title="回到顶部">↑</button>
