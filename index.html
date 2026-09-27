@@ -198,6 +198,8 @@ body {
   font-size: 16px; font-weight: 600; color: var(--text);
   margin-bottom: 6px;
 }
+.card-title a { color: inherit; text-decoration: none; }
+.card-title a:hover { color: var(--accent-dark); text-decoration: underline; text-underline-offset: 3px; }
 .card-meta {
   font-size: 13px; color: var(--accent-dark);
   font-weight: 500; margin-bottom: 10px;
@@ -512,7 +514,7 @@ footer span { color: var(--accent-dark); }
     <h2 class="section-title">项目与竞赛</h2>
 
     <div class="card">
-      <div class="card-title">招聘信息检索系统设计与开发</div>
+      <div class="card-title"><a href="https://github.com/XDforever-lab/job-info-retrieval-system" target="_blank" rel="noopener">招聘信息检索系统设计与开发 ↗</a></div>
       <div class="card-meta">课程设计 · 项目负责人 · 2026.05–2026.06</div>
       <div class="card-desc">
         统筹数据采集与清洗、检索算法与 Web 系统实现、效果测评及报告撰写。基于 93,602 条 A 股上市公司招聘数据构建 5,000 条数据集，从零实现倒排索引与 TF-IDF 向量空间模型，支持多字段检索、自然语言查询解析、文本分类及相似岗位推荐等 12 项功能，并完成 7 种分词方案对比。人工标注 20 条查询评测，检索 MAP 达 0.93，倒排检索较顺排提速 33–72 倍。
@@ -527,7 +529,7 @@ footer span { color: var(--accent-dark); }
     </div>
 
     <div class="card">
-      <div class="card-title">EShop Intelligence Dashboard · 线上商城智能仪表盘</div>
+      <div class="card-title"><a href="https://github.com/XDforever-lab/dashboard" target="_blank" rel="noopener">EShop Intelligence Dashboard · 线上商城智能仪表盘 ↗</a></div>
       <div class="card-meta">课程设计 · 项目负责人 · 2026.04–2026.06</div>
       <div class="card-desc">面向约 2 年、20,000 名模拟用户数据，梳理 20 张业务表和 14 个分析视图，统一 GMV、客单价、退款率及会话级漏斗口径。以 Python + SQL/SQLite 构建 RFM、复购倾向、关联规则、7/30 日预测与滚动回测、ROAS、履约售后等 9 个模块，并以 FastAPI + ECharts 交付交互式仪表盘，输出 MAE/MAPE/RMSE、支持度、置信度和提升度。</div>
       <div class="card-tags">
